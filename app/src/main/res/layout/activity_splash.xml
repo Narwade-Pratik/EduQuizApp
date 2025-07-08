@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llsplash"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+  <ImageView
+      android:layout_width="130dp"
+      android:id="@+id/ivsplashlogo"
+      android:layout_height="130dp"
+      android:src="@drawable/quizlogo"/>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:id="@+id/tvsplashtitle"
+      android:layout_height="wrap_content"
+      android:text="EduQuiz"
+      android:textSize="35dp"
+      android:textStyle="bold"
+      android:fontFamily="@font/caveat_brush"
+      android:layout_marginTop="10dp"/>
+
+
+</LinearLayout>

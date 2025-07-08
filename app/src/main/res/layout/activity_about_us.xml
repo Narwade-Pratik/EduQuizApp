@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".AboutUsActivity">
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:scrollbars="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Welcome to EduQuiz – your ultimate learning companion! 🎓📱
+
+EduQuiz is an innovative Android-based quiz application designed to make learning interactive, engaging, and fun. Whether you're a teacher aiming to create custom quizzes for your students or a learner looking to test your knowledge, EduQuiz has something for everyone.
+Teachers can easily create, update, and manage quizzes tailored to specific topics, subjects, or difficulty levels. Each quiz can be reused or modified, giving educators complete flexibility in their teaching methods. The intuitive interface allows seamless quiz creation, ensuring no technical expertise is required.
+Students, on the other hand, get access to a wide variety of quizzes shared by their teachers. They can attempt quizzes anytime, track their scores, and even challenge themselves with new topics daily. Our goal is to promote self-paced learning through gamified assessments.
+With a clean user interface, beautiful typography, and smart role-based navigation, EduQuiz ensures that both teachers and students have a smooth and rewarding experience. Whether you're preparing for exams or just want to keep your brain sharp, EduQuiz is the perfect platform to make learning exciting!
+So go ahead – Login, Select Your Role, and Explore the World of Smart Learning with EduQuiz! 🚀📚
+"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/alice"
+                android:textSize="20dp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Learn, Play and Grow....."
+                android:gravity="center"
+                android:fontFamily="@font/caveat_brush"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="-Developed by:- Narwade Brothers"
+                android:layout_marginLeft="40dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

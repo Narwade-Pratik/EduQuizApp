@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menuquiz"
+        android:title="Quizes"
+        app:showAsAction="never"
+        android:icon="@drawable/quizmenulogo"/>
+
+    <item
+        android:id="@+id/menuprofile"
+        android:title="My Profile"
+        app:showAsAction="never"
+        android:icon="@drawable/profile__logo"/>
+
+    <item
+        android:id="@+id/menuhelp"
+        android:title="Help"
+        app:showAsAction="never"
+        android:icon="@drawable/help_logo"/>
+
+
+</menu>
