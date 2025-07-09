@@ -9,7 +9,13 @@
         android:icon="@drawable/quizmenulogo"/>
 
     <item
-        android:id="@+id/menuprofile"
+        android:id="@+id/menustudentprofile"
+        android:title="My Profile"
+        app:showAsAction="never"
+        android:icon="@drawable/profile__logo"/>
+
+    <item
+        android:id="@+id/menuteacherprofile"
         android:title="My Profile"
         app:showAsAction="never"
         android:icon="@drawable/profile__logo"/>

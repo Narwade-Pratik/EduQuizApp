@@ -85,26 +85,22 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int radioButtonSelectedId = radioGroup.getCheckedRadioButtonId();
-                if(etName.getText().toString().isEmpty()){
+                if (etName.getText().toString().isEmpty()) {
                     etName.setError("Please enter Username");
-                }
-                else if(etName.getText().toString().length() < 8 ){
+                } else if (etName.getText().toString().length() < 8) {
                     etName.setError("Username Must Contains 8 letters");
-                }
-                else if(etPassword.getText().toString().isEmpty()){
+                } else if (etPassword.getText().toString().isEmpty()) {
                     etName.setError("Please enter Password");
-                }
-                else if(etPassword.getText().toString().length() < 8){
+                } else if (etPassword.getText().toString().length() < 8) {
                     etName.setError("Password Must Contains 8 letters");
-                }
-                else if(radioButtonSelectedId == -1){
-                    Toast.makeText(LoginActivity.this,"Please select your role",Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else if (radioButtonSelectedId == -1) {
+                    Toast.makeText(LoginActivity.this, "Please select your role", Toast.LENGTH_SHORT).show();
+                } else {
                     RadioButton radioButton = findViewById(radioButtonSelectedId);
                     String userType = radioButton.getText().toString();
-                    Toast.makeText(LoginActivity.this,"Login as ".concat(userType),Toast.LENGTH_SHORT).show();
-                    editor.putBoolean("islogin",true).commit();
+                    Toast.makeText(LoginActivity.this, "Login as ".concat(userType), Toast.LENGTH_SHORT).show();
+                    editor.putBoolean("islogin", true).commit();
+                    editor.putString("roleIs",userType).commit();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
@@ -113,4 +109,5 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
 }

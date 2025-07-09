@@ -16,36 +16,55 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vinodnarwade.eduquiz.fragments.HelpFragment;
-import com.vinodnarwade.eduquiz.fragments.ProfileFragment;
+import com.vinodnarwade.eduquiz.fragments.StudentProfileFragment;
 import com.vinodnarwade.eduquiz.fragments.QuizesFragment;
+import com.vinodnarwade.eduquiz.fragments.TeacherProfileFragment;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
     String userType;
+    String roleIs;
     public boolean doubleTap = false;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-// Save in global variable or SharedPreferences
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_home);
+    setTitle("Home");
 
-        setTitle("Home");
+    sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    editor = sharedPreferences.edit();
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
-        editor = sharedPreferences.edit();
+    roleIs = sharedPreferences.getString("roleIs", "").trim();
 
-        if(sharedPreferences.getBoolean("isFirstTime",true)){
-            welcome();
-        }
-        userType = getIntent().getStringExtra("userType");
-        bottomNavigationView = findViewById(R.id.bnvhome);
-        bottomNavigationView.setSelectedItemId(R.id.menuquiz);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+    if(sharedPreferences.getBoolean("isFirstTime", true)){
+        welcome();
     }
+
+    bottomNavigationView = findViewById(R.id.bnvhome);
+    bottomNavigationView.setOnNavigationItemSelectedListener(this);
+    bottomNavigationView.setSelectedItemId(R.id.menuquiz);
+
+    // ✅ HIDE PROFILE ITEM BASED ON ROLE
+    if (roleIs.equals("Teacher")) {
+        MenuItem studentItem = bottomNavigationView.getMenu().findItem(R.id.menustudentprofile);
+        if (studentItem != null) studentItem.setVisible(false);
+    } else if (roleIs.equals("Student")) {
+        MenuItem teacherItem = bottomNavigationView.getMenu().findItem(R.id.menuteacherprofile);
+        if (teacherItem != null) teacherItem.setVisible(false);
+    }
+
+    // Add this at end of onCreate()
+//    getSupportFragmentManager().beginTransaction()
+//            .replace(R.id.flhome, quizesFragment)
+//            .commit();
+
+}
+
+
 
     private void welcome() {
         AlertDialog.Builder ad = new AlertDialog.Builder(HomeActivity.this);
@@ -61,22 +80,29 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     QuizesFragment quizesFragment = new QuizesFragment();
-    ProfileFragment profileFragment = new ProfileFragment();
+    StudentProfileFragment studentProfileFragment = new StudentProfileFragment();
     HelpFragment helpFragment = new HelpFragment();
+    TeacherProfileFragment teacherProfileFragment = new TeacherProfileFragment();
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.menuquiz){
-            getSupportFragmentManager().beginTransaction().replace(R.id.flhome,quizesFragment).commit();
-        }
-        else if(item.getItemId() == R.id.menuprofile){
-            getSupportFragmentManager().beginTransaction().replace(R.id.flhome,profileFragment).commit();
-        }
-        else if(item.getItemId() == R.id.menuhelp){
-            getSupportFragmentManager().beginTransaction().replace(R.id.flhome,helpFragment).commit();
-        }
-        return true;
+@Override
+public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    int itemId = item.getItemId();
+
+    if (itemId == R.id.menuquiz) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.flhome, quizesFragment).commit();
     }
+    else if (itemId == R.id.menuteacherprofile && roleIs.equals("Teacher")) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.flhome, teacherProfileFragment).commit();
+    }
+    else if (itemId == R.id.menustudentprofile && roleIs.equals("Student")) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.flhome, studentProfileFragment).commit();
+    }
+    else if (itemId == R.id.menuhelp) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.flhome, helpFragment).commit();
+    }
+    return true;
+}
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
