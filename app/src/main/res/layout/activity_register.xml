@@ -58,7 +58,7 @@
                 android:drawablePadding="10dp"/>
 
             <EditText
-                android:id="@+id/etregname"
+                android:id="@+id/etregusername"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_marginLeft="20dp"

@@ -16,11 +16,23 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+
+
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -85,29 +97,85 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int radioButtonSelectedId = radioGroup.getCheckedRadioButtonId();
-                if (etName.getText().toString().isEmpty()) {
-                    etName.setError("Please enter Username");
-                } else if (etName.getText().toString().length() < 8) {
-                    etName.setError("Username Must Contains 8 letters");
-                } else if (etPassword.getText().toString().isEmpty()) {
-                    etName.setError("Please enter Password");
-                } else if (etPassword.getText().toString().length() < 8) {
-                    etName.setError("Password Must Contains 8 letters");
-                } else if (radioButtonSelectedId == -1) {
+
+                if(!validatePassword() | !validateUsername()){
+                    return;
+                }
+
+                if (radioButtonSelectedId == -1) {
                     Toast.makeText(LoginActivity.this, "Please select your role", Toast.LENGTH_SHORT).show();
                 } else {
-                    RadioButton radioButton = findViewById(radioButtonSelectedId);
-                    String userType = radioButton.getText().toString();
-                    Toast.makeText(LoginActivity.this, "Login as ".concat(userType), Toast.LENGTH_SHORT).show();
-                    editor.putBoolean("islogin", true).commit();
-                    editor.putString("roleIs",userType).commit();
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                    checkUser();
                 }
             }
         });
 
     }
+
+    public boolean validateUsername(){
+        String val = etName.getText().toString();
+        if(val.isEmpty()){
+            etName.setError("Please enter Username");
+        } else{
+            etName.setError(null);
+            return true;
+        }
+        return false;
+    }
+    public boolean validatePassword(){
+        String val = etPassword.getText().toString();
+        if(val.isEmpty()){
+            etPassword.setError("Please enter Password");
+        } else{
+            etPassword.setError(null);
+            return true;
+        }
+        return false;
+    }
+
+    public void checkUser(){
+        String userName = etName.getText().toString().trim();
+        String userPassword = etPassword.getText().toString().trim();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        Query checkUserDatabase = reference.orderByChild("userName").equalTo(userName);
+
+        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        String passwordFromDatabase = userSnapshot.child("password").getValue(String.class);
+
+                        if (Objects.equals(passwordFromDatabase, userPassword)) {
+                            int radioButtonSelectedId = radioGroup.getCheckedRadioButtonId();
+                            RadioButton radioButton = findViewById(radioButtonSelectedId);
+                            String userType = radioButton.getText().toString();
+
+                            Toast.makeText(LoginActivity.this, "Login as ".concat(userType), Toast.LENGTH_SHORT).show();
+
+                            editor.putBoolean("islogin", true).apply();
+                            editor.putString("roleIs", userType).apply();
+
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            etPassword.setError("Invalid password!!!");
+                            etPassword.requestFocus();
+                        }
+                    }
+                } else {
+                    etName.setError("User doesn't exist...");
+                    etName.requestFocus();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(LoginActivity.this, "Firebase error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
 }

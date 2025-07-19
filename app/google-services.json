@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1091444986472",
+    "project_id": "eduquiz-6827d",
+    "storage_bucket": "eduquiz-6827d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091444986472:android:3a70acaca3fe27156b61dd",
+        "android_client_info": {
+          "package_name": "com.vinodnarwade.eduquiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiHm4_L1Zk4EV_gWOh3UzinA6gw66sFA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
