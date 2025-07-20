@@ -1,17 +1,26 @@
 package com.vinodnarwade.eduquiz;
 
 public class HelperClass {
-    String name,userName,emailId,phoneNumber,password;
+    String name,userName,emailId,phoneNumber,password,roleIs;
 
     public HelperClass() {
     }
 
-    public HelperClass(String emailId, String name, String password, String phoneNumber, String userName) {
+    public HelperClass(String emailId, String name, String password, String phoneNumber, String userName,String roleIs) {
         this.emailId = emailId;
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.userName = userName;
+        this.roleIs = roleIs;
+    }
+
+    public String getRoleIs() {
+        return roleIs;
+    }
+
+    public void setRoleIs(String roleIs) {
+        this.roleIs = roleIs;
     }
 
     public String getEmailId() {

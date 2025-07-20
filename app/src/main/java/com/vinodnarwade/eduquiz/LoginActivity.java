@@ -40,9 +40,10 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     CheckBox cbPass;
     TextView tvCreateNew;
-    RadioGroup radioGroup;
+    //RadioGroup radioGroup;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    String roleIs;
 
 
     @Override
@@ -64,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnlogin);
         cbPass = findViewById(R.id.cbloginshowhidepwd);
         tvCreateNew = findViewById(R.id.tvlogincreatenew);
-        radioGroup = findViewById(R.id.rglogin);
+        //radioGroup = findViewById(R.id.rglogin);
 
         tvCreateNew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,17 +97,17 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int radioButtonSelectedId = radioGroup.getCheckedRadioButtonId();
+                //int radioButtonSelectedId = radioGroup.getCheckedRadioButtonId();
 
                 if(!validatePassword() | !validateUsername()){
                     return;
                 }
 
-                if (radioButtonSelectedId == -1) {
-                    Toast.makeText(LoginActivity.this, "Please select your role", Toast.LENGTH_SHORT).show();
-                } else {
+                //if (radioButtonSelectedId == -1) {
+                //    Toast.makeText(LoginActivity.this, "Please select your role", Toast.LENGTH_SHORT).show();
+                //} else {
                     checkUser();
-                }
+                //}
             }
         });
 
@@ -147,19 +148,17 @@ public class LoginActivity extends AppCompatActivity {
                         String passwordFromDatabase = userSnapshot.child("password").getValue(String.class);
 
                         if (Objects.equals(passwordFromDatabase, userPassword)) {
-                            int radioButtonSelectedId = radioGroup.getCheckedRadioButtonId();
-                            RadioButton radioButton = findViewById(radioButtonSelectedId);
-                            String userType = radioButton.getText().toString();
+                            String roleFromDatabase = userSnapshot.child("roleIs").getValue(String.class);
 
-                            Toast.makeText(LoginActivity.this, "Login as ".concat(userType), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Login as ".concat(roleFromDatabase), Toast.LENGTH_SHORT).show();
 
                             editor.putBoolean("islogin", true).apply();
-                            editor.putString("roleIs", userType).apply();
-
+                            editor.putString("roleIs", roleFromDatabase).apply();  // ✅ Store correct role
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();
-                        } else {
+                        }
+                        else {
                             etPassword.setError("Invalid password!!!");
                             etPassword.requestFocus();
                         }

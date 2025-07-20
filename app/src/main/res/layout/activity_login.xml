@@ -86,41 +86,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choose your role:"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_gravity="center">
-            </TextView>
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:id="@+id/rglogin">
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Teacher"
-                    android:textSize="20sp"
-                    android:layout_marginRight="10dp"
-                    android:buttonTint="@color/black"
-                    android:textColor="@color/black">
-                </RadioButton>
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Student"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="20sp"
-                    android:buttonTint="@color/black"
-                    android:textColor="@color/black">
 
-                </RadioButton>
-            </RadioGroup>
 
             <Button
                 android:id="@+id/btnlogin"

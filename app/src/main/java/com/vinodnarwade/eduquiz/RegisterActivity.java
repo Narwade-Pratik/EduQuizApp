@@ -1,10 +1,12 @@
 package com.vinodnarwade.eduquiz;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.google.firebase.Firebase;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +28,10 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etName,etEmail,etPhoneNo,etPwd,etConfirmPwd,etUserName;
     Button etBtn;
     TextView tvAccount;
+    String roleIs;
+    RadioGroup rgRole;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     FirebaseDatabase database;
     DatabaseReference reference;
     @Override
@@ -37,6 +46,8 @@ public class RegisterActivity extends AppCompatActivity {
         etPwd = findViewById(R.id.etregpwd);
         etConfirmPwd = findViewById(R.id.etregconfirmpwd);
         tvAccount = findViewById(R.id.tvregalreadyacc);
+        rgRole = findViewById(R.id.rgregister);
+
 
         tvAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String phNumber = etPhoneNo.getText().toString().trim();
                 String password = etPwd.getText().toString().trim();
                 String userName = etUserName.getText().toString().trim();
+                int radioButtonSelectedId = rgRole.getCheckedRadioButtonId();
 
                 if(name.isEmpty()){
                     etName.setError("Please enter your Name");
@@ -63,8 +75,9 @@ public class RegisterActivity extends AppCompatActivity {
                 else if(name.length()<5){
                     etName.setError("Name must contain at least 6 letters");
                     return;
-                }
-                else if(emailId.isEmpty()){
+                } else if (userName.isEmpty()) {
+                    etUserName.setError("Create username");
+                } else if(emailId.isEmpty()){
                     etEmail.setError("Please enter your Email Id");
                     return;
                 }
@@ -92,16 +105,22 @@ public class RegisterActivity extends AppCompatActivity {
                     etConfirmPwd.setError("Enter correct created Password");
                     return;
                 }
-                else{
+                else if(radioButtonSelectedId == -1){
+                    Toast.makeText(RegisterActivity.this,"Please select your Role.",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    RadioButton radioButton = findViewById(radioButtonSelectedId);
+                    roleIs = radioButton.getText().toString();
                     database = FirebaseDatabase.getInstance();
                     reference = database.getReference("users");
-                    HelperClass helperClass = new HelperClass(emailId,name,password,phNumber,userName);
+                    HelperClass helperClass = new HelperClass(emailId, name, password, phNumber, userName, roleIs);
                     reference.child(name).setValue(helperClass);
-                    Toast.makeText(RegisterActivity.this,"Registration Done.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Registration Done.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }
+
             }
         });
 
