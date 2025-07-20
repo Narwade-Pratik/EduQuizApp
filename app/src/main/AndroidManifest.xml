@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,17 +15,62 @@
         android:theme="@style/Theme.EduQuiz"
         tools:targetApi="31">
         <activity
-            android:name=".SettingsActivity"
-            android:theme="@style/ShowActionBar"
+            android:name=".studentactivities.StudentsSettingsActivity"
             android:exported="false" />
+        <activity
+            android:name=".studentactivities.QuizStatisticsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".studentactivities.LeaderboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".studentactivities.UpcomingQuizzesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".studentactivities.MyQuizzesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".studentactivities.PreviousStudentQuizzesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".studentactivities.AvailableQuizzesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".studentactivities.CustomizedQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.ManageStudentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.QuizOverviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.QuizSchedulerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.PreviousQuizesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.AddQuestionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.CreateQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:theme="@style/ShowActionBar" />
         <activity
             android:name=".ContactUsActivity"
-            android:theme="@style/ShowActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ShowActionBar" />
         <activity
             android:name=".AboutUsActivity"
-            android:theme="@style/ShowActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ShowActionBar" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"

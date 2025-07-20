@@ -92,25 +92,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int radioButtonSelectedId = radioGroup.getCheckedRadioButtonId();
-
                 if(!validatePassword() | !validateUsername()){
                     return;
                 }
-
-                //if (radioButtonSelectedId == -1) {
-                //    Toast.makeText(LoginActivity.this, "Please select your role", Toast.LENGTH_SHORT).show();
-                //} else {
-                    checkUser();
-                //}
+                checkUser();
             }
         });
-
     }
 
     public boolean validateUsername(){
@@ -149,11 +139,15 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (Objects.equals(passwordFromDatabase, userPassword)) {
                             String roleFromDatabase = userSnapshot.child("roleIs").getValue(String.class);
-
                             Toast.makeText(LoginActivity.this, "Login as ".concat(roleFromDatabase), Toast.LENGTH_SHORT).show();
-
-                            editor.putBoolean("islogin", true).apply();
-                            editor.putString("roleIs", roleFromDatabase).apply();  // ✅ Store correct role
+                            String userId = userSnapshot.child("userId").getValue(String.class);  // Unique key from Firebase
+                            String userNameFromDB = userSnapshot.child("userName").getValue(String.class);// Store details to SharedPreferences
+                            editor.putBoolean("islogin", true);
+                            editor.putString("userId", userId);
+                            editor.putString("userName", userNameFromDB);
+                            editor.putString("roleIs", roleFromDatabase);
+                            editor.putBoolean("islogin", true);
+                            editor.apply();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();

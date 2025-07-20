@@ -16,15 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vinodnarwade.eduquiz.fragments.HelpFragment;
-import com.vinodnarwade.eduquiz.fragments.StudentProfileFragment;
 import com.vinodnarwade.eduquiz.fragments.QuizesFragment;
-import com.vinodnarwade.eduquiz.fragments.TeacherProfileFragment;
+import com.vinodnarwade.eduquiz.fragments.ProfileFragment;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
     String userType;
-    String roleIs;
+    String roleIs,userName,userId;
     public boolean doubleTap = false;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -44,27 +43,14 @@ protected void onCreate(Bundle savedInstanceState) {
         welcome();
     }
 
+    userName = sharedPreferences.getString("userName", "").trim();
+    userId = sharedPreferences.getString("userId", "").trim();
+
     bottomNavigationView = findViewById(R.id.bnvhome);
     bottomNavigationView.setOnNavigationItemSelectedListener(this);
     bottomNavigationView.setSelectedItemId(R.id.menuquiz);
 
-    // ✅ HIDE PROFILE ITEM BASED ON ROLE
-    if (roleIs.equals("Teacher")) {
-        MenuItem studentItem = bottomNavigationView.getMenu().findItem(R.id.menustudentprofile);
-        if (studentItem != null) studentItem.setVisible(false);
-    } else if (roleIs.equals("Student")) {
-        MenuItem teacherItem = bottomNavigationView.getMenu().findItem(R.id.menuteacherprofile);
-        if (teacherItem != null) teacherItem.setVisible(false);
-    }
-
-    // Add this at end of onCreate()
-//    getSupportFragmentManager().beginTransaction()
-//            .replace(R.id.flhome, quizesFragment)
-//            .commit();
-
 }
-
-
 
     private void welcome() {
         AlertDialog.Builder ad = new AlertDialog.Builder(HomeActivity.this);
@@ -80,9 +66,9 @@ protected void onCreate(Bundle savedInstanceState) {
     }
 
     QuizesFragment quizesFragment = new QuizesFragment();
-    StudentProfileFragment studentProfileFragment = new StudentProfileFragment();
+    //StudentProfileFragment studentProfileFragment = new StudentProfileFragment();
     HelpFragment helpFragment = new HelpFragment();
-    TeacherProfileFragment teacherProfileFragment = new TeacherProfileFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
 
 @Override
 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -91,13 +77,9 @@ public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     if (itemId == R.id.menuquiz) {
         getSupportFragmentManager().beginTransaction().replace(R.id.flhome, quizesFragment).commit();
     }
-    else if (itemId == R.id.menuteacherprofile && roleIs.equals("Teacher")) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.flhome, teacherProfileFragment).commit();
-    }
-    else if (itemId == R.id.menustudentprofile && roleIs.equals("Student")) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.flhome, studentProfileFragment).commit();
-    }
-    else if (itemId == R.id.menuhelp) {
+    else if (itemId == R.id.menuprofile) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.flhome, profileFragment).commit();
+    } else if (itemId == R.id.menuhelp) {
         getSupportFragmentManager().beginTransaction().replace(R.id.flhome, helpFragment).commit();
     }
     return true;
@@ -117,19 +99,19 @@ public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Toast.makeText(HomeActivity.this,"About Us",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(HomeActivity.this,AboutUsActivity.class);
             startActivity(intent);
-            finish();
+            //finish();
         }
         else if(item.getItemId() == R.id.up_menu_contactUs){
             Toast.makeText(HomeActivity.this,"Contact Us",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(HomeActivity.this,ContactUsActivity.class);
             startActivity(intent);
-            finish();
+            //finish();
         }
         else if(item.getItemId() == R.id.up_menu_settings){
             Toast.makeText(HomeActivity.this,"Settings",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(HomeActivity.this,SettingsActivity.class);
             startActivity(intent);
-            finish();
+            //finish();
         }
         else {
             AlertDialog.Builder ad = new AlertDialog.Builder(HomeActivity.this);
