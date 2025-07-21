@@ -113,8 +113,9 @@ public class RegisterActivity extends AppCompatActivity {
                     roleIs = radioButton.getText().toString();
                     database = FirebaseDatabase.getInstance();
                     reference = database.getReference("users");
-                    HelperClass helperClass = new HelperClass(emailId, name, password, phNumber, userName, roleIs);
-                    reference.child(name).setValue(helperClass);
+                    String userId = reference.push().getKey();
+                    HelperClass helperClass = new HelperClass(userId,emailId, name, password, phNumber, userName, roleIs);
+                    reference.child(userId).setValue(helperClass);
                     Toast.makeText(RegisterActivity.this, "Registration Done.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);

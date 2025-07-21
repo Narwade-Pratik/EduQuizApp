@@ -1,12 +1,13 @@
 package com.vinodnarwade.eduquiz;
 
 public class HelperClass {
-    String name,userName,emailId,phoneNumber,password,roleIs;
+    String name,userName,emailId,phoneNumber,password,roleIs,userId;
 
     public HelperClass() {
     }
 
-    public HelperClass(String emailId, String name, String password, String phoneNumber, String userName,String roleIs) {
+    public HelperClass(String userId,String emailId, String name, String password, String phoneNumber, String userName,String roleIs) {
+        this.userId = userId;
         this.emailId = emailId;
         this.name = name;
         this.password = password;
@@ -61,5 +62,13 @@ public class HelperClass {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
