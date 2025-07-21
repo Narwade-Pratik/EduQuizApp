@@ -54,7 +54,7 @@ public class CreateQuizActivity extends AppCompatActivity {
                 if(title.isEmpty()){
                     quizTitle.setError("Please enter a quiz title");
                 }
-                else if(!checkIsAllDigit(digitsArray)){
+                else if(noOfQue.getText().toString().isEmpty() || !checkIsAllDigit(digitsArray)){
                     noOfQue.setError("Enter valid Number");
                 }
                 else if(subjectNameIs.isEmpty()){
@@ -62,9 +62,9 @@ public class CreateQuizActivity extends AppCompatActivity {
                 }
                 else{
                     //String currentUID = auth.getCurrentUser().getUid();
-                    String quizID = quizRef.push().getKey();
+                    String quizId = quizRef.push().getKey();
                     int noOfQ = Integer.parseInt(noOfQue.getText().toString().trim());
-                    if (quizID == null) {
+                    if (quizId == null) {
                         Toast.makeText(CreateQuizActivity.this, "Missing quiz ID!", Toast.LENGTH_SHORT).show();
                         return; // Prevent further crash
                     }
@@ -72,19 +72,19 @@ public class CreateQuizActivity extends AppCompatActivity {
                         Toast.makeText(CreateQuizActivity.this, "Missig user Id!", Toast.LENGTH_SHORT).show();
                         return; // Prevent further crash
                     }
-                    if (noOfQ == 0) {
-                        Toast.makeText(CreateQuizActivity.this, "Missing noOfQ!", Toast.LENGTH_SHORT).show();
+                    if (noOfQ <= 0) {
+                        Toast.makeText(CreateQuizActivity.this, "Missing no Of Questions!", Toast.LENGTH_SHORT).show();
                         return; // Prevent further crash
                     }
 
-                    QuizModel quiz = new QuizModel(quizID, title, subjectNameIs, noOfQ, userId);
-                    quizRef.child(quizID).setValue(quiz).addOnCompleteListener(task -> {
+                    QuizModel quiz = new QuizModel(quizId, title, subjectNameIs, noOfQ, userId);
+                    quizRef.child(userId).child(quizId).setValue(quiz).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Toast.makeText(CreateQuizActivity.this, "Abb "+ " * " +userId+" * "+userName, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(CreateQuizActivity.this, AddQuestionActivity.class);
-                            intent.putExtra("quizID", quizID);
-                            intent.putExtra("noOfQuestions", noOfQ);
-                            intent.putExtra("teacherUID", userId);
+                            intent.putExtra("quizId", quizId);
+                            intent.putExtra("noOfQ", noOfQ);
+                            intent.putExtra("userId", userId);
                             startActivity(intent);
                             finish();
                         } else {

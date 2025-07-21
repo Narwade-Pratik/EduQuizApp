@@ -1,16 +1,20 @@
 package com.vinodnarwade.eduquiz.teacheractivities;
 
 public class QuestionModel {
-    String question, optionA, optionB, optionC, optionD, correctOption;
+    String questionId, quizId, question, optionA, optionB, optionC, optionD, correctOption;
+    int marks;
     public QuestionModel() {}
-    public QuestionModel(String question, String optionA, String optionB,
-                         String optionC, String optionD, String correctOption) {
+    public QuestionModel(String questionId,String quizId,String question, String optionA, String optionB,
+                         String optionC, String optionD, String correctOption,int marks) {
+        this.questionId = questionId;
+        this.quizId = quizId;
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
         this.optionC = optionC;
         this.optionD = optionD;
         this.correctOption = correctOption;
+        this.marks = marks;
     }
 
     public String getCorrectOption() {
@@ -59,5 +63,29 @@ public class QuestionModel {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public int getMarks() {
+        return marks;
+    }
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+    }
+
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
+
+    public String getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(String quizId) {
+        this.quizId = quizId;
     }
 }
