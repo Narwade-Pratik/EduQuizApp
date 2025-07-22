@@ -34,7 +34,7 @@ import com.vinodnarwade.eduquiz.teacheractivities.QuizSchedulerActivity;
 public class QuizesFragment extends Fragment {
 
     ListView listView;
-    public String roleIs;
+    public String roleIs,userId;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String[] teacherQuizTitles = {
@@ -71,6 +71,7 @@ public class QuizesFragment extends Fragment {
         editor = sharedPreferences.edit();
 
         roleIs = sharedPreferences.getString("roleIs","").trim();
+        userId = sharedPreferences.getString("userId",userId).trim();
         //System.out.println(roleIs);
         if ("Teacher".equals(roleIs)) {
             quizTitles = teacherQuizTitles;
