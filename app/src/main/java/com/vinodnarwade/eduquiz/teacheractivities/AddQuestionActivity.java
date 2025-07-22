@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vinodnarwade.eduquiz.R;
 
+import java.util.ArrayList;
+
 public class AddQuestionActivity extends AppCompatActivity {
 
     EditText etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
@@ -24,6 +26,8 @@ public class AddQuestionActivity extends AppCompatActivity {
     int questionCount;
     int count = 0;
     String quizId,userId;
+    ArrayList<QuestionModel> questionList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,6 @@ public class AddQuestionActivity extends AppCompatActivity {
         etCorrectOption = findViewById(R.id.etaddquestioncorrectoption);
         etMarks = findViewById(R.id.etaddquestionmarks);
         btnNextQuestion = findViewById(R.id.btnaddquestionadd);
-        Toast.makeText(this, "Received: " + quizId + " " + userId + " " + questionCount, Toast.LENGTH_LONG).show();
         btnNextQuestion.setOnClickListener(v -> {
             addQuestion();
         });
@@ -70,18 +73,17 @@ public class AddQuestionActivity extends AppCompatActivity {
                 marks
         );
 
-        questionRef.child(questionId).setValue(model)
-                .addOnSuccessListener(unused -> {
-                    count++;
+        questionList.add(model);
+        count++;
+        clearFields();
 
-                    if (count < questionCount) {
-                        Toast.makeText(this, "Question added. Enter next.", Toast.LENGTH_SHORT).show();
-                        clearFields();
-                    } else {
-                        Toast.makeText(this, "All questions added!", Toast.LENGTH_LONG).show();
-                        finish(); // or redirect to quiz list
-                    }
-                });
+        if(count == questionCount){
+            Intent intent = new Intent(this, ReviewQuizActivity.class);
+            intent.putParcelableArrayListExtra("questionList", questionList);
+            intent.putExtra("quizId", quizId);
+            startActivity(intent);
+        }
+
     }
 
     private void clearFields() {

@@ -1,11 +1,16 @@
 package com.vinodnarwade.eduquiz.teacheractivities;
 
-public class QuestionModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class QuestionModel implements Parcelable {
     String questionId, quizId, question, optionA, optionB, optionC, optionD, correctOption;
     int marks;
+
     public QuestionModel() {}
-    public QuestionModel(String questionId,String quizId,String question, String optionA, String optionB,
-                         String optionC, String optionD, String correctOption,int marks) {
+
+    public QuestionModel(String questionId, String quizId, String question, String optionA, String optionB,
+                         String optionC, String optionD, String correctOption, int marks) {
         this.questionId = questionId;
         this.quizId = quizId;
         this.question = question;
@@ -17,75 +22,73 @@ public class QuestionModel {
         this.marks = marks;
     }
 
-    public String getCorrectOption() {
-        return correctOption;
+    protected QuestionModel(Parcel in) {
+        questionId = in.readString();
+        quizId = in.readString();
+        question = in.readString();
+        optionA = in.readString();
+        optionB = in.readString();
+        optionC = in.readString();
+        optionD = in.readString();
+        correctOption = in.readString();
+        marks = in.readInt();
     }
 
-    public void setCorrectOption(String correctOption) {
-        this.correctOption = correctOption;
+    public static final Creator<QuestionModel> CREATOR = new Creator<QuestionModel>() {
+        @Override
+        public QuestionModel createFromParcel(Parcel in) {
+            return new QuestionModel(in);
+        }
+
+        @Override
+        public QuestionModel[] newArray(int size) {
+            return new QuestionModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public String getOptionA() {
-        return optionA;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(questionId);
+        parcel.writeString(quizId);
+        parcel.writeString(question);
+        parcel.writeString(optionA);
+        parcel.writeString(optionB);
+        parcel.writeString(optionC);
+        parcel.writeString(optionD);
+        parcel.writeString(correctOption);
+        parcel.writeInt(marks);
     }
 
-    public void setOptionA(String optionA) {
-        this.optionA = optionA;
-    }
+    // Getters and Setters
+    public String getCorrectOption() { return correctOption; }
+    public void setCorrectOption(String correctOption) { this.correctOption = correctOption; }
 
-    public String getOptionB() {
-        return optionB;
-    }
+    public String getOptionA() { return optionA; }
+    public void setOptionA(String optionA) { this.optionA = optionA; }
 
-    public void setOptionB(String optionB) {
-        this.optionB = optionB;
-    }
+    public String getOptionB() { return optionB; }
+    public void setOptionB(String optionB) { this.optionB = optionB; }
 
-    public String getOptionC() {
-        return optionC;
-    }
+    public String getOptionC() { return optionC; }
+    public void setOptionC(String optionC) { this.optionC = optionC; }
 
-    public void setOptionC(String optionC) {
-        this.optionC = optionC;
-    }
+    public String getOptionD() { return optionD; }
+    public void setOptionD(String optionD) { this.optionD = optionD; }
 
-    public String getOptionD() {
-        return optionD;
-    }
+    public String getQuestion() { return question; }
+    public void setQuestion(String question) { this.question = question; }
 
-    public void setOptionD(String optionD) {
-        this.optionD = optionD;
-    }
+    public int getMarks() { return marks; }
+    public void setMarks(int marks) { this.marks = marks; }
 
-    public String getQuestion() {
-        return question;
-    }
+    public String getQuestionId() { return questionId; }
+    public void setQuestionId(String questionId) { this.questionId = questionId; }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public int getMarks() {
-        return marks;
-    }
-
-    public void setMarks(int marks) {
-        this.marks = marks;
-    }
-
-    public String getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(String questionId) {
-        this.questionId = questionId;
-    }
-
-    public String getQuizId() {
-        return quizId;
-    }
-
-    public void setQuizId(String quizId) {
-        this.quizId = quizId;
-    }
+    public String getQuizId() { return quizId; }
+    public void setQuizId(String quizId) { this.quizId = quizId; }
 }
