@@ -3,15 +3,18 @@ package com.vinodnarwade.eduquiz.teacheractivities;
 public class QuizModel {
     String quizID, title, subject, createdBy;
     int numberOfQuestions;
-
+    String scheduledDate;
+    long scheduledTimestamp;
     public QuizModel() {}
 
-    public QuizModel(String quizID, String title, String subject, int numberOfQuestions, String createdBy) {
+    public QuizModel(String quizID, String title, String subject, int numberOfQuestions, String createdBy,String scheduledDate,long scheduledTimestamp) {
         this.quizID = quizID;
         this.title = title;
         this.subject = subject;
         this.numberOfQuestions = numberOfQuestions;
         this.createdBy = createdBy;
+        this.scheduledDate = scheduledDate;
+        this.scheduledTimestamp = scheduledTimestamp;
     }
 
     public String getCreatedBy() {
@@ -52,5 +55,21 @@ public class QuizModel {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getScheduledDate() {
+        return scheduledDate;
+    }
+
+    public void setScheduledDate(String scheduledDate) {
+        this.scheduledDate = scheduledDate;
+    }
+
+    public long getScheduledTimestamp() {
+        return scheduledTimestamp;
+    }
+
+    public void setScheduledTimestamp(long scheduledTimestamp) {
+        this.scheduledTimestamp = scheduledTimestamp;
     }
 }

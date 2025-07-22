@@ -1,5 +1,7 @@
 package com.vinodnarwade.eduquiz.teacheractivities;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,7 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,12 +29,15 @@ import com.vinodnarwade.eduquiz.R;
 public class CreateQuizActivity extends AppCompatActivity {
 
     EditText quizTitle,noOfQue,subjectName;
-    Button createQuiz;
+    Button createQuiz,btnScheduleDate;
     FirebaseDatabase database;
     FirebaseAuth auth;
     DatabaseReference quizRef;
     SharedPreferences sharedPreferences;
     String userId,userName;
+    TextView displayDate;
+    String scheduledDate = "";
+    long scheduledTimestamp = 0;
 
 
     @Override
@@ -37,6 +48,8 @@ public class CreateQuizActivity extends AppCompatActivity {
         noOfQue = findViewById(R.id.etcreatequiznoofquestions);
         subjectName = findViewById(R.id.etcreatequizsubjectname);
         createQuiz = findViewById(R.id.btncreatequizcreatequiz);
+        btnScheduleDate = findViewById(R.id.btncreatequizscheduletimeanddate);
+        displayDate = findViewById(R.id.tvcreatequizdiplayscheduledtimeanddate);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         quizRef = database.getReference("Quizzes");
@@ -60,8 +73,12 @@ public class CreateQuizActivity extends AppCompatActivity {
                 else if(subjectNameIs.isEmpty()){
                     subjectName.setError("Enter Subject Name");
                 }
+                else if (scheduledDate.isEmpty() || scheduledTimestamp == 0) {
+                    Toast.makeText(CreateQuizActivity.this, "Please select scheduled date & time", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 else{
-                    //String currentUID = auth.getCurrentUser().getUid();
                     String quizId = quizRef.push().getKey();
                     int noOfQ = Integer.parseInt(noOfQue.getText().toString().trim());
                     if (quizId == null) {
@@ -77,10 +94,9 @@ public class CreateQuizActivity extends AppCompatActivity {
                         return; // Prevent further crash
                     }
 
-                    QuizModel quiz = new QuizModel(quizId, title, subjectNameIs, noOfQ, userId);
+                    QuizModel quiz = new QuizModel(quizId, title, subjectNameIs, noOfQ, userId,scheduledDate,scheduledTimestamp);
                     quizRef.child(userId).child(quizId).setValue(quiz).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(CreateQuizActivity.this, "Abb "+ " * " +userId+" * "+userName, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(CreateQuizActivity.this, AddQuestionActivity.class);
                             intent.putExtra("quizId", quizId);
                             intent.putExtra("noOfQ", noOfQ);
@@ -94,6 +110,33 @@ public class CreateQuizActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnScheduleDate.setOnClickListener(v -> {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, y, m, d) -> {
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view1, hour, minute) -> {
+                    calendar.set(y, m, d, hour, minute);
+                    scheduledTimestamp = calendar.getTimeInMillis();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault());
+                    scheduledDate = sdf.format(calendar.getTime());
+
+                    displayDate.setText("Scheduled for: " + scheduledDate);
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+
+                timePickerDialog.show();
+
+            }, year, month, day);
+
+            datePickerDialog.show();
+        });
+
+
     }
 
     public boolean checkIsAllDigit(char[] arr){
