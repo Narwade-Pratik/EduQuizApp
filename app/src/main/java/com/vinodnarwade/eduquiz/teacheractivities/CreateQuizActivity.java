@@ -50,12 +50,17 @@ public class CreateQuizActivity extends AppCompatActivity {
         createQuiz = findViewById(R.id.btncreatequizcreatequiz);
         btnScheduleDate = findViewById(R.id.btncreatequizscheduletimeanddate);
         displayDate = findViewById(R.id.tvcreatequizdiplayscheduledtimeanddate);
-        database = FirebaseDatabase.getInstance();
-        auth = FirebaseAuth.getInstance();
-        quizRef = database.getReference("Quizzes");
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         userId = sharedPreferences.getString("userId", null);
         userName = sharedPreferences.getString("userName", null);
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+        quizRef = quizRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(userId)
+                .child("Quizzes");
+
+
 
         createQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +100,7 @@ public class CreateQuizActivity extends AppCompatActivity {
                     }
 
                     QuizModel quiz = new QuizModel(quizId, title, subjectNameIs, noOfQ, userId,scheduledDate,scheduledTimestamp);
-                    quizRef.child(userId).child(quizId).setValue(quiz).addOnCompleteListener(task -> {
+                    quizRef.child(quizId).setValue(quiz).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(CreateQuizActivity.this, AddQuestionActivity.class);
                             intent.putExtra("quizId", quizId);

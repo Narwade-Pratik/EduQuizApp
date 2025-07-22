@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                     RadioButton radioButton = findViewById(radioButtonSelectedId);
                     roleIs = radioButton.getText().toString();
                     database = FirebaseDatabase.getInstance();
-                    reference = database.getReference("users");
+                    reference = database.getReference("Users");
                     String userId = reference.push().getKey();
                     HelperClass helperClass = new HelperClass(userId,emailId, name, password, phNumber, userName, roleIs);
                     reference.child(userId).setValue(helperClass);

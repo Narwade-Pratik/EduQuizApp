@@ -23,6 +23,7 @@ public class ReviewQuizActivity extends AppCompatActivity {
     ArrayList<QuestionModel> questionList;
     int currentIndex = 0;
     String quizId;
+    String userId;
     DatabaseReference questionRef;
 
     @Override
@@ -44,8 +45,13 @@ public class ReviewQuizActivity extends AppCompatActivity {
 
         questionList = getIntent().getParcelableArrayListExtra("questionList");
         quizId = getIntent().getStringExtra("quizId");
-
-        questionRef = FirebaseDatabase.getInstance().getReference("Questions").child(quizId);
+        userId = getIntent().getStringExtra("userId");
+        questionRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(userId)
+                .child("Quizzes")
+                .child(quizId)
+                .child("Questions");
 
         // Pehla question dikhaye
         showQuestion(currentIndex);

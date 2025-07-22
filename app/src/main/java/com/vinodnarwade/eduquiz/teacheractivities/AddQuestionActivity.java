@@ -36,7 +36,13 @@ public class AddQuestionActivity extends AppCompatActivity {
         quizId = getIntent().getStringExtra("quizId");
         userId = getIntent().getStringExtra("userId");
         questionCount = getIntent().getIntExtra("noOfQ", 0); // 0 is default if not found
-        questionRef = FirebaseDatabase.getInstance().getReference("Questions").child(quizId);
+        questionRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(userId)
+                .child("Quizzes")
+                .child(quizId)
+                .child("Questions");
+
 
         etQuestion = findViewById(R.id.etaddquestionquestion);
         etOptionA = findViewById(R.id.etaddquestionoptiona);
@@ -81,6 +87,7 @@ public class AddQuestionActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ReviewQuizActivity.class);
             intent.putParcelableArrayListExtra("questionList", questionList);
             intent.putExtra("quizId", quizId);
+            intent.putExtra("userId",userId);
             startActivity(intent);
         }
 

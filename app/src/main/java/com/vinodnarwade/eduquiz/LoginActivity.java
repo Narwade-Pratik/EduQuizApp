@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
     public void checkUser(){
         String userName = etName.getText().toString().trim();
         String userPassword = etPassword.getText().toString().trim();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         Query checkUserDatabase = reference.orderByChild("userName").equalTo(userName);
 
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
