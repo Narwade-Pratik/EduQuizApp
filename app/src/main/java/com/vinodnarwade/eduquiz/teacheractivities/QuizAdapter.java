@@ -1,6 +1,9 @@
 package com.vinodnarwade.eduquiz.teacheractivities;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
     private Context context;
     private List<QuizModel> quizList;
+    String userId,quizId;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     public QuizAdapter(Context context, List<QuizModel> quizList) {
         this.context = context;
@@ -34,23 +40,34 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     @Override
     public void onBindViewHolder(@NonNull QuizViewHolder holder, int position) {
         QuizModel quiz = quizList.get(position);
+
         holder.titleTextView.setText(quiz.getTitle());
         holder.subjectTextView.setText(quiz.getSubject());
         holder.questionCountTextView.setText("Questions: " + quiz.getNumberOfQuestions());
 
-        // TODO: Set onClickListeners for buttons below as needed
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        editor = sharedPreferences.edit();
+
+        userId = sharedPreferences.getString("userId", "").trim();
+        quizId = quiz.getQuizID();
+
+        holder.viewButton.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ViewQuizActivity.class);
+            intent.putExtra("quizId", quizId);
+            intent.putExtra("userId", userId);
+            context.startActivity(intent);
+        });
+
         holder.editButton.setOnClickListener(v -> {
-            // Handle Edit
+
         });
 
         holder.deleteButton.setOnClickListener(v -> {
-            // Handle Delete
-        });
-
-        holder.viewButton.setOnClickListener(v -> {
-            // Handle View
+            // Delete logic
         });
     }
+
+
 
     @Override
     public int getItemCount() {

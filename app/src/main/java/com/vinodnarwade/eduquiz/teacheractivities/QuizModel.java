@@ -72,4 +72,6 @@ public class QuizModel {
     public void setScheduledTimestamp(long scheduledTimestamp) {
         this.scheduledTimestamp = scheduledTimestamp;
     }
+
+
 }

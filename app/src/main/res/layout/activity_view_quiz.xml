@@ -1,174 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray2"
-    tools:context=".teacheractivities.AddQuestionActivity">
+    tools:context=".teacheractivities.ViewQuizActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="24dp"
         android:gravity="center_horizontal">
 
-        <!-- Heading -->
         <TextView
+            android:id="@+id/tvreviewcurrentquestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvreviewcurrentquestion"
-            android:text="Current Question"
+            android:text="Viewing Question"
             android:textSize="24sp"
             android:textColor="@color/black"
             android:fontFamily="@font/alice"
             android:layout_marginBottom="24dp"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="40dp" />
 
-        <!-- Question Field -->
         <EditText
             android:id="@+id/etreviewquestionquestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Question"
+            android:hint="Question"
             android:textSize="18sp"
             android:fontFamily="@font/alice"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:enabled="false" />
 
-        <!-- Option A to D -->
         <EditText
             android:id="@+id/etreviewquestionoptiona"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Option A"
+            android:hint="Option A"
             android:textSize="18sp"
             android:fontFamily="@font/alice"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="12dp"
+            android:enabled="false" />
 
         <EditText
             android:id="@+id/etreviewquestionoptionb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Option B"
+            android:hint="Option B"
             android:textSize="18sp"
             android:fontFamily="@font/alice"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="12dp"
+            android:enabled="false" />
 
         <EditText
             android:id="@+id/etreviewquestionoptionc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Option C"
+            android:hint="Option C"
             android:textSize="18sp"
             android:fontFamily="@font/alice"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="12dp"
+            android:enabled="false" />
 
         <EditText
             android:id="@+id/etreviewquestionoptiond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Option D"
+            android:hint="Option D"
             android:textSize="18sp"
             android:fontFamily="@font/alice"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:enabled="false" />
 
         <EditText
             android:id="@+id/etreviewquestioncorrectoption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Correct option (A/B/C/D) "
+            android:hint="Correct Option"
             android:textSize="18sp"
             android:fontFamily="@font/alice"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:enabled="false" />
 
         <EditText
             android:id="@+id/etreviewquestionmarks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter marks for this question"
+            android:hint="Marks"
             android:textSize="18sp"
             android:fontFamily="@font/alice"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:enabled="false" />
 
-        <!-- Submit Button -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
             <Button
                 android:id="@+id/btnreviewquestionprevious"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text="Previous"
-                android:textColor="@color/white"
                 android:fontFamily="@font/alice"
+                android:textColor="@color/white"
                 android:backgroundTint="@color/black"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="12dp"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginEnd="8dp" />
 
             <Button
                 android:id="@+id/btnreviewquestionnext"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text="Next"
-                android:textColor="@color/white"
                 android:fontFamily="@font/alice"
-                android:backgroundTint="@color/black"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="12dp"/>
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black" />
         </LinearLayout>
 
-        <Button
+        <View
             android:id="@+id/btnreviewsubmitquiz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="Submit Quiz"
-            android:textColor="@color/white"
-            android:fontFamily="@font/alice"
-            android:backgroundTint="@color/black"
-            android:paddingHorizontal="32dp"
-            android:paddingVertical="12dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
     </LinearLayout>
 </ScrollView>
