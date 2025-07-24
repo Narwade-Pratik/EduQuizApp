@@ -49,9 +49,9 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         editor = sharedPreferences.edit();
 
         userId = sharedPreferences.getString("userId", "").trim();
-        quizId = quiz.getQuizID();
-
+        //quizId = quiz.getQuizID();
         holder.viewButton.setOnClickListener(v -> {
+            quizId = quiz.getQuizID();
             Intent intent = new Intent(context, ViewQuizActivity.class);
             intent.putExtra("quizId", quizId);
             intent.putExtra("userId", userId);
@@ -59,11 +59,16 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         });
 
         holder.editButton.setOnClickListener(v -> {
-
+            quizId = quiz.getQuizID();
+            Intent intent = new Intent(context, EditQuizActivity.class);
+            intent.putExtra("quizId", quizId);
+            intent.putExtra("userId", userId);
+            context.startActivity(intent);
         });
 
+
         holder.deleteButton.setOnClickListener(v -> {
-            // Delete logic
+
         });
     }
 

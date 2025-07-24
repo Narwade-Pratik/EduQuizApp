@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray2"
+    tools:context=".teacheractivities.EditQuizActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Heading -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tveditquestion"
+            android:text="Current Question"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/alice"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="40dp"/>
+
+        <!-- Question Field -->
+        <EditText
+            android:id="@+id/eteditquestionquestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Question"
+            android:textSize="18sp"
+            android:fontFamily="@font/alice"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:background="@drawable/edit2"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Option A to D -->
+        <EditText
+            android:id="@+id/eteditquestionoptiona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Option A"
+            android:textSize="18sp"
+            android:fontFamily="@font/alice"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:background="@drawable/edit2"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/eteditquestionoptionb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Option B"
+            android:textSize="18sp"
+            android:fontFamily="@font/alice"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:background="@drawable/edit2"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/eteditquestionoptionc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Option C"
+            android:textSize="18sp"
+            android:fontFamily="@font/alice"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:background="@drawable/edit2"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/eteditquestionoptiond"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Option D"
+            android:textSize="18sp"
+            android:fontFamily="@font/alice"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:background="@drawable/edit2"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/eteditquestioncorrectoption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correct option (A/B/C/D) "
+            android:textSize="18sp"
+            android:fontFamily="@font/alice"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:background="@drawable/edit2"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/eteditquestionmarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter marks for this question"
+            android:textSize="18sp"
+            android:fontFamily="@font/alice"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:background="@drawable/edit2"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Submit Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btneditquestionprevious"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Previous"
+                android:textColor="@color/white"
+                android:fontFamily="@font/alice"
+                android:backgroundTint="@color/black"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="12dp"
+                android:layout_marginRight="5dp"/>
+
+            <Button
+                android:id="@+id/btneditquestionnext"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:fontFamily="@font/alice"
+                android:backgroundTint="@color/black"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="12dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btneditquestiondelete"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Delete"
+                android:textColor="@color/white"
+                android:fontFamily="@font/alice"
+                android:backgroundTint="@color/black"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="12dp"
+                android:layout_marginRight="5dp"/>
+
+            <Button
+                android:id="@+id/btneditquestionupdate"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Update"
+                android:textColor="@color/white"
+                android:fontFamily="@font/alice"
+                android:backgroundTint="@color/black"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="12dp"
+                android:layout_marginRight="5dp"/>
+
+            <Button
+                android:id="@+id/btneditquestionadd"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Add"
+                android:textColor="@color/white"
+                android:fontFamily="@font/alice"
+                android:backgroundTint="@color/black"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="12dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btneditquestionsubmitquiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Submit Updated Quiz"
+            android:textColor="@color/white"
+            android:fontFamily="@font/alice"
+            android:backgroundTint="@color/black"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="12dp"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+</ScrollView>
