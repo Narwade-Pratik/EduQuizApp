@@ -17,6 +17,15 @@ import com.vinodnarwade.eduquiz.R;
 
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.widget.Toast;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnFailureListener;
+
+
+
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
 
     private Context context;
@@ -68,8 +77,34 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
 
         holder.deleteButton.setOnClickListener(v -> {
+            String quizIdToDelete = quiz.getQuizID();
+            new AlertDialog.Builder(context)
+                    .setTitle("Delete Quiz")
+                    .setMessage("Are you sure you want to delete this quiz?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Yes", (dialog, which) -> {
 
+                        DatabaseReference quizRef = FirebaseDatabase.getInstance().getReference()
+                                .child("Users")
+                                .child(userId)
+                                .child("Quizzes")
+                                .child(quizIdToDelete);
+
+                        quizRef.removeValue()
+                                .addOnSuccessListener(unused -> {
+                                    Toast.makeText(context, "Quiz deleted", Toast.LENGTH_SHORT).show();
+                                    quizList.remove(position);  // Remove from list
+                                    notifyItemRemoved(position);  // Notify adapter
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(context, "Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         });
+
     }
 
 
