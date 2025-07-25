@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray2"
+    android:background="@drawable/new_card_background"
     tools:context=".teacheractivities.EditQuizActivity">
 
     <LinearLayout
@@ -20,6 +20,7 @@
             android:id="@+id/tveditquestion"
             android:text="Current Question"
             android:textSize="24sp"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:fontFamily="@font/alice"
             android:layout_marginBottom="24dp"
@@ -132,28 +133,30 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="horizontal">
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btneditquestionprevious"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text="Previous"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:fontFamily="@font/alice"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/sky_blue"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginRight="135dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btneditquestionnext"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text="Next"
-                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:fontFamily="@font/alice"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/sky_blue"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"/>
         </LinearLayout>
@@ -163,8 +166,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btneditquestiondelete"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
@@ -172,25 +176,25 @@
                 android:text="Delete"
                 android:textColor="@color/white"
                 android:fontFamily="@font/alice"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/red"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"
                 android:layout_marginRight="5dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btneditquestionupdate"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text="Update"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:fontFamily="@font/alice"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/SkyBlue"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"
                 android:layout_marginRight="5dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btneditquestionadd"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
@@ -198,12 +202,12 @@
                 android:text="Add"
                 android:textColor="@color/white"
                 android:fontFamily="@font/alice"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/green"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"/>
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btneditquestionsubmitquiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -211,9 +215,9 @@
             android:text="Submit Updated Quiz"
             android:textColor="@color/white"
             android:fontFamily="@font/alice"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/blue"
             android:paddingHorizontal="32dp"
             android:paddingVertical="12dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 </ScrollView>

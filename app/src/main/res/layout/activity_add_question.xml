@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray2"
+    android:background="@drawable/new_card_background"
     tools:context=".teacheractivities.AddQuestionActivity">
 
     <LinearLayout
@@ -18,11 +19,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Question"
-            android:textSize="24sp"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:textColor="@color/black"
-            android:fontFamily="@font/alice"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="40dp"/>
+            android:fontFamily="@font/adamina"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="45dp"/>
 
         <!-- Question Field -->
         <EditText
@@ -37,7 +39,7 @@
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="15dp" />
 
         <!-- Option A to D -->
         <EditText
@@ -52,7 +54,7 @@
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="15dp" />
 
         <EditText
             android:id="@+id/etaddquestionoptionb"
@@ -66,7 +68,7 @@
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="15dp" />
 
         <EditText
             android:id="@+id/etaddquestionoptionc"
@@ -80,7 +82,7 @@
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="15dp" />
 
         <EditText
             android:id="@+id/etaddquestionoptiond"
@@ -94,7 +96,7 @@
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="15dp" />
 
         <EditText
             android:id="@+id/etaddquestioncorrectoption"
@@ -108,7 +110,7 @@
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="15dp" />
 
         <EditText
             android:id="@+id/etaddquestionmarks"
@@ -122,17 +124,18 @@
             android:inputType="text"
             android:background="@drawable/edit2"
             android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="15dp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnaddquestionadd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:textSize="18sp"
             android:text="Add Question"
             android:textColor="@color/white"
             android:fontFamily="@font/alice"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/blue"
             android:paddingHorizontal="32dp"
             android:paddingVertical="12dp"/>
     </LinearLayout>

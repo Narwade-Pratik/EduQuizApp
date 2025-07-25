@@ -19,6 +19,7 @@ import java.util.Locale;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,7 +30,7 @@ import com.vinodnarwade.eduquiz.R;
 public class CreateQuizActivity extends AppCompatActivity {
 
     EditText quizTitle,noOfQue,subjectName;
-    Button createQuiz,btnScheduleFirstDate,btnScheduleSecondDate;
+    AppCompatButton createQuiz,btnScheduleFirstDate,btnScheduleSecondDate;
     FirebaseDatabase database;
     FirebaseAuth auth;
     DatabaseReference quizRef;

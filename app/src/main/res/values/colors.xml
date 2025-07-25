@@ -9,4 +9,25 @@
     <color name="light_bluee">#A3D3ED</color>
     <color name="red">#F60202</color>
     <color name="sky_blue">#1FE1CB</color>
+    <color name="yellow">#EFD992</color>
+    <color name="blue">#7D94EB</color>
+    <color name="purple">#B984F1</color>
+    <color name="brightorange">#f7971e</color>
+    <color name="pink2">#ffd200</color>
+    <color name="background">#8BB9BD</color>
+    <color name="lightgreen">#189B35</color>
+    <color name="yellow2">#DDD18E</color>
+    <color name="bluish">#7DDAE4</color>
+    <color name="lightgray">#9F9FA3</color>
+    <color name="lightgray2">#CCCCCF</color>
+    <color name="myactionbar">#CDC082</color>
+    <color name="SkyBlue">#61C8D4</color>
+    <color name="violat">#8148E4</color>
+    <color name="darkgreen">#339080</color>
+    <color name="textback">#FFF8DC</color>
+    <color name="songlistback">#EDC4F2</color>
+    <color name="orange">#C9846E</color>
+    <color name="yellow3">#CFB35D</color>
+    <color name="blue2">#93A7F4</color>
+
 </resources>

@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class ViewQuizActivity extends AppCompatActivity {
 
     EditText etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
-    Button btnNext, btnPrevious;
+    AppCompatButton btnNext, btnPrevious;
     ArrayList<QuestionModel> questionList = new ArrayList<>();
     int currentIndex = 0;
 
