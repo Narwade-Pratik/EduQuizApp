@@ -71,7 +71,7 @@ public class QuizesFragment extends Fragment {
         editor = sharedPreferences.edit();
 
         roleIs = sharedPreferences.getString("roleIs","").trim();
-        userId = sharedPreferences.getString("userId",userId).trim();
+        userId = sharedPreferences.getString("userId","").trim();
         //System.out.println(roleIs);
         if ("Teacher".equals(roleIs)) {
             quizTitles = teacherQuizTitles;

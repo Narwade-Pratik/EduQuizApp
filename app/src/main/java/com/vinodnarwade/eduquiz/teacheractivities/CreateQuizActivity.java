@@ -29,15 +29,15 @@ import com.vinodnarwade.eduquiz.R;
 public class CreateQuizActivity extends AppCompatActivity {
 
     EditText quizTitle,noOfQue,subjectName;
-    Button createQuiz,btnScheduleDate;
+    Button createQuiz,btnScheduleFirstDate,btnScheduleSecondDate;
     FirebaseDatabase database;
     FirebaseAuth auth;
     DatabaseReference quizRef;
     SharedPreferences sharedPreferences;
     String userId,userName;
-    TextView displayDate;
-    String scheduledDate = "";
-    long scheduledTimestamp = 0;
+    TextView displayFirstDate,displaySecondDate;
+    String scheduledFirstDate = "",scheduledSecondDate = "";
+    long scheduledTimestampFirst = 0,scheduledTimestampSecond = 0;
 
 
     @Override
@@ -48,8 +48,10 @@ public class CreateQuizActivity extends AppCompatActivity {
         noOfQue = findViewById(R.id.etcreatequiznoofquestions);
         subjectName = findViewById(R.id.etcreatequizsubjectname);
         createQuiz = findViewById(R.id.btncreatequizcreatequiz);
-        btnScheduleDate = findViewById(R.id.btncreatequizscheduletimeanddate);
-        displayDate = findViewById(R.id.tvcreatequizdiplayscheduledtimeanddate);
+        btnScheduleFirstDate = findViewById(R.id.btncreatequizschedulefirsttimeanddate);
+        displayFirstDate = findViewById(R.id.tvcreatequizdiplayscheduledfirsttimeanddate);
+        btnScheduleSecondDate = findViewById(R.id.btncreatequizschedulesecondtimeanddate);
+        displaySecondDate = findViewById(R.id.tvcreatequizdiplayscheduledsecondtimeanddate);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         userId = sharedPreferences.getString("userId", null);
         userName = sharedPreferences.getString("userName", null);
@@ -78,7 +80,11 @@ public class CreateQuizActivity extends AppCompatActivity {
                 else if(subjectNameIs.isEmpty()){
                     subjectName.setError("Enter Subject Name");
                 }
-                else if (scheduledDate.isEmpty() || scheduledTimestamp == 0) {
+                else if (scheduledFirstDate.isEmpty() || scheduledTimestampFirst == 0) {
+                    Toast.makeText(CreateQuizActivity.this, "Please select scheduled date & time", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (scheduledSecondDate.isEmpty() || scheduledTimestampSecond == 0) {
                     Toast.makeText(CreateQuizActivity.this, "Please select scheduled date & time", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -99,7 +105,7 @@ public class CreateQuizActivity extends AppCompatActivity {
                         return; // Prevent further crash
                     }
 
-                    QuizModel quiz = new QuizModel(quizId, title, subjectNameIs, noOfQ, userId,scheduledDate,scheduledTimestamp);
+                    QuizModel quiz = new QuizModel(quizId, title, subjectNameIs, noOfQ, userId,scheduledFirstDate,scheduledTimestampFirst,scheduledSecondDate,scheduledTimestampSecond);
                     quizRef.child(quizId).setValue(quiz).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(CreateQuizActivity.this, AddQuestionActivity.class);
@@ -116,7 +122,7 @@ public class CreateQuizActivity extends AppCompatActivity {
             }
         });
 
-        btnScheduleDate.setOnClickListener(v -> {
+        btnScheduleFirstDate.setOnClickListener(v -> {
             final Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
@@ -126,12 +132,12 @@ public class CreateQuizActivity extends AppCompatActivity {
 
                 TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view1, hour, minute) -> {
                     calendar.set(y, m, d, hour, minute);
-                    scheduledTimestamp = calendar.getTimeInMillis();
+                    scheduledTimestampFirst = calendar.getTimeInMillis();
 
                     SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault());
-                    scheduledDate = sdf.format(calendar.getTime());
+                    scheduledFirstDate = sdf.format(calendar.getTime());
 
-                    displayDate.setText("Scheduled for: " + scheduledDate);
+                    displayFirstDate.setText("Scheduled for: " + scheduledFirstDate);
                 }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
 
                 timePickerDialog.show();
@@ -141,6 +147,30 @@ public class CreateQuizActivity extends AppCompatActivity {
             datePickerDialog.show();
         });
 
+        btnScheduleSecondDate.setOnClickListener(v -> {
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, y, m, d) -> {
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view1, hour, minute) -> {
+                    calendar.set(y, m, d, hour, minute);
+                    scheduledTimestampSecond = calendar.getTimeInMillis();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault());
+                    scheduledSecondDate = sdf.format(calendar.getTime());
+
+                    displaySecondDate.setText("Scheduled for: " + scheduledSecondDate);
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+
+                timePickerDialog.show();
+
+            }, year, month, day);
+
+            datePickerDialog.show();
+        });
 
     }
 

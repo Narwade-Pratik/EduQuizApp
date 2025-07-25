@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/sky_blue"
         android:textSize="30dp"
         android:text="Enter Quiz Details"
         android:textStyle="bold"
@@ -20,7 +20,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="500dp"
         android:backgroundTint="@color/gray2"
         app:cardCornerRadius="10dp"
         android:elevation="100dp"
@@ -76,10 +76,10 @@
 
             <!-- Schedule Date & Time Button -->
             <Button
-                android:id="@+id/btncreatequizscheduletimeanddate"
+                android:id="@+id/btncreatequizschedulefirsttimeanddate"
                 android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                android:text="Set Date and Time"
+                android:text="Set First Date and Time"
                 android:textSize="20dp"
                 android:backgroundTint="@color/black"
                 android:textColor="@android:color/white"
@@ -87,7 +87,7 @@
 
             <!-- Show Selected Schedule Date -->
             <TextView
-                android:id="@+id/tvcreatequizdiplayscheduledtimeanddate"
+                android:id="@+id/tvcreatequizdiplayscheduledfirsttimeanddate"
                 android:layout_width="300dp"
                 android:layout_height="30dp"
                 android:text="No Date Selected"
@@ -98,6 +98,28 @@
                 android:background="@drawable/edit2"
                 android:layout_marginBottom="24dp" />
 
+            <Button
+                android:id="@+id/btncreatequizschedulesecondtimeanddate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set Second Date and Time"
+                android:textSize="20dp"
+                android:backgroundTint="@color/black"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Show Selected Schedule Date -->
+            <TextView
+                android:id="@+id/tvcreatequizdiplayscheduledsecondtimeanddate"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:text="No Date Selected"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:background="@drawable/edit2"
+                android:layout_marginBottom="24dp" />
 
             <Button
                 android:id="@+id/btncreatequizcreatequiz"
