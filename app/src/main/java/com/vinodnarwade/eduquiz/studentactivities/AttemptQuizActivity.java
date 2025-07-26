@@ -31,13 +31,14 @@ public class AttemptQuizActivity extends AppCompatActivity {
     RadioButton option1, option2, option3, option4;
     Button nextBtn, prevBtn, submitBtn;
 
+
     ArrayList<QuestionModel> questionList = new ArrayList<>();
     int currentIndex = 0;
 
     HashMap<String, String> selectedAnswers = new HashMap<>();
 
     String quizId, teacherId, userId;
-    long totalTimeMillis = 600000; // 10 minutes
+    long totalTimeMillis; // 10 minutes
     CountDownTimer countDownTimer;
     long timeTakenInMillis;
     SharedPreferences sharedPreferences;
@@ -54,8 +55,34 @@ public class AttemptQuizActivity extends AppCompatActivity {
         userId = sharedPreferences.getString("userId","");
 
         initViews();
-        startTimer();
-        loadQuestions();
+        loadQuizMetaAndStart(); // ✅ New method
+    }
+
+    private void loadQuizMetaAndStart() {
+        DatabaseReference quizRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(teacherId).child("Quizzes").child(quizId);
+
+        quizRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Long duration = snapshot.child("durationInMinutes").getValue(Long.class);
+                    if (duration != null) {
+                        totalTimeMillis = duration * 60 * 1000; // convert to millis
+                    } else {
+                        totalTimeMillis = 10 * 60 * 1000; // default 10 minutes
+                    }
+
+                    startTimer(); // ✅ Start timer after getting time
+                    loadQuestions(); // ✅ Load questions
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(AttemptQuizActivity.this, "Failed to load quiz info", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initViews() {

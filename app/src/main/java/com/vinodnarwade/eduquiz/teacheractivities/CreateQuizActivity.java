@@ -29,7 +29,7 @@ import com.vinodnarwade.eduquiz.R;
 
 public class CreateQuizActivity extends AppCompatActivity {
 
-    EditText quizTitle,noOfQue,subjectName;
+    EditText quizTitle,noOfQue,subjectName,durationHours,durationMinutes;
     AppCompatButton createQuiz,btnScheduleFirstDate,btnScheduleSecondDate;
     FirebaseDatabase database;
     FirebaseAuth auth;
@@ -49,6 +49,8 @@ public class CreateQuizActivity extends AppCompatActivity {
         noOfQue = findViewById(R.id.etcreatequiznoofquestions);
         subjectName = findViewById(R.id.etcreatequizsubjectname);
         createQuiz = findViewById(R.id.btncreatequizcreatequiz);
+        durationHours = findViewById(R.id.etCreateQuizDurationHours);
+        durationMinutes = findViewById(R.id.etCreateQuizDurationMinutes);
         btnScheduleFirstDate = findViewById(R.id.btncreatequizschedulefirsttimeanddate);
         displayFirstDate = findViewById(R.id.tvcreatequizdiplayscheduledfirsttimeanddate);
         btnScheduleSecondDate = findViewById(R.id.btncreatequizschedulesecondtimeanddate);
@@ -72,41 +74,61 @@ public class CreateQuizActivity extends AppCompatActivity {
                 char[] digitsArray = noOfQue.getText().toString().toCharArray();
                 String subjectNameIs = subjectName.getText().toString();
 
-                if(title.isEmpty()){
-                    quizTitle.setError("Please enter a quiz title");
+                String hoursStr = durationHours.getText().toString().trim();
+                String minutesStr = durationMinutes.getText().toString().trim();
+
+                int durationInMinutes = 0;
+                if (!hoursStr.isEmpty()) {
+                    durationInMinutes += Integer.parseInt(hoursStr) * 60;
                 }
-                else if(noOfQue.getText().toString().isEmpty() || !checkIsAllDigit(digitsArray)){
-                    noOfQue.setError("Enter valid Number");
-                }
-                else if(subjectNameIs.isEmpty()){
-                    subjectName.setError("Enter Subject Name");
-                }
-                else if (scheduledFirstDate.isEmpty() || scheduledTimestampFirst == 0) {
-                    Toast.makeText(CreateQuizActivity.this, "Please select scheduled date & time", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else if (scheduledSecondDate.isEmpty() || scheduledTimestampSecond == 0) {
-                    Toast.makeText(CreateQuizActivity.this, "Please select scheduled date & time", Toast.LENGTH_SHORT).show();
-                    return;
+                if (!minutesStr.isEmpty()) {
+                    durationInMinutes += Integer.parseInt(minutesStr);
                 }
 
-                else{
+                if (title.isEmpty()) {
+                    quizTitle.setError("Please enter a quiz title");
+                } else if (noOfQue.getText().toString().isEmpty() || !checkIsAllDigit(digitsArray)) {
+                    noOfQue.setError("Enter valid Number");
+                } else if (subjectNameIs.isEmpty()) {
+                    subjectName.setError("Enter Subject Name");
+                } else if (scheduledFirstDate.isEmpty() || scheduledTimestampFirst == 0) {
+                    Toast.makeText(CreateQuizActivity.this, "Please select scheduled date & time", Toast.LENGTH_SHORT).show();
+                } else if (scheduledSecondDate.isEmpty() || scheduledTimestampSecond == 0) {
+                    Toast.makeText(CreateQuizActivity.this, "Please select scheduled date & time", Toast.LENGTH_SHORT).show();
+                } else if (durationInMinutes <= 0) {
+                    durationHours.setError("Enter valid duration");
+                    durationMinutes.setError("Enter valid duration");
+                } else {
                     String quizId = quizRef.push().getKey();
                     int noOfQ = Integer.parseInt(noOfQue.getText().toString().trim());
+
                     if (quizId == null) {
                         Toast.makeText(CreateQuizActivity.this, "Missing quiz ID!", Toast.LENGTH_SHORT).show();
-                        return; // Prevent further crash
+                        return;
                     }
                     if (userId == null) {
-                        Toast.makeText(CreateQuizActivity.this, "Missig user Id!", Toast.LENGTH_SHORT).show();
-                        return; // Prevent further crash
+                        Toast.makeText(CreateQuizActivity.this, "Missing user ID!", Toast.LENGTH_SHORT).show();
+                        return;
                     }
                     if (noOfQ <= 0) {
-                        Toast.makeText(CreateQuizActivity.this, "Missing no Of Questions!", Toast.LENGTH_SHORT).show();
-                        return; // Prevent further crash
+                        Toast.makeText(CreateQuizActivity.this, "Missing number of questions!", Toast.LENGTH_SHORT).show();
+                        return;
                     }
 
-                    QuizModel quiz = new QuizModel(quizId, title, subjectNameIs, noOfQ, userId,scheduledFirstDate,scheduledTimestampFirst,scheduledSecondDate,scheduledTimestampSecond);
+                    // ✅ UPDATED QUIZ MODEL CONSTRUCTOR TO INCLUDE DURATION
+                    QuizModel quiz = new QuizModel(
+                            quizId,
+                            title,
+                            subjectNameIs,
+                            noOfQ,
+                            userId,
+                            scheduledFirstDate,
+                            scheduledTimestampFirst,
+                            scheduledSecondDate,
+                            scheduledTimestampSecond,
+                            durationInMinutes  // <-- Add this field
+                    );
+
                     quizRef.child(quizId).setValue(quiz).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(CreateQuizActivity.this, AddQuestionActivity.class);

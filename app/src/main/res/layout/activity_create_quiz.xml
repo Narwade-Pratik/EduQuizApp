@@ -124,6 +124,34 @@
                 android:background="@drawable/edit2"
                 android:layout_marginBottom="10dp" />
 
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:id="@+id/etCreateQuizDurationHours"
+                android:hint="Enter duration (Hours)"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+                android:fontFamily="@font/alice"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:inputType="number"
+                android:background="@drawable/edit2"
+                android:layout_margin="10dp"/>
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:id="@+id/etCreateQuizDurationMinutes"
+                android:hint="Enter duration (Minutes)"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+                android:fontFamily="@font/alice"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:inputType="number"
+                android:background="@drawable/edit2"
+                android:layout_margin="10dp"/>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btncreatequizcreatequiz"
                 android:layout_width="wrap_content"

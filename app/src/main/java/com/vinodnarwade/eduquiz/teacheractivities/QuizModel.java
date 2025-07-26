@@ -9,17 +9,32 @@ public class QuizModel {
     public QuizModel() {
     }
 
-    public QuizModel(String quizId, String title, String subjectNameIs, int noOfQ, String userId, String scheduledFirstDate, long scheduledTimestampFirst, String scheduledSecondDate, long scheduledTimestampSecond) {
+    private int durationInMinutes;
+
+    public QuizModel(String quizId, String title, String subjectName, int noOfQuestions,
+                     String userId, String scheduledFirstDate, long scheduledTimestampFirst,
+                     String scheduledSecondDate, long scheduledTimestampSecond,
+                     int durationInMinutes) {
         this.quizID = quizId;
         this.title = title;
-        this.subject = subjectNameIs;
-        this.numberOfQuestions = noOfQ;
+        this.subject = subjectName;
+        this.numberOfQuestions = noOfQuestions;
         this.createdBy = userId;
         this.scheduledFirstDate = scheduledFirstDate;
-        this.scheduledSecondDate = scheduledSecondDate;
         this.scheduledTimestampFirst = scheduledTimestampFirst;
+        this.scheduledSecondDate = scheduledSecondDate;
         this.scheduledTimestampSecond = scheduledTimestampSecond;
+        this.durationInMinutes = durationInMinutes;
     }
+
+    public int getDurationInMinutes() {
+        return durationInMinutes;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
 
 
     public String getCreatedBy() {
