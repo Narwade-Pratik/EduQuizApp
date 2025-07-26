@@ -40,6 +40,8 @@ public class AvailableQuizAdapter extends RecyclerView.Adapter<AvailableQuizAdap
         holder.titleTextView.setText(quiz.getTitle());
         holder.subjectTextView.setText("Subject: " + quiz.getSubject());
         holder.questionCountTextView.setText("Questions: " + quiz.getNumberOfQuestions());
+        holder.createdByTextView.setText("Created by: "+quiz.getCreatedBy());
+
 
         holder.startButton.setOnClickListener(v -> {
             Intent intent = new Intent(context, AttemptQuizActivity.class);
@@ -55,7 +57,7 @@ public class AvailableQuizAdapter extends RecyclerView.Adapter<AvailableQuizAdap
     }
 
     public static class AvailableQuizViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView, subjectTextView, questionCountTextView;
+        TextView titleTextView, subjectTextView, questionCountTextView,createdByTextView;
         Button startButton;
 
         public AvailableQuizViewHolder(@NonNull View itemView) {
@@ -63,6 +65,7 @@ public class AvailableQuizAdapter extends RecyclerView.Adapter<AvailableQuizAdap
             titleTextView = itemView.findViewById(R.id.tvItemAvailableQuizzesTitle);
             subjectTextView = itemView.findViewById(R.id.tvItemAvailableQuizzesQuizSubject);
             questionCountTextView = itemView.findViewById(R.id.tvItemAvailableQuizzesTotalQuestions);
+            createdByTextView = itemView.findViewById(R.id.tvItemAvailableQuizzesCreatedBy);
             startButton = itemView.findViewById(R.id.btnItemAvailableQuizzesAttemptQuiz);
         }
     }
