@@ -35,7 +35,7 @@ public class QuizSchedulerActivity extends AppCompatActivity {
                             tab.setText("Scheduled Quizzes");
                             break;
                         case 1:
-                            tab.setText("New Quiz");
+                            tab.setText("Schedule New Quiz");
                             break;
                     }
                 }).attach();
