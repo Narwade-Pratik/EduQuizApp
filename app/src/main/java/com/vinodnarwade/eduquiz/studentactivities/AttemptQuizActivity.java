@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +30,7 @@ public class AttemptQuizActivity extends AppCompatActivity {
     TextView questionText, timerText;
     RadioGroup optionsGroup;
     RadioButton option1, option2, option3, option4;
-    Button nextBtn, prevBtn, submitBtn;
+    AppCompatButton nextBtn, prevBtn, submitBtn;
 
 
     ArrayList<QuestionModel> questionList = new ArrayList<>();

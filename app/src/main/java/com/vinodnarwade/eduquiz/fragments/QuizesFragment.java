@@ -35,7 +35,8 @@ public class QuizesFragment extends Fragment {
     public String roleIs,userId;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    String[] teacherQuizTitles = {
+    String[] teacherQuizTitles =
+            {
             "Create New Quiz",
             "Previous Quizzes",
             "Quiz Scheduler",
@@ -44,7 +45,8 @@ public class QuizesFragment extends Fragment {
             "Settings"
     };
 
-    String[] studentQuizTitles = {
+    String[] studentQuizTitles =
+            {
             "Create Customized Quiz",   // Auto-generated quiz based on subject/topic
             "Available Quizzes",        // Assigned by teacher or public
             "Previous Quizzes",         // Attempt history

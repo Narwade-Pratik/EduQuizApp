@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vinodnarwade.eduquiz.R;
@@ -16,12 +17,14 @@ import com.vinodnarwade.eduquiz.teacheractivities.QuizModel;
 
 import java.util.List;
 
-public class AvailableQuizAdapter extends RecyclerView.Adapter<AvailableQuizAdapter.AvailableQuizViewHolder> {
+public class AvailableQuizAdapter extends RecyclerView.Adapter<AvailableQuizAdapter.AvailableQuizViewHolder>
+{
 
     private Context context;
     private List<QuizModel> quizList;
 
-    public AvailableQuizAdapter(Context context, List<QuizModel> quizList) {
+    public AvailableQuizAdapter(Context context, List<QuizModel> quizList)
+    {
         this.context = context;
         this.quizList = quizList;
     }
@@ -38,9 +41,9 @@ public class AvailableQuizAdapter extends RecyclerView.Adapter<AvailableQuizAdap
         QuizModel quiz = quizList.get(position);
 
         holder.titleTextView.setText(quiz.getTitle());
-        holder.subjectTextView.setText("Subject: " + quiz.getSubject());
-        holder.questionCountTextView.setText("Questions: " + quiz.getNumberOfQuestions());
-        holder.createdByTextView.setText("Created by: "+quiz.getCreatedBy());
+        holder.subjectTextView.setText(quiz.getSubject());
+        holder.questionCountTextView.setText(String.valueOf(quiz.getNumberOfQuestions()));
+        holder.createdByTextView.setText(quiz.getCreatedBy());
 
 
         holder.startButton.setOnClickListener(v -> {
@@ -58,7 +61,7 @@ public class AvailableQuizAdapter extends RecyclerView.Adapter<AvailableQuizAdap
 
     public static class AvailableQuizViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView, subjectTextView, questionCountTextView,createdByTextView;
-        Button startButton;
+        AppCompatButton startButton;
 
         public AvailableQuizViewHolder(@NonNull View itemView) {
             super(itemView);
