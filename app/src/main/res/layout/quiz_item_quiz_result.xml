@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#F9F9F9"
+    android:elevation="2dp"
+    android:padding="12dp"
+    android:layout_marginBottom="12dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginHorizontal="4dp"
+    android:backgroundTint="@android:color/darker_gray">
+
+    <!-- Question Text -->
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question will appear here"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingBottom="8dp" />
+
+    <!-- Options -->
+    <TextView
+        android:id="@+id/tvOption1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Option 1"
+        android:padding="4dp" />
+
+    <TextView
+        android:id="@+id/tvOption2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Option 2"
+        android:padding="4dp" />
+
+    <TextView
+        android:id="@+id/tvOption3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Option 3"
+        android:padding="4dp" />
+
+    <TextView
+        android:id="@+id/tvOption4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Option 4"
+        android:padding="4dp" />
+
+    <!-- Your Answer -->
+    <TextView
+        android:id="@+id/tvYourAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Answer: Option 3"
+        android:textStyle="italic"
+        android:textColor="#444444"
+        android:paddingTop="8dp" />
+
+    <!-- Correct Answer -->
+    <TextView
+        android:id="@+id/tvCorrectAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Correct Answer: Option 2"
+        android:textStyle="italic"
+        android:textColor="#4CAF50"
+        android:paddingTop="4dp" />
+
+    <!-- Marks -->
+    <TextView
+        android:id="@+id/tvMarks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Marks Awarded: 1"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:paddingTop="4dp" />
+</LinearLayout>
