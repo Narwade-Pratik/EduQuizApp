@@ -129,19 +129,31 @@ public class ShowStudentResultActivity extends AppCompatActivity {
 
 
     private void addQuestionResultView(String question, String a, String b, String c, String d, String selected, String correct, Long marks) {
-        TextView tv = new TextView(this);
-        tv.setText(
-                "Q: " + question + "\n" +
-                        "A. " + a + "\n" +
-                        "B. " + b + "\n" +
-                        "C. " + c + "\n" +
-                        "D. " + d + "\n" +
-                        "Selected: " + selected + "\n" +
-                        "Correct: " + correct + "\n" +
-                        "Marks: " + (marks != null ? marks : "0")
-        );
-        tv.setPadding(0, 24, 0, 24);
-        tv.setTextSize(16);
-        questionsContainer.addView(tv);
+        // Inflate the layout
+        LinearLayout questionLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.quiz_item_quiz_result, null);
+
+        // Get references to views inside the inflated layout
+        TextView tvQ = questionLayout.findViewById(R.id.tvItemQuizResultQuestion);
+        TextView tvA = questionLayout.findViewById(R.id.tvItemQuizResultOption1);
+        TextView tvB = questionLayout.findViewById(R.id.tvItemQuizResultOption2);
+        TextView tvC = questionLayout.findViewById(R.id.tvItemQuizResultOption3);
+        TextView tvD = questionLayout.findViewById(R.id.tvItemQuizResultOption4);
+        TextView tvYourAnswer = questionLayout.findViewById(R.id.tvItemQuizResultYourAnswer);
+        TextView tvCorrectAnswer = questionLayout.findViewById(R.id.tvItemQuizResultCorrectAnswer);
+        TextView tvMarks = questionLayout.findViewById(R.id.tvItemQuizResultMarks);
+
+        // Set values
+        tvQ.setText("Q: " + question);
+        tvA.setText("A. " + a);
+        tvB.setText("B. " + b);
+        tvC.setText("C. " + c);
+        tvD.setText("D. " + d);
+        tvYourAnswer.setText("Your Answer: " + selected);
+        tvCorrectAnswer.setText("Correct Answer: " + correct);
+        tvMarks.setText("Marks Awarded: " + (marks != null ? marks : 0));
+
+        // Add to container
+        questionsContainer.addView(questionLayout);
     }
+
 }

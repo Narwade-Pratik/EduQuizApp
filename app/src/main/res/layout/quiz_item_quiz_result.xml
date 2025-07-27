@@ -13,7 +13,7 @@
 
     <!-- Question Text -->
     <TextView
-        android:id="@+id/tvQuestion"
+        android:id="@+id/tvItemQuizResultQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Question will appear here"
@@ -23,28 +23,28 @@
 
     <!-- Options -->
     <TextView
-        android:id="@+id/tvOption1"
+        android:id="@+id/tvItemQuizResultOption1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Option 1"
         android:padding="4dp" />
 
     <TextView
-        android:id="@+id/tvOption2"
+        android:id="@+id/tvItemQuizResultOption2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Option 2"
         android:padding="4dp" />
 
     <TextView
-        android:id="@+id/tvOption3"
+        android:id="@+id/tvItemQuizResultOption3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Option 3"
         android:padding="4dp" />
 
     <TextView
-        android:id="@+id/tvOption4"
+        android:id="@+id/tvItemQuizResultOption4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Option 4"
@@ -52,7 +52,7 @@
 
     <!-- Your Answer -->
     <TextView
-        android:id="@+id/tvYourAnswer"
+        android:id="@+id/tvItemQuizResultYourAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Your Answer: Option 3"
@@ -62,7 +62,7 @@
 
     <!-- Correct Answer -->
     <TextView
-        android:id="@+id/tvCorrectAnswer"
+        android:id="@+id/tvItemQuizResultCorrectAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Correct Answer: Option 2"
@@ -72,7 +72,7 @@
 
     <!-- Marks -->
     <TextView
-        android:id="@+id/tvMarks"
+        android:id="@+id/tvItemQuizResultMarks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Marks Awarded: 1"
