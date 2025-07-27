@@ -206,21 +206,18 @@ public class AttemptQuizActivity extends AppCompatActivity {
             String correct = q.getCorrectOption();
             if (selected != null && correct != null &&
                     selected.trim().equalsIgnoreCase(correct.trim())) {
-                score += q.getMarks(); // ✅ add marks instead of just score++
+                score += q.getMarks();
             }
         }
-
 
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap.put("score", score);
         resultMap.put("numberOfQuestions", questionList.size());
         resultMap.put("timeTakenMillis", timeTakenInMillis);
         resultMap.put("studentId", userId);
+        resultMap.put("answers", new HashMap<>(selectedAnswers));
 
-        // Store selected answers
-        HashMap<String, String> answersMap = new HashMap<>(selectedAnswers);
-        resultMap.put("answers", answersMap);
-
+        // ✅ Save under teacher's Quizzes node
         DatabaseReference resultRef = FirebaseDatabase.getInstance()
                 .getReference("Users")
                 .child(teacherId)
@@ -229,15 +226,29 @@ public class AttemptQuizActivity extends AppCompatActivity {
                 .child("AttemptedBy")
                 .child(userId);
 
-        resultRef.setValue(resultMap).addOnCompleteListener(task -> {
+        resultRef.setValue(resultMap);
+
+        // ✅✅ Save under AttemptedQuizzes for student display
+        DatabaseReference attemptedRef = FirebaseDatabase.getInstance()
+                .getReference("AttemptedQuizzes")
+                .child(userId)
+                .child(quizId);
+
+        HashMap<String, Object> attemptedData = new HashMap<>();
+        attemptedData.put("score", score);
+        attemptedData.put("teacherId", teacherId);
+        attemptedData.put("timeTakenMillis", timeTakenInMillis);
+        attemptedData.put("numberOfQuestions", questionList.size());
+
+        attemptedRef.setValue(attemptedData).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this, "Result saved successfully!", Toast.LENGTH_SHORT).show();
-                // Optionally: Navigate to Result screen
-                finish(); // or open a ResultActivity
+                finish(); // Or move to ResultActivity
             } else {
-                Toast.makeText(this, "Failed to save result.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Failed to save result in AttemptedQuizzes", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
 }
