@@ -22,7 +22,7 @@ public class ShowStudentResultActivity extends AppCompatActivity {
     LinearLayout questionsContainer;
 
     String teacherId, quizId, studentId;
-    Long timeTaken;
+    Long timeTaken, totalMarks = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,6 @@ public class ShowStudentResultActivity extends AppCompatActivity {
         DatabaseReference quizRef = FirebaseDatabase.getInstance().getReference()
                 .child("Users").child(teacherId).child("Quizzes").child(quizId);
 
-        // Get quiz details
         quizRef.get().addOnSuccessListener(snapshot -> {
             String title = snapshot.child("title").getValue(String.class);
             String subject = snapshot.child("subject").getValue(String.class);
@@ -68,21 +67,16 @@ public class ShowStudentResultActivity extends AppCompatActivity {
                         .child("name").get().addOnSuccessListener(nameSnap -> {
                             String teacherName = nameSnap.getValue(String.class);
                             tvTeacher.setText(teacherName != null ? teacherName : "Unknown");
-                            tvTimeTaken.setText(String.valueOf(timeTaken));
                         });
             } else {
                 tvTeacher.setText("Unknown");
             }
 
-            // Now load result
+            // Load result
             DatabaseReference resultRef = quizRef.child("AttemptedBy").child(studentId);
             resultRef.get().addOnSuccessListener(resultSnap -> {
                 Long score = resultSnap.child("score").getValue(Long.class);
-                Long total = resultSnap.child("numberOfQuestions").getValue(Long.class);
                 timeTaken = resultSnap.child("timeTakenMillis").getValue(Long.class);
-
-                tvScore.setText("Score: " + (score != null ? score : 0) + "/" + (total != null ? total : 0));
-                tvRank.setText("Rank: N/A");
 
                 if (timeTaken != null) {
                     long seconds = timeTaken / 1000;
@@ -93,9 +87,13 @@ public class ShowStudentResultActivity extends AppCompatActivity {
                     tvTimeTaken.setText("Time Taken: N/A");
                 }
 
-                // Load answers
+                // Load answers map
                 Map<String, Object> answersMap = (Map<String, Object>) resultSnap.child("answers").getValue();
                 if (answersMap != null) {
+                    final int totalQuestions = answersMap.size();
+                    final long[] totalMarksArr = {0};
+                    final int[] fetchedCount = {0};
+
                     for (String qid : answersMap.keySet()) {
                         String selected = String.valueOf(answersMap.get(qid));
 
@@ -108,15 +106,27 @@ public class ShowStudentResultActivity extends AppCompatActivity {
                             String correct = questionSnap.child("correctOption").getValue(String.class);
                             Long marks = questionSnap.child("marks").getValue(Long.class);
 
+                            if (marks == null) marks = 0L;
+                            totalMarksArr[0] += marks;
+
                             addQuestionResultView(question, optionA, optionB, optionC, optionD, selected, correct, marks);
+
+                            // Once all questions are loaded, update score
+                            fetchedCount[0]++;
+                            if (fetchedCount[0] == totalQuestions) {
+                                tvScore.setText("Score: " + (score != null ? score : 0) + "/" + totalMarksArr[0]);
+                            }
                         });
                     }
+                } else {
+                    tvScore.setText("Score: " + (score != null ? score : 0) + "/0");
                 }
+
+                tvRank.setText("Rank: N/A");
             });
-
-
         });
     }
+
 
     private void addQuestionResultView(String question, String a, String b, String c, String d, String selected, String correct, Long marks) {
         TextView tv = new TextView(this);
