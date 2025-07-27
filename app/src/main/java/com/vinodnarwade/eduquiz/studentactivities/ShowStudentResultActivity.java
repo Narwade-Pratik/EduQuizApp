@@ -82,9 +82,9 @@ public class ShowStudentResultActivity extends AppCompatActivity {
                     long seconds = timeTaken / 1000;
                     long minutes = seconds / 60;
                     seconds = seconds % 60;
-                    tvTimeTaken.setText("Time Taken: " + minutes + "m " + seconds + "s");
+                    tvTimeTaken.setText(" " + minutes + "m " + seconds + "s");
                 } else {
-                    tvTimeTaken.setText("Time Taken: N/A");
+                    tvTimeTaken.setText("N/A");
                 }
 
                 // Load answers map
@@ -114,15 +114,15 @@ public class ShowStudentResultActivity extends AppCompatActivity {
                             // Once all questions are loaded, update score
                             fetchedCount[0]++;
                             if (fetchedCount[0] == totalQuestions) {
-                                tvScore.setText("Score: " + (score != null ? score : 0) + "/" + totalMarksArr[0]);
+                                tvScore.setText("" + (score != null ? score : 0) + "/" + totalMarksArr[0]);
                             }
                         });
                     }
                 } else {
-                    tvScore.setText("Score: " + (score != null ? score : 0) + "/0");
+                    tvScore.setText("" + (score != null ? score : 0) + "/0");
                 }
 
-                tvRank.setText("Rank: N/A");
+                tvRank.setText("N/A");
             });
         });
     }

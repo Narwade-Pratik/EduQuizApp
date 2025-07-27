@@ -24,30 +24,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:weightSum="10">
+                android:layout_marginTop="10dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text=" Q."
-                    android:layout_marginLeft="10dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:paddingBottom="8dp" />
 
                 <TextView
                     android:id="@+id/tvItemQuizResultQuestion"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="9"
                     android:text="Question will appear here"
                     android:textStyle="bold"
+                    android:layout_marginLeft="15dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:paddingBottom="8dp" />
+
             </LinearLayout>
 
             <!-- Options -->

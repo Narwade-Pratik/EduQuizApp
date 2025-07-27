@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:fillViewport="true"
     android:padding="16dp">
 
@@ -19,58 +21,173 @@
             android:layout_height="wrap_content"
             android:text="Quiz Title"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textSize="23sp"
+            android:background="@color/faintyellow"
             android:paddingBottom="4dp" />
 
-        <TextView
-            android:id="@+id/tvShowStudentResultSubject"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Subject"
-            android:textSize="16sp"
-            android:paddingBottom="4dp" />
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:orientation="vertical"
+            android:background="@drawable/edit2">
 
-        <TextView
-            android:id="@+id/tvShowStudentResultScore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Score: 0/0"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:paddingBottom="4dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvShowStudentResultRank"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rank: N/A"
-            android:textSize="16sp"
-            android:paddingBottom="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   Subject : "
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:paddingBottom="4dp" />
 
-        <TextView
-            android:id="@+id/tvShowStudentResultTimeTaken"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Time taken in Minutes"
-            android:textSize="16sp"
-            android:paddingBottom="4dp" />
+                <TextView
+                    android:id="@+id/tvShowStudentResultSubject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subject"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:paddingBottom="4dp" />
 
-        <TextView
-            android:id="@+id/tvShowStudentResultTeacher"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Teacher Name"
-            android:textSize="16sp"
-            android:paddingBottom="4dp" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvShowStudentResultDateTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date and Time"
-            android:textSize="16sp"
-            android:paddingBottom="4dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   Score : "
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="19sp"
+                    android:paddingBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvShowStudentResultScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0/0"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:paddingBottom="4dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   Rank : "
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:id="@+id/tvShowStudentResultRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" N/A"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:paddingBottom="8dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   Time (min) :"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvShowStudentResultTimeTaken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" N/A"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:paddingBottom="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   Teacher : "
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="19sp"
+                    android:paddingBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvShowStudentResultTeacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Teacher Name"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:paddingBottom="4dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   Date and Time : "
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="19sp"
+                    android:paddingBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvShowStudentResultDateTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" Date and Time"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:paddingBottom="4dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
