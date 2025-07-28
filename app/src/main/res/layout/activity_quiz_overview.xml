@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".teacheractivities.QuizOverviewActivity"
-    android:layout_gravity="center"
-    android:gravity="center">
+    android:padding="16dp">
 
-    <TextView
+    <!-- ProgressBar while loading -->
+    <ProgressBar
+        android:id="@+id/progressBarQuizOverviewActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Quiz Overview"
-        android:textColor="@color/black"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
+    <!-- No Quiz Text -->
+    <TextView
+        android:id="@+id/noQuizOverviewActivityQuizText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No quizzes found"
+        android:textSize="16sp"
+        android:textColor="#888888"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
-</LinearLayout>
+    <!-- RecyclerView for quizzes -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewQuizOverview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/progressBarQuizOverviewActivity"
+        android:visibility="visible"
+        android:paddingBottom="16dp" />
+
+</RelativeLayout>
