@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,7 +45,7 @@ public class QuizOverviewAdapter extends RecyclerView.Adapter<QuizOverviewAdapte
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, QuizResultActivity.class);
             intent.putExtra("quizId", quiz.getQuizID());
-            intent.putExtra("title", quiz.getTitle());
+            intent.putExtra("quizTitle", quiz.getTitle());
             context.startActivity(intent);
         });
     }
