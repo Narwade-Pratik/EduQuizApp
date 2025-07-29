@@ -39,7 +39,7 @@ public class QuizOverviewAdapter extends RecyclerView.Adapter<QuizOverviewAdapte
         QuizModel quiz = quizList.get(position);
 
         holder.titleText.setText(quiz.getTitle());
-        holder.subjectText.setText("Subject: " + quiz.getSubject());
+        holder.subjectText.setText("" + quiz.getSubject());
 
         // On Click: open QuizResultActivity
         holder.itemView.setOnClickListener(v -> {

@@ -20,7 +20,7 @@ android:layout_marginBottom="8dp">
     android:id="@+id/tvScore"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Score: 9/10"
+    android:text="Score:"
     android:textSize="14sp"
     android:textColor="#444" />
 
@@ -28,7 +28,7 @@ android:layout_marginBottom="8dp">
     android:id="@+id/tvTime"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Time Taken: 1 min 24 sec"
+    android:text="Time Taken:"
     android:textSize="14sp"
     android:textColor="#444" />
 </LinearLayout>

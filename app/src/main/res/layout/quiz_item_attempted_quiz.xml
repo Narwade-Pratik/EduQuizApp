@@ -44,7 +44,7 @@
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:background="@drawable/edit"
-                    android:text="Quize Title ..."
+                    android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -70,7 +70,7 @@
                     android:textSize="17sp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="8dp"
-                    android:text="Quize subject ..."
+                    android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -96,7 +96,7 @@
                     android:textSize="17sp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="8dp"
-                    android:text="Creater name ..."
+                    android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -122,7 +122,7 @@
                     android:textSize="17sp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="8dp"
-                    android:text="Total score ..."
+                    android:text=""
                     android:layout_width="wrap_content"
                     android:layout_marginBottom="13dp"
                     android:layout_height="wrap_content"/>
