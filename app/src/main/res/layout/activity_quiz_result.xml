@@ -14,7 +14,7 @@
         android:id="@+id/tvQuizResultActivityQuizTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quiz Title"
+        android:text=""
         android:textStyle="bold"
         android:textSize="22sp"
         android:textColor="#000000"
@@ -24,7 +24,7 @@
         android:id="@+id/tvQuizResultActivityQuizSubject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Subject: Maths"
+        android:text=""
         android:textSize="16sp"
         android:textColor="#444444"
         android:layout_marginBottom="4dp" />
@@ -33,7 +33,7 @@
         android:id="@+id/tvQuizResultActivityTotalQuestions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Questions: 10"
+        android:text=""
         android:textSize="16sp"
         android:textColor="#444444"
         android:layout_marginBottom="4dp" />

@@ -49,7 +49,7 @@ public class QuizOverviewActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         teacherId = sharedPreferences.getString("userId","").trim() ;
-        Toast.makeText(this, "TeacherId: " + teacherId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Your Quizzes Overview", Toast.LENGTH_SHORT).show();
         quizRef = FirebaseDatabase.getInstance().getReference("Users").child(teacherId).child("Quizzes");
 
         loadTeacherQuizzes();

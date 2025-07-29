@@ -4,9 +4,14 @@
     <gradient
         android:startColor="@color/songlistback"
         android:endColor="@color/SkyBlue"
-        android:angle="180"
+        android:centerColor="@color/white"
+        android:angle="135"
         >
 
     </gradient>
+    <corners
+        android:radius="20dp"
+        >
+    </corners>
 
 </shape>

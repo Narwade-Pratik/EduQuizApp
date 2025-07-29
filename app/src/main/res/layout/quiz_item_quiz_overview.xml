@@ -2,22 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="12dp"
-    android:background="@drawable/edit"
+    android:background="@drawable/new_card_bg"
+    android:paddingLeft="20dp"
+    android:weightSum="100"
     android:layout_margin="8dp">
 
     <TextView
         android:id="@+id/tvQuizItemQuizOverviewTitle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="70"
         android:text="Quiz Title"
         android:textStyle="bold"
-        android:textSize="18sp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/tvQuizItemQuizOverviewSubject"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Subject" />
+        android:layout_weight="30"
+        android:text="Subject"
+        android:textSize="18dp"/>
 </LinearLayout>
