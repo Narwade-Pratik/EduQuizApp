@@ -25,6 +25,19 @@
             android:fontFamily="@font/adamina"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="45dp"/>
+        <EditText
+            android:id="@+id/etaddquestionquestiontopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Topic of Question"
+            android:textSize="18sp"
+            android:fontFamily="@font/alice"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:background="@drawable/edit2"
+            android:padding="12dp"
+            android:layout_marginBottom="15dp" />
 
         <!-- Question Field -->
         <EditText

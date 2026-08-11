@@ -4,15 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class QuestionModel implements Parcelable {
-    String questionId, quizId, question, optionA, optionB, optionC, optionD, correctOption;
+    String questionId, quizId, questionTopic, question, optionA, optionB, optionC, optionD, correctOption;
     int marks;
 
     public QuestionModel() {}
 
-    public QuestionModel(String questionId, String quizId, String question, String optionA, String optionB,
+    public QuestionModel(String questionId, String quizId, String questionTopic, String question, String optionA, String optionB,
                          String optionC, String optionD, String correctOption, int marks) {
         this.questionId = questionId;
         this.quizId = quizId;
+        this.questionTopic = questionTopic;
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -25,6 +26,7 @@ public class QuestionModel implements Parcelable {
     protected QuestionModel(Parcel in) {
         questionId = in.readString();
         quizId = in.readString();
+        questionTopic = in.readString();
         question = in.readString();
         optionA = in.readString();
         optionB = in.readString();
@@ -55,6 +57,7 @@ public class QuestionModel implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(questionId);
         parcel.writeString(quizId);
+        parcel.writeString(questionTopic);
         parcel.writeString(question);
         parcel.writeString(optionA);
         parcel.writeString(optionB);
@@ -82,6 +85,9 @@ public class QuestionModel implements Parcelable {
 
     public String getQuestion() { return question; }
     public void setQuestion(String question) { this.question = question; }
+
+    public String getQuestionTopic() { return questionTopic; }
+    public void setQuestionTopic(String question) { this.question = questionTopic; }
 
     public int getMarks() { return marks; }
     public void setMarks(int marks) { this.marks = marks; }

@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class EditQuizActivity extends AppCompatActivity {
 
-    EditText etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
+    EditText etQuestionTopic, etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
     Button btnNext, btnPrevious, btnSubmitAll,btnDeleteQuestion,btnAddQuestion,btnUpdateQuestion;
     ArrayList<QuestionModel> questionList;
     int currentIndex = 0;
@@ -35,6 +35,7 @@ public class EditQuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_quiz);  // same layout as ReviewQuiz
 
         // 1️⃣ Initialize Views
+        etQuestionTopic = findViewById(R.id.etaddquestionquestiontopic);
         etQuestion = findViewById(R.id.eteditquestionquestion);
         etOptionA = findViewById(R.id.eteditquestionoptiona);
         etOptionB = findViewById(R.id.eteditquestionoptionb);
@@ -123,6 +124,7 @@ public class EditQuizActivity extends AppCompatActivity {
             String questionId = currentQuestion.getQuestionId();
 
             // Get updated data from UI
+            String updatedQuestionTopic = etQuestionTopic.getText().toString().trim();
             String updatedQuestion = etQuestion.getText().toString().trim();
             String updatedA = etOptionA.getText().toString().trim();
             String updatedB = etOptionB.getText().toString().trim();
@@ -131,7 +133,7 @@ public class EditQuizActivity extends AppCompatActivity {
             String updatedCorrect = etCorrectOption.getText().toString().trim();
             String updatedMarks = etMarks.getText().toString().trim();
 
-            if (updatedQuestion.isEmpty() || updatedA.isEmpty() || updatedB.isEmpty() ||
+            if (updatedQuestionTopic.isEmpty() || updatedQuestion.isEmpty() || updatedA.isEmpty() || updatedB.isEmpty() ||
                     updatedC.isEmpty() || updatedD.isEmpty() || updatedCorrect.isEmpty() || updatedMarks.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 return;
@@ -139,6 +141,7 @@ public class EditQuizActivity extends AppCompatActivity {
 
             // Create updated question map
             Map<String, Object> updatedMap = new HashMap<>();
+            updatedMap.put("questionTopic", updatedQuestionTopic);
             updatedMap.put("question", updatedQuestion);
             updatedMap.put("optionA", updatedA);
             updatedMap.put("optionB", updatedB);
@@ -160,6 +163,7 @@ public class EditQuizActivity extends AppCompatActivity {
             questionRef.updateChildren(updatedMap).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     // Update local list also
+                    currentQuestion.setQuestionTopic(updatedQuestionTopic);
                     currentQuestion.setQuestion(updatedQuestion);
                     currentQuestion.setOptionA(updatedA);
                     currentQuestion.setOptionB(updatedB);
@@ -176,6 +180,7 @@ public class EditQuizActivity extends AppCompatActivity {
         });
 
         btnAddQuestion.setOnClickListener(v -> {
+            String questionTopic = etQuestionTopic.getText().toString().trim();
             String question = etQuestion.getText().toString().trim();
             String optionA = etOptionA.getText().toString().trim();
             String optionB = etOptionB.getText().toString().trim();
@@ -184,7 +189,7 @@ public class EditQuizActivity extends AppCompatActivity {
             String correctOption = etCorrectOption.getText().toString().trim();
             String marks = etMarks.getText().toString().trim();
 
-            if (question.isEmpty() || optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty()
+            if (questionTopic.isEmpty() ||question.isEmpty() || optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty()
                     || optionD.isEmpty() || correctOption.isEmpty() || marks.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 return;
@@ -199,7 +204,7 @@ public class EditQuizActivity extends AppCompatActivity {
 
             //int newIndex = questionList.size() + 1; // Q1, Q2, ..., Qn+1
             String newQuestionId = questionsRef.push().getKey();
-            QuestionModel newQuestion = new QuestionModel(newQuestionId,quizId,question, optionA, optionB, optionC, optionD, correctOption, Integer.parseInt(marks));
+            QuestionModel newQuestion = new QuestionModel(newQuestionId,quizId,questionTopic,question, optionA, optionB, optionC, optionD, correctOption, Integer.parseInt(marks));
 
             questionRef.child(newQuestionId).setValue(newQuestion)
                     .addOnSuccessListener(aVoid -> {
@@ -287,6 +292,7 @@ public class EditQuizActivity extends AppCompatActivity {
 
     private void showQuestion(int index) {
         QuestionModel question = questionList.get(index);
+        etQuestionTopic.setText(question.getQuestionTopic());
         etQuestion.setText(question.getQuestion());
         etOptionA.setText(question.getOptionA());
         etOptionB.setText(question.getOptionB());
@@ -303,6 +309,7 @@ public class EditQuizActivity extends AppCompatActivity {
 
     private void saveCurrentQuestion() {
         QuestionModel model = questionList.get(currentIndex);
+        model.setQuestionTopic(etQuestionTopic.getText().toString());
         model.setQuestion(etQuestion.getText().toString());
         model.setOptionA(etOptionA.getText().toString());
         model.setOptionB(etOptionB.getText().toString());
@@ -366,6 +373,7 @@ public class EditQuizActivity extends AppCompatActivity {
 
 
     private void clearFields() {
+        etQuestionTopic.setText("");
         etQuestion.setText("");
         etOptionA.setText("");
         etOptionB.setText("");

@@ -226,21 +226,7 @@ public class AttemptQuizActivity extends AppCompatActivity {
                 .child("AttemptedBy")
                 .child(userId);
 
-        resultRef.setValue(resultMap);
-
-        // ✅✅ Save under AttemptedQuizzes for student display
-        DatabaseReference attemptedRef = FirebaseDatabase.getInstance()
-                .getReference("AttemptedQuizzes")
-                .child(userId)
-                .child(quizId);
-
-        HashMap<String, Object> attemptedData = new HashMap<>();
-        attemptedData.put("score", score);
-        attemptedData.put("teacherId", teacherId);
-        attemptedData.put("timeTakenMillis", timeTakenInMillis);
-        attemptedData.put("numberOfQuestions", questionList.size());
-
-        attemptedRef.setValue(attemptedData).addOnCompleteListener(task -> {
+        resultRef.setValue(resultMap).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this, "Result saved successfully!", Toast.LENGTH_SHORT).show();
                 finish(); // Or move to ResultActivity
