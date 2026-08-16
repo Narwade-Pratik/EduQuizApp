@@ -98,8 +98,15 @@ public class QuizesFragment extends Fragment {
                     startActivity(new Intent(getContext(), PreviousQuizesActivity.class));
 
                 } else if (selected.equals("Quiz Scheduler")) {
-                    startActivity(new Intent(getContext(), QuizSchedulerActivity.class));
 
+                    Intent intent = new Intent(
+                            getContext(),
+                            QuizSchedulerActivity.class
+                    );
+
+                    intent.putExtra("userId", userId);
+
+                    startActivity(intent);
                 } else if (selected.equals("View Quiz Overview")) {
                     startActivity(new Intent(getContext(), QuizOverviewActivity.class));
 

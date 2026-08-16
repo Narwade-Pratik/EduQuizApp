@@ -17,6 +17,15 @@
         android:theme="@style/Theme.EduQuiz"
         tools:targetApi="31">
         <activity
+            android:name=".teacheractivities.QuestionBankQuestionModel"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.AddQueToQBActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.QuestionBankActivity"
+            android:exported="false" />
+        <activity
             android:name=".teacheractivities.QuizResultActivity"
             android:exported="false" />
         <activity
