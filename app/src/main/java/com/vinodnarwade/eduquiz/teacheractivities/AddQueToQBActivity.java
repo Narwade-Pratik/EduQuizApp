@@ -248,12 +248,12 @@ public class AddQueToQBActivity extends AppCompatActivity {
         QuestionBankQuestionModel que =
                 new QuestionBankQuestionModel(
                         questionId,
+                        userId,
                         className,
                         subject,
                         chapter,
                         topic,
                         difficulty,
-                        questionTopic,
                         question,
                         optionA,
                         optionB,

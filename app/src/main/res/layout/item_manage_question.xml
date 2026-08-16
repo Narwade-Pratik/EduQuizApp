@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp">
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/tvOptionA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="A. Option A"
+        android:layout_marginBottom="6dp"/>
+
+    <TextView
+        android:id="@+id/tvOptionB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="B. Option B"
+        android:layout_marginBottom="6dp"/>
+
+    <TextView
+        android:id="@+id/tvOptionC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="C. Option C"
+        android:layout_marginBottom="6dp"/>
+
+    <TextView
+        android:id="@+id/tvOptionD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="D. Option D"
+        android:layout_marginBottom="6dp"/>
+
+    <TextView
+        android:id="@+id/tvCorrectOption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Correct Option: A"
+        android:layout_marginTop="6dp"/>
+
+    <TextView
+        android:id="@+id/tvMarks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Marks: 1"
+        android:layout_marginTop="4dp"/>
+
+</LinearLayout>

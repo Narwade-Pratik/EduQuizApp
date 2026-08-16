@@ -107,17 +107,35 @@ public class QuestionBankActivity extends AppCompatActivity {
         );
 
         btnManageEasy.setOnClickListener(v ->
-                showComingSoon("Easy")
+                openManageQuestionsActivity("Easy")
         );
 
         btnManageMedium.setOnClickListener(v ->
-                showComingSoon("Medium")
+                openManageQuestionsActivity("Medium")
         );
 
         btnManageHard.setOnClickListener(v ->
-                showComingSoon("Hard")
+                openManageQuestionsActivity("Hard")
         );
     }
+
+    private void openManageQuestionsActivity(String difficulty) {
+
+        Intent intent = new Intent(
+                QuestionBankActivity.this,
+                ManageQuestionsActivity.class
+        );
+
+        intent.putExtra("userId", userId);
+        intent.putExtra("className", className);
+        intent.putExtra("subject", subject);
+        intent.putExtra("chapter", chapter);
+        intent.putExtra("topic", topic);
+        intent.putExtra("difficulty", difficulty);
+
+        startActivity(intent);
+    }
+
 
     private void openAddQuestionActivity(String difficulty) {
 
