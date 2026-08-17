@@ -1,5 +1,6 @@
 package com.vinodnarwade.eduquiz.studentactivities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -844,6 +845,23 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                         numberOfQuestions
                 )
         );
+
+        Intent intent = new Intent(
+                CustomizedQuizActivity.this,
+                AttemptQuizActivity.class
+        );
+
+        intent.putExtra(
+                "isCustomizedQuiz",
+                true
+        );
+
+        intent.putParcelableArrayListExtra(
+                "customQuestions",
+                selectedQuestions
+        );
+
+        startActivity(intent);
 
         Toast.makeText(
                 this,
