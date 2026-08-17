@@ -35,16 +35,19 @@ public class CustomizedQuizActivity extends AppCompatActivity {
 
     private AppCompatButton btnGenerateQuiz;
 
-    // Student login information
     private SharedPreferences sharedPreferences;
 
     private String studentClass;
 
-    // Firebase reference
     private DatabaseReference questionBankRef;
 
-    // Subjects available for student's class
     private final Set<String> subjects =
+            new LinkedHashSet<>();
+
+    private final Set<String> chapters =
+            new LinkedHashSet<>();
+
+    private final Set<String> topics =
             new LinkedHashSet<>();
 
     @Override
@@ -61,10 +64,6 @@ public class CustomizedQuizActivity extends AppCompatActivity {
 
         setupGenerateButton();
 
-        // -----------------------------------------
-        // Get student's class from SharedPreferences
-        // -----------------------------------------
-
         sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -74,7 +73,6 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                         ""
                 );
 
-        // Check student's class
         if (studentClass.isEmpty()) {
 
             Toast.makeText(
@@ -87,19 +85,15 @@ public class CustomizedQuizActivity extends AppCompatActivity {
             return;
         }
 
-        // -----------------------------------------
-        // Firebase QuestionBank reference
-        // -----------------------------------------
-
         questionBankRef =
                 FirebaseDatabase.getInstance()
                         .getReference("QuestionBank");
 
-        // -----------------------------------------
-        // Load subjects available for this class
-        // -----------------------------------------
-
         loadSubjects();
+
+        setupSubjectListener();
+
+        setupChapterListener();
     }
 
     // =========================================================
@@ -128,7 +122,7 @@ public class CustomizedQuizActivity extends AppCompatActivity {
     }
 
     // =========================================================
-    // DIFFICULTY SPINNER
+    // DIFFICULTY
     // =========================================================
 
     private void setupDifficultySpinner() {
@@ -169,33 +163,16 @@ public class CustomizedQuizActivity extends AppCompatActivity {
 
                         subjects.clear();
 
-                        /*
-                         *
-                         * Firebase structure:
-                         *
-                         * QuestionBank
-                         *    |
-                         *    |-- teacherId
-                         *          |
-                         *          |-- className
-                         *                |
-                         *                |-- subject
-                         *
-                         */
-
                         for (DataSnapshot teacherSnapshot :
                                 snapshot.getChildren()) {
 
                             DataSnapshot classSnapshot =
                                     teacherSnapshot.child(studentClass);
 
-                            // This teacher does not have
-                            // a question bank for student's class
                             if (!classSnapshot.exists()) {
                                 continue;
                             }
 
-                            // Read subjects
                             for (DataSnapshot subjectSnapshot :
                                     classSnapshot.getChildren()) {
 
@@ -236,7 +213,6 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                 new ArrayList<>();
 
         subjectList.add("Select Subject");
-
         subjectList.addAll(subjects);
 
         ArrayAdapter<String> adapter =
@@ -254,7 +230,316 @@ public class CustomizedQuizActivity extends AppCompatActivity {
     }
 
     // =========================================================
-    // GENERATE QUIZ BUTTON
+    // SUBJECT LISTENER
+    // =========================================================
+
+    private void setupSubjectListener() {
+
+        spinnerSubject.setOnItemSelectedListener(
+                new android.widget.AdapterView
+                        .OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(
+                            android.widget.AdapterView<?> parent,
+                            android.view.View view,
+                            int position,
+                            long id) {
+
+                        String selectedSubject =
+                                parent.getItemAtPosition(position)
+                                        .toString();
+
+                        if (selectedSubject.equals("Select Subject")) {
+
+                            clearChapterSpinner();
+                            clearTopicSpinner();
+
+                            return;
+                        }
+
+                        loadChapters(selectedSubject);
+                    }
+
+                    @Override
+                    public void onNothingSelected(
+                            android.widget.AdapterView<?> parent) {
+                    }
+                }
+        );
+    }
+
+    // =========================================================
+    // LOAD CHAPTERS
+    // =========================================================
+
+    private void loadChapters(
+            String selectedSubject) {
+
+        chapters.clear();
+
+        questionBankRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(
+                            @NonNull DataSnapshot snapshot) {
+
+                        for (DataSnapshot teacherSnapshot :
+                                snapshot.getChildren()) {
+
+                            DataSnapshot subjectSnapshot =
+                                    teacherSnapshot
+                                            .child(studentClass)
+                                            .child(selectedSubject);
+
+                            if (!subjectSnapshot.exists()) {
+                                continue;
+                            }
+
+                            for (DataSnapshot chapterSnapshot :
+                                    subjectSnapshot.getChildren()) {
+
+                                String chapter =
+                                        chapterSnapshot.getKey();
+
+                                if (chapter != null) {
+                                    chapters.add(chapter);
+                                }
+                            }
+                        }
+
+                        setupChapterSpinner();
+                    }
+
+                    @Override
+                    public void onCancelled(
+                            @NonNull DatabaseError error) {
+
+                        Toast.makeText(
+                                CustomizedQuizActivity.this,
+                                "Failed to load chapters: "
+                                        + error.getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        );
+    }
+
+    // =========================================================
+    // CHAPTER SPINNER
+    // =========================================================
+
+    private void setupChapterSpinner() {
+
+        List<String> chapterList =
+                new ArrayList<>();
+
+        chapterList.add("Select Chapter");
+        chapterList.addAll(chapters);
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        this,
+                        android.R.layout.simple_spinner_item,
+                        chapterList
+                );
+
+        adapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item
+        );
+
+        spinnerChapter.setAdapter(adapter);
+
+        clearTopicSpinner();
+    }
+
+    // =========================================================
+    // CHAPTER LISTENER
+    // =========================================================
+
+    private void setupChapterListener() {
+
+        spinnerChapter.setOnItemSelectedListener(
+                new android.widget.AdapterView
+                        .OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(
+                            android.widget.AdapterView<?> parent,
+                            android.view.View view,
+                            int position,
+                            long id) {
+
+                        String selectedChapter =
+                                parent.getItemAtPosition(position)
+                                        .toString();
+
+                        if (selectedChapter.equals("Select Chapter")) {
+
+                            clearTopicSpinner();
+
+                            return;
+                        }
+
+                        String selectedSubject =
+                                spinnerSubject
+                                        .getSelectedItem()
+                                        .toString();
+
+                        loadTopics(
+                                selectedSubject,
+                                selectedChapter
+                        );
+                    }
+
+                    @Override
+                    public void onNothingSelected(
+                            android.widget.AdapterView<?> parent) {
+                    }
+                }
+        );
+    }
+
+    // =========================================================
+    // LOAD TOPICS
+    // =========================================================
+
+    private void loadTopics(
+            String selectedSubject,
+            String selectedChapter) {
+
+        topics.clear();
+
+        questionBankRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(
+                            @NonNull DataSnapshot snapshot) {
+
+                        for (DataSnapshot teacherSnapshot :
+                                snapshot.getChildren()) {
+
+                            DataSnapshot chapterSnapshot =
+                                    teacherSnapshot
+                                            .child(studentClass)
+                                            .child(selectedSubject)
+                                            .child(selectedChapter);
+
+                            if (!chapterSnapshot.exists()) {
+                                continue;
+                            }
+
+                            for (DataSnapshot topicSnapshot :
+                                    chapterSnapshot.getChildren()) {
+
+                                String topic =
+                                        topicSnapshot.getKey();
+
+                                if (topic != null) {
+                                    topics.add(topic);
+                                }
+                            }
+                        }
+
+                        setupTopicSpinner();
+                    }
+
+                    @Override
+                    public void onCancelled(
+                            @NonNull DatabaseError error) {
+
+                        Toast.makeText(
+                                CustomizedQuizActivity.this,
+                                "Failed to load topics: "
+                                        + error.getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        );
+    }
+
+    // =========================================================
+    // TOPIC SPINNER
+    // =========================================================
+
+    private void setupTopicSpinner() {
+
+        List<String> topicList =
+                new ArrayList<>();
+
+        topicList.add("Select Topic");
+        topicList.addAll(topics);
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        this,
+                        android.R.layout.simple_spinner_item,
+                        topicList
+                );
+
+        adapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item
+        );
+
+        spinnerTopic.setAdapter(adapter);
+    }
+
+    // =========================================================
+    // CLEAR CHAPTER
+    // =========================================================
+
+    private void clearChapterSpinner() {
+
+        List<String> list =
+                new ArrayList<>();
+
+        list.add("Select Chapter");
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        this,
+                        android.R.layout.simple_spinner_item,
+                        list
+                );
+
+        adapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item
+        );
+
+        spinnerChapter.setAdapter(adapter);
+    }
+
+    // =========================================================
+    // CLEAR TOPIC
+    // =========================================================
+
+    private void clearTopicSpinner() {
+
+        List<String> list =
+                new ArrayList<>();
+
+        list.add("Select Topic");
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        this,
+                        android.R.layout.simple_spinner_item,
+                        list
+                );
+
+        adapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item
+        );
+
+        spinnerTopic.setAdapter(adapter);
+    }
+
+    // =========================================================
+    // GENERATE QUIZ
     // =========================================================
 
     private void setupGenerateButton() {
@@ -294,10 +579,6 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                             .getText()
                             .toString()
                             .trim();
-
-            // -----------------------------------------
-            // Validate number of questions
-            // -----------------------------------------
 
             if (numberText.isEmpty()) {
 
@@ -339,10 +620,6 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                 return;
             }
 
-            // -----------------------------------------
-            // Validate hierarchy selection
-            // -----------------------------------------
-
             if (subject.equals("Select Subject")
                     || chapter.equals("Select Chapter")
                     || topic.equals("Select Topic")) {
@@ -356,10 +633,6 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                 return;
             }
 
-            // -----------------------------------------
-            // Temporary message
-            // -----------------------------------------
-
             Toast.makeText(
                     this,
                     "Ready to generate "
@@ -368,10 +641,7 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT
             ).show();
 
-            /*
-             * Firebase question selection
-             * will be implemented next.
-             */
+            // Question selection will be implemented next.
         });
     }
 }
