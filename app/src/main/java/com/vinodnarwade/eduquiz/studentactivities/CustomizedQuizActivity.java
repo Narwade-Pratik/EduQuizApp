@@ -5,6 +5,8 @@ import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 
+import java.util.Collections;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,6 +59,9 @@ public class CustomizedQuizActivity extends AppCompatActivity {
     private String studentUserId;
 
     private final ArrayList<QuestionModel> availableQuestions =
+            new ArrayList<>();
+
+    private final ArrayList<QuestionModel> selectedQuestions =
             new ArrayList<>();
 
     private final Set<String> subjects =
@@ -826,11 +831,28 @@ public class CustomizedQuizActivity extends AppCompatActivity {
             return;
         }
 
+        selectedQuestions.clear();
+
+        ArrayList<QuestionModel> shuffledQuestions =
+                new ArrayList<>(availableQuestions);
+
+        Collections.shuffle(shuffledQuestions);
+
+        selectedQuestions.addAll(
+                shuffledQuestions.subList(
+                        0,
+                        numberOfQuestions
+                )
+        );
+
         Toast.makeText(
                 this,
-                availableCount +
-                        " questions found successfully.",
+                "Quiz generated with " +
+                        selectedQuestions.size() +
+                        " questions.",
                 Toast.LENGTH_SHORT
         ).show();
+
+        // Step 2E will open the quiz here.
     }
 }
