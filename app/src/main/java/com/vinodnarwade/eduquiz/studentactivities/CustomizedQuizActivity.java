@@ -1,6 +1,19 @@
 package com.vinodnarwade.eduquiz.studentactivities;
 
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.vinodnarwade.eduquiz.teacheractivities.QuestionModel;
+
+import java.util.ArrayList;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.ArrayAdapter;
@@ -41,6 +54,11 @@ public class CustomizedQuizActivity extends AppCompatActivity {
 
     private DatabaseReference questionBankRef;
 
+    private String studentUserId;
+
+    private final ArrayList<QuestionModel> availableQuestions =
+            new ArrayList<>();
+
     private final Set<String> subjects =
             new LinkedHashSet<>();
 
@@ -59,6 +77,8 @@ public class CustomizedQuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customized_quiz);
 
         initializeViews();
+
+        loadStudentDetails();
 
         setupDifficultySpinner();
 
@@ -119,6 +139,41 @@ public class CustomizedQuizActivity extends AppCompatActivity {
 
         btnGenerateQuiz =
                 findViewById(R.id.btnGenerateCustomQuiz);
+    }
+
+    private void loadStudentDetails() {
+
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+
+        studentUserId =
+                preferences.getString("userId", "");
+
+        studentClass =
+                preferences.getString("className", "");
+
+        if (studentUserId.isEmpty()) {
+
+            Toast.makeText(
+                    this,
+                    "Student ID not found. Please login again.",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            finish();
+            return;
+        }
+
+        if (studentClass.isEmpty()) {
+
+            Toast.makeText(
+                    this,
+                    "Student class not found.",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            finish();
+        }
     }
 
     // =========================================================
@@ -633,15 +688,149 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                 return;
             }
 
+            fetchQuestionsFromQuestionBank(
+                    subject,
+                    chapter,
+                    topic,
+                    difficulty,
+                    numberOfQuestions
+            );
+        });
+    }
+
+    private void fetchQuestionsFromQuestionBank(
+            String subject,
+            String chapter,
+            String topic,
+            String difficulty,
+            int numberOfQuestions) {
+
+        DatabaseReference questionBankRef =
+                FirebaseDatabase.getInstance()
+                        .getReference("QuestionBank");
+
+        questionBankRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(
+                            @NonNull DataSnapshot snapshot) {
+
+                        availableQuestions.clear();
+
+                        /*
+                         * QuestionBank
+                         *     ├── Teacher 1
+                         *     ├── Teacher 2
+                         *     └── Teacher 3
+                         */
+
+                        for (DataSnapshot teacherSnapshot :
+                                snapshot.getChildren()) {
+
+                            DataSnapshot classSnapshot =
+                                    teacherSnapshot.child(studentClass);
+
+                            if (!classSnapshot.exists()) {
+                                continue;
+                            }
+
+                            DataSnapshot subjectSnapshot =
+                                    classSnapshot.child(subject);
+
+                            if (!subjectSnapshot.exists()) {
+                                continue;
+                            }
+
+                            DataSnapshot chapterSnapshot =
+                                    subjectSnapshot.child(chapter);
+
+                            if (!chapterSnapshot.exists()) {
+                                continue;
+                            }
+
+                            DataSnapshot topicSnapshot =
+                                    chapterSnapshot.child(topic);
+
+                            if (!topicSnapshot.exists()) {
+                                continue;
+                            }
+
+                            DataSnapshot difficultySnapshot =
+                                    topicSnapshot.child(difficulty);
+
+                            if (!difficultySnapshot.exists()) {
+                                continue;
+                            }
+
+                            for (DataSnapshot questionSnapshot :
+                                    difficultySnapshot.getChildren()) {
+
+                                QuestionModel question =
+                                        questionSnapshot
+                                                .getValue(QuestionModel.class);
+
+                                if (question != null) {
+
+                                    availableQuestions.add(question);
+                                }
+                            }
+                        }
+
+                        handleFetchedQuestions(
+                                numberOfQuestions
+                        );
+                    }
+
+                    @Override
+                    public void onCancelled(
+                            @NonNull DatabaseError error) {
+
+                        Toast.makeText(
+                                CustomizedQuizActivity.this,
+                                "Failed to load questions: "
+                                        + error.getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        );
+    }
+
+    private void handleFetchedQuestions(
+            int numberOfQuestions) {
+
+        int availableCount =
+                availableQuestions.size();
+
+        if (availableCount == 0) {
+
             Toast.makeText(
                     this,
-                    "Ready to generate "
-                            + numberOfQuestions
-                            + " questions",
-                    Toast.LENGTH_SHORT
+                    "No questions available for the selected options.",
+                    Toast.LENGTH_LONG
             ).show();
 
-            // Question selection will be implemented next.
-        });
+            return;
+        }
+
+        if (availableCount < numberOfQuestions) {
+
+            Toast.makeText(
+                    this,
+                    "Only " + availableCount +
+                            " questions are available.",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            return;
+        }
+
+        Toast.makeText(
+                this,
+                availableCount +
+                        " questions found successfully.",
+                Toast.LENGTH_SHORT
+        ).show();
     }
 }
