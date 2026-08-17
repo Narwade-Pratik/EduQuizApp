@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class ReviewQuizActivity extends AppCompatActivity {
 
-    EditText etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
+    EditText etQuestionTopic, etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
     Button btnNext, btnPrevious, btnSubmitAll;
     ArrayList<QuestionModel> questionList;
     int currentIndex = 0;
@@ -31,6 +31,7 @@ public class ReviewQuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_quiz);
 
+        etQuestionTopic = findViewById(R.id.etreviewquestionquestiontopic);
         etQuestion = findViewById(R.id.etreviewquestionquestion);
         etOptionA = findViewById(R.id.etreviewquestionoptiona);
         etOptionB = findViewById(R.id.etreviewquestionoptionb);
@@ -96,6 +97,7 @@ public class ReviewQuizActivity extends AppCompatActivity {
 
     private void showQuestion(int index) {
         QuestionModel model = questionList.get(index);
+        etQuestionTopic.setText(model.getQuestionTopic());
         etQuestion.setText(model.getQuestion());
         etOptionA.setText(model.getOptionA());
         etOptionB.setText(model.getOptionB());
@@ -114,6 +116,7 @@ public class ReviewQuizActivity extends AppCompatActivity {
 
     private void saveCurrentQuestion() {
         QuestionModel model = questionList.get(currentIndex);
+        model.setQuestion(etQuestionTopic.getText().toString());
         model.setQuestion(etQuestion.getText().toString());
         model.setOptionA(etOptionA.getText().toString());
         model.setOptionB(etOptionB.getText().toString());

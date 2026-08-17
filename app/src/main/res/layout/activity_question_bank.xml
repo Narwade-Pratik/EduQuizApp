@@ -15,9 +15,10 @@
         android:padding="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Question Bank"
+            android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginBottom="12dp"/>
@@ -37,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Easy Questions"
+            android:textColor="@color/orange"
             android:textSize="18sp"
             android:textStyle="bold"/>
 
@@ -52,6 +54,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/green"
+                android:background="@drawable/button_bg"
                 android:text="Add"/>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -60,6 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Manage"
+                android:textColor="@color/black"
+                android:background="@drawable/button_bg"
                 android:layout_marginStart="8dp"/>
 
         </LinearLayout>
@@ -70,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Medium Questions"
+            android:textColor="@color/orange"
             android:textSize="18sp"
             android:textStyle="bold"/>
 
@@ -85,6 +92,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/green"
+                android:background="@drawable/button_bg"
                 android:text="Add"/>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -93,6 +102,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Manage"
+                android:textColor="@color/black"
+                android:background="@drawable/button_bg"
                 android:layout_marginStart="8dp"/>
 
         </LinearLayout>
@@ -102,6 +113,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/orange"
             android:text="Hard Questions"
             android:textSize="18sp"
             android:textStyle="bold"/>
@@ -118,6 +130,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/green"
+                android:background="@drawable/button_bg"
                 android:text="Add"/>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -126,6 +140,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Manage"
+                android:textColor="@color/black"
+                android:background="@drawable/button_bg"
                 android:layout_marginStart="8dp"/>
 
         </LinearLayout>

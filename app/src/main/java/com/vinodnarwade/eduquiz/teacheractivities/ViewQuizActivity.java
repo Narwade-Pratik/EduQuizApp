@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ViewQuizActivity extends AppCompatActivity {
 
-    EditText etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
+    EditText etQuestionTopic, etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
     AppCompatButton btnNext, btnPrevious;
     ArrayList<QuestionModel> questionList = new ArrayList<>();
     int currentIndex = 0;
@@ -30,6 +30,7 @@ public class ViewQuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_quiz); // Reuse same layout
 
+        etQuestionTopic = findViewById(R.id.etreviewquestionquestiontopic);
         etQuestion = findViewById(R.id.etreviewquestionquestion);
         etOptionA = findViewById(R.id.etreviewquestionoptiona);
         etOptionB = findViewById(R.id.etreviewquestionoptionb);
@@ -90,6 +91,7 @@ public class ViewQuizActivity extends AppCompatActivity {
 
     private void showQuestion(int index) {
         QuestionModel model = questionList.get(index);
+        etQuestionTopic.setText(model.getQuestionTopic());
         etQuestion.setText(model.getQuestion());
         etOptionA.setText(model.getOptionA());
         etOptionB.setText(model.getOptionB());
@@ -100,6 +102,7 @@ public class ViewQuizActivity extends AppCompatActivity {
     }
 
     private void disableEditing() {
+        etQuestionTopic.setEnabled(false);
         etQuestion.setEnabled(false);
         etOptionA.setEnabled(false);
         etOptionB.setEnabled(false);

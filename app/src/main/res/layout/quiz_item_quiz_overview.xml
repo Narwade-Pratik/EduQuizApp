@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="12dp"
-    android:background="@drawable/new_card_bg"
+    android:background="#CBCBCB"
     android:paddingLeft="20dp"
     android:weightSum="100"
     android:layout_margin="8dp">

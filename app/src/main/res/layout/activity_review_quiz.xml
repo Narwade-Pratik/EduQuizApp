@@ -25,6 +25,20 @@
             android:layout_marginBottom="24dp"
             android:layout_marginTop="40dp"/>
 
+        <EditText
+            android:id="@+id/etreviewquestionquestiontopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint=""
+            android:textSize="18sp"
+            android:fontFamily="@font/alice"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:background="@drawable/edit2"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
         <!-- Question Field -->
         <EditText
             android:id="@+id/etreviewquestionquestion"
@@ -132,18 +146,19 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btnreviewquestionprevious"
-                android:layout_width="120dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="Previous"
-                android:textColor="@color/white"
-                android:fontFamily="@font/alice"
+                android:layout_marginRight="130dp"
                 android:backgroundTint="@color/black"
+                android:fontFamily="@font/alice"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"
-                android:layout_marginRight="5dp"/>
+                android:text="Previous"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/btnreviewquestionnext"

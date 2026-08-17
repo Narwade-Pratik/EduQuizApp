@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/new_card_bg"
+        android:background="#CBCBCB"
         android:padding="16dp">
 
         <TextView
@@ -24,6 +24,7 @@
             android:text="Quiz Title"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:background="#CBCBCB"
             android:layout_marginBottom="10dp"
             android:textColor="#000000" />
 
@@ -38,7 +39,7 @@
                 android:text="Subject: "
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/green"
                 android:layout_marginTop="4dp" />
 
             <TextView
@@ -66,7 +67,7 @@
             android:text="Total Questions :"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/red"
             android:layout_marginTop="2dp" />
 
         <TextView

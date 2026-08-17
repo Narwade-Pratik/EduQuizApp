@@ -20,7 +20,6 @@
             android:layout_width="300dp"
             android:layout_height="400dp"
             android:layout_gravity="center"
-            android:background="@color/gray"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"

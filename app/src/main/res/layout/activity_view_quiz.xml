@@ -22,7 +22,7 @@
            android:layout_height="wrap_content"
            android:orientation="vertical"
            android:padding="24dp"
-            android:background="@drawable/new_card_background"
+           android:background="#CBCBCB"
            android:gravity="center_horizontal">
 
            <TextView
@@ -143,8 +143,8 @@
                    android:text="Previous"
                    android:fontFamily="@font/alice"
                    android:textColor="@color/black"
-                   android:backgroundTint="@color/blue"
-                   android:layout_marginEnd="8dp" />
+                   android:background="#B3C0D7"
+                   android:layout_marginEnd="100dp" />
 
                <androidx.appcompat.widget.AppCompatButton
                    android:id="@+id/btnreviewquestionnext"
@@ -155,7 +155,7 @@
                    android:textStyle="bold"
                    android:fontFamily="@font/alice"
                    android:textColor="@color/black"
-                   android:backgroundTint="@color/blue" />
+                   android:background="#B3C0D7" />
            </LinearLayout>
 
            <View

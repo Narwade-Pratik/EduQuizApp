@@ -2,45 +2,179 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:background="#F6F8FC"
     android:fitsSystemWindows="true"
     tools:context=".teacheractivities.ManageQuestionsActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Manage Questions"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="12dp"/>
-
-    <TextView
-        android:id="@+id/tvHierarchy"
+    <!-- Header -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Class > Subject > Chapter > Topic"
-        android:textSize="15sp"
-        android:padding="12dp"
-        android:layout_marginBottom="8dp"/>
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/tvDifficulty"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Questions"
+            android:textAlignment="viewStart"
+            android:textColor="#172033"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Review, edit and organize your questions"
+            android:textColor="#7A8496"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+    <!-- Question Bank Information -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Difficulty: Easy"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="12dp"
-        android:layout_marginBottom="12dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="2dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Section title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Question Bank"
+                android:textColor="#202A3A"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Hierarchy -->
+            <TextView
+                android:id="@+id/tvHierarchy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_info_box"
+                android:drawableStart="@android:drawable/ic_menu_sort_by_size"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:padding="12dp"
+                android:text="Class > Subject > Chapter > Topic"
+                android:textColor="#475467"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- Difficulty Card -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="14dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Difficulty Level"
+                    android:textColor="#667085"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Difficulty indicator -->
+            <TextView
+                android:id="@+id/tvDifficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="Easy"
+                android:textColor="#202A3A"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- Questions Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Questions"
+            android:textColor="#202A3A"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manage"
+            android:textColor="#5B5FEF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <!-- Questions List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerQuestions"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp" />
 
 </LinearLayout>

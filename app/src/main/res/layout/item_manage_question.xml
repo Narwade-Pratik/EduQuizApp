@@ -8,55 +8,137 @@
     android:padding="16dp"
     android:layout_marginBottom="12dp">
 
+
+    <TextView
+        android:id="@+id/tvQuestionTopic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Topic"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+
+    <!-- Question -->
     <TextView
         android:id="@+id/tvQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:text="Question"
         android:textSize="17sp"
         android:textStyle="bold"
-        android:layout_marginBottom="12dp"/>
+        android:textColor="#172033"
+        android:lineSpacingExtra="3dp"
+        android:layout_marginBottom="14dp"/>
 
+
+    <!-- Options -->
     <TextView
         android:id="@+id/tvOptionA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="A. Option A"
-        android:layout_marginBottom="6dp"/>
+        android:textSize="15sp"
+        android:textColor="#475467"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/tvOptionB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="B. Option B"
-        android:layout_marginBottom="6dp"/>
+        android:textSize="15sp"
+        android:textColor="#475467"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/tvOptionC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="C. Option C"
-        android:layout_marginBottom="6dp"/>
+        android:textSize="15sp"
+        android:textColor="#475467"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/tvOptionD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="D. Option D"
-        android:layout_marginBottom="6dp"/>
+        android:textSize="15sp"
+        android:textColor="#475467"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_marginBottom="8dp"/>
 
+
+    <!-- Answer Information -->
     <TextView
         android:id="@+id/tvCorrectOption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Correct Option: A"
-        android:layout_marginTop="6dp"/>
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#247A45"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"/>
 
     <TextView
         android:id="@+id/tvMarks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Marks: 1"
-        android:layout_marginTop="4dp"/>
+        android:textSize="14sp"
+        android:textColor="#667085"
+        android:layout_marginTop="2dp"/>
+
+
+    <!-- Actions -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="14dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnEditQuestion"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:text="Edit"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:background="@drawable/question_back"
+            android:textAllCaps="false"
+            android:minHeight="0dp"
+            android:minWidth="0dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDeleteQuestion"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:text="Delete"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/red"
+            android:background="@drawable/question_back"
+            android:textAllCaps="false"
+            android:layout_marginStart="10dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>
+
+

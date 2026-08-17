@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#f2f2f2">
+    android:background="#F6F8FC">
 
 
     <LinearLayout
@@ -92,13 +92,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:textStyle="bold"
-            android:background="@color/green"
+            android:background="@drawable/edit2"
             android:text="Previous" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAttemptQuizNext"
             android:layout_width="120dp"
-            android:background="@color/green"
+            android:background="@drawable/edit2"
             android:textStyle="bold"
             android:layout_height="wrap_content"
             android:layout_marginLeft="120dp"
@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:layout_marginTop="25dp"
-        android:background="@color/sky_blue"
+        android:background="@drawable/edit"
         android:text="Submit Quiz"/>
     <!--android:visibility="gone"-->
 

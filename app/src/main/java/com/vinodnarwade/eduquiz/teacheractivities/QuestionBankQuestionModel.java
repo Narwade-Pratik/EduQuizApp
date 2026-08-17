@@ -12,6 +12,8 @@ public class QuestionBankQuestionModel {
     private String difficulty;
 
     private String question;
+    private String questionTopic;
+
     private String optionA;
     private String optionB;
     private String optionC;
@@ -19,6 +21,7 @@ public class QuestionBankQuestionModel {
     private String correctOption;
 
     private int marks;
+
 
     // Required for Firebase
     public QuestionBankQuestionModel() {
@@ -32,6 +35,7 @@ public class QuestionBankQuestionModel {
             String chapter,
             String topic,
             String difficulty,
+            String questionTopic,
             String question,
             String optionA,
             String optionB,
@@ -47,6 +51,7 @@ public class QuestionBankQuestionModel {
         this.chapter = chapter;
         this.topic = topic;
         this.difficulty = difficulty;
+        this.questionTopic = questionTopic;
         this.question = question;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -54,6 +59,14 @@ public class QuestionBankQuestionModel {
         this.optionD = optionD;
         this.correctOption = correctOption;
         this.marks = marks;
+    }
+
+    public String getQuestionTopic() {
+        return questionTopic;
+    }
+
+    public void setQuestionTopic(String questionTopic) {
+        this.questionTopic = questionTopic;
     }
 
     public String getQuestionId() {

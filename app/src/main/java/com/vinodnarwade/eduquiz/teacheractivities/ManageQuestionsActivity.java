@@ -1,5 +1,6 @@
 package com.vinodnarwade.eduquiz.teacheractivities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vinodnarwade.eduquiz.R;
@@ -119,9 +121,78 @@ public class ManageQuestionsActivity extends AppCompatActivity {
                 new LinearLayoutManager(this)
         );
 
-        adapter = new ManageQuestionsAdapter(questionList);
+        adapter = new ManageQuestionsAdapter(
+                questionList,
+                new ManageQuestionsAdapter.OnQuestionActionListener() {
+
+                    @Override
+                    public void onEditQuestion(
+                            QuestionBankQuestionModel model) {
+
+                        openEditQuestion(model);
+                    }
+
+                    @Override
+                    public void onDeleteQuestion(
+                            QuestionBankQuestionModel model) {
+
+                        deleteQuestion(model);
+                    }
+                }
+        );
 
         recyclerQuestions.setAdapter(adapter);
+    }
+
+    private void editQuestion(
+            QuestionBankQuestionModel question) {
+
+        Toast.makeText(
+                this,
+                "Edit: " + question.getQuestionId(),
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+
+    private void deleteQuestion(
+            QuestionBankQuestionModel question) {
+
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Delete Question")
+                .setMessage("Are you sure you want to delete this question?")
+                .setPositiveButton("Delete", (dialog, which) -> {
+
+                    questionRef
+                            .child(question.getQuestionId())
+                            .removeValue()
+                            .addOnSuccessListener(unused -> {
+
+                                int position =
+                                        questionList.indexOf(question);
+
+                                if (position != -1) {
+                                    questionList.remove(position);
+                                    adapter.notifyItemRemoved(position);
+                                }
+
+                                Toast.makeText(
+                                        ManageQuestionsActivity.this,
+                                        "Question deleted successfully",
+                                        Toast.LENGTH_SHORT
+                                ).show();
+                            })
+                            .addOnFailureListener(e -> {
+
+                                Toast.makeText(
+                                        ManageQuestionsActivity.this,
+                                        "Failed to delete question: "
+                                                + e.getMessage(),
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            });
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     private void loadQuestions() {
@@ -131,8 +202,7 @@ public class ManageQuestionsActivity extends AppCompatActivity {
 
                     questionList.clear();
 
-                    for (com.google.firebase.database.DataSnapshot questionSnapshot
-                            : snapshot.getChildren()) {
+                    for (DataSnapshot questionSnapshot : snapshot.getChildren()) {
 
                         QuestionBankQuestionModel question =
                                 questionSnapshot.getValue(
@@ -140,6 +210,15 @@ public class ManageQuestionsActivity extends AppCompatActivity {
                                 );
 
                         if (question != null) {
+
+                            question.setQuestionId(questionSnapshot.getKey());
+
+                            Toast.makeText(
+                                    ManageQuestionsActivity.this,
+                                    "Loaded Topic: " + question.getQuestionTopic(),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
                             questionList.add(question);
                         }
                     }
@@ -163,4 +242,27 @@ public class ManageQuestionsActivity extends AppCompatActivity {
                     ).show();
                 });
     }
+
+    private void openEditQuestion(
+            QuestionBankQuestionModel model) {
+
+        Intent intent = new Intent(
+                ManageQuestionsActivity.this,
+                EditQuestionActivity.class
+        );
+
+        intent.putExtra("userId", userId);
+        intent.putExtra("className", className);
+        intent.putExtra("subject", subject);
+        intent.putExtra("chapter", chapter);
+        intent.putExtra("topic", topic);
+        intent.putExtra("difficulty", difficulty);
+        intent.putExtra(
+                "questionId",
+                model.getQuestionId()
+        );
+
+        startActivity(intent);
+    }
+
 }

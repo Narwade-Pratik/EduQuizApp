@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/new_card_background"
+    android:background="#F6F8FC"
     tools:context=".teacheractivities.EditQuizActivity">
 
     <LinearLayout
@@ -25,6 +25,20 @@
             android:fontFamily="@font/alice"
             android:layout_marginBottom="24dp"
             android:layout_marginTop="40dp"/>
+
+        <EditText
+            android:id="@+id/etaddquestionquestiontopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Question Topic"
+            android:textSize="18sp"
+            android:fontFamily="@font/alice"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:background="@drawable/edit2"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
 
         <!-- Question Field -->
         <EditText
@@ -142,7 +156,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:fontFamily="@font/alice"
-                android:backgroundTint="@color/sky_blue"
+                android:background="@drawable/edit2"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"
                 android:layout_marginRight="135dp"/>
@@ -156,7 +170,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:fontFamily="@font/alice"
-                android:backgroundTint="@color/sky_blue"
+                android:background="@drawable/edit2"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="12dp"/>
         </LinearLayout>

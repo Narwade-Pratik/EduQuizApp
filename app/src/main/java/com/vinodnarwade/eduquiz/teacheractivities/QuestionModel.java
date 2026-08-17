@@ -87,7 +87,7 @@ public class QuestionModel implements Parcelable {
     public void setQuestion(String question) { this.question = question; }
 
     public String getQuestionTopic() { return questionTopic; }
-    public void setQuestionTopic(String question) { this.question = questionTopic; }
+    public void setQuestionTopic(String questionTopic) { this.questionTopic = questionTopic; }
 
     public int getMarks() { return marks; }
     public void setMarks(int marks) { this.marks = marks; }

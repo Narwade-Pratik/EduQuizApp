@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:background="@drawable/new_card_background"
+            android:background="#CBCBCB"
             android:orientation="vertical">
             <EditText
                 android:layout_width="300dp"
@@ -82,7 +82,7 @@
                 android:id="@+id/btncreatequizschedulefirsttimeanddate"
                 android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                android:text="Set First Date and Time"
+                android:text="Set Starting Date and Time"
                 android:textSize="20dp"
                 android:backgroundTint="@color/SkyBlue"
                 android:textColor="@android:color/white"
@@ -105,7 +105,7 @@
                 android:id="@+id/btncreatequizschedulesecondtimeanddate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Set Second Date and Time"
+                android:text="Set Ending Date and Time"
                 android:textSize="20dp"
                 android:backgroundTint="@color/SkyBlue"
                 android:textColor="@android:color/white"

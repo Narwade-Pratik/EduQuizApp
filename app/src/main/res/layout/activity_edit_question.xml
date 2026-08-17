@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Question"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"/>
+
+        <EditText
+            android:id="@+id/etEditQBQuestionTopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Question Topic"
+            android:inputType="text"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etEditQBQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Question"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etEditQBOptionA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Option A"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etEditQBOptionB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Option B"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etEditQBOptionC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Option C"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etEditQBOptionD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Option D"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etEditQBCorrectOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correct Option (A/B/C/D)"
+            android:inputType="textCapCharacters"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etEditQBMarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Marks"
+            android:inputType="number"
+            android:layout_marginBottom="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnUpdateQBQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Question"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -2,7 +2,6 @@ package com.vinodnarwade.eduquiz.teacheractivities;
 
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vinodnarwade.eduquiz.R;
 
-public class AddQueToQBActivity extends AppCompatActivity {
-
-    private TextView tvQuestionBankInfo;
-    private TextView tvDifficulty;
+public class EditQuestionActivity extends AppCompatActivity {
 
     private EditText etQuestionTopic;
     private EditText etQuestion;
@@ -26,9 +22,7 @@ public class AddQueToQBActivity extends AppCompatActivity {
     private EditText etCorrectOption;
     private EditText etMarks;
 
-    private AppCompatButton btnAddQuestion;
-
-    private DatabaseReference questionRef;
+    private AppCompatButton btnUpdateQuestion;
 
     private String userId;
     private String className;
@@ -36,96 +30,97 @@ public class AddQueToQBActivity extends AppCompatActivity {
     private String chapter;
     private String topic;
     private String difficulty;
+    private String questionId;
+
+    private DatabaseReference questionRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle("Add Question");
+        setTitle("Edit Question");
 
-        setContentView(R.layout.activity_add_que_to_qbactivity);
+        setContentView(R.layout.activity_edit_question);
 
-        // Get data from QuestionBankActivity
+        receiveIntentData();
+
+        if (!validateIntentData()) {
+            return;
+        }
+
+        initializeViews();
+
+        createFirebaseReference();
+
+        loadQuestion();
+
+        btnUpdateQuestion.setOnClickListener(v ->
+                updateQuestion()
+        );
+    }
+
+    private void receiveIntentData() {
+
         userId = getIntent().getStringExtra("userId");
         className = getIntent().getStringExtra("className");
         subject = getIntent().getStringExtra("subject");
         chapter = getIntent().getStringExtra("chapter");
         topic = getIntent().getStringExtra("topic");
         difficulty = getIntent().getStringExtra("difficulty");
+        questionId = getIntent().getStringExtra("questionId");
+    }
 
-        // Validate received data
+    private boolean validateIntentData() {
+
         if (userId == null
                 || className == null
                 || subject == null
                 || chapter == null
                 || topic == null
-                || difficulty == null) {
+                || difficulty == null
+                || questionId == null) {
 
             Toast.makeText(
                     this,
-                    "Invalid question bank information",
+                    "Question information not found",
                     Toast.LENGTH_LONG
             ).show();
 
             finish();
-            return;
+            return false;
         }
 
-        initializeViews();
-
-        displayQuestionBankInfo();
-
-        createFirebaseReference();
-
-        btnAddQuestion.setOnClickListener(v -> addQuestion());
+        return true;
     }
 
     private void initializeViews() {
 
-        tvQuestionBankInfo = findViewById(R.id.tvQuestionBankInfo);
-        tvDifficulty = findViewById(R.id.tvDifficulty);
-
         etQuestionTopic =
-                findViewById(R.id.etQBQuestionTopic);
+                findViewById(R.id.etEditQBQuestionTopic);
 
         etQuestion =
-                findViewById(R.id.etQBQuestion);
+                findViewById(R.id.etEditQBQuestion);
 
         etOptionA =
-                findViewById(R.id.etQBOptionA);
+                findViewById(R.id.etEditQBOptionA);
 
         etOptionB =
-                findViewById(R.id.etQBOptionB);
+                findViewById(R.id.etEditQBOptionB);
 
         etOptionC =
-                findViewById(R.id.etQBOptionC);
+                findViewById(R.id.etEditQBOptionC);
 
         etOptionD =
-                findViewById(R.id.etQBOptionD);
+                findViewById(R.id.etEditQBOptionD);
 
         etCorrectOption =
-                findViewById(R.id.etQBCorrectOption);
+                findViewById(R.id.etEditQBCorrectOption);
 
         etMarks =
-                findViewById(R.id.etQBMarks);
+                findViewById(R.id.etEditQBMarks);
 
-        btnAddQuestion =
-                findViewById(R.id.btnAddQBQuestion);
-    }
-
-    private void displayQuestionBankInfo() {
-
-        String information =
-                className + " > "
-                        + subject + " > "
-                        + chapter + " > "
-                        + topic;
-
-        tvQuestionBankInfo.setText(information);
-
-        tvDifficulty.setText(
-                "Difficulty: " + difficulty
-        );
+        btnUpdateQuestion =
+                findViewById(R.id.btnUpdateQBQuestion);
     }
 
     private void createFirebaseReference() {
@@ -137,10 +132,78 @@ public class AddQueToQBActivity extends AppCompatActivity {
                 .child(subject)
                 .child(chapter)
                 .child(topic)
-                .child(difficulty);
+                .child(difficulty)
+                .child(questionId);
     }
 
-    private void addQuestion() {
+    private void loadQuestion() {
+
+        questionRef.get()
+                .addOnSuccessListener(snapshot -> {
+
+                    QuestionBankQuestionModel question =
+                            snapshot.getValue(
+                                    QuestionBankQuestionModel.class
+                            );
+
+                    if (question == null) {
+
+                        Toast.makeText(
+                                this,
+                                "Question not found",
+                                Toast.LENGTH_LONG
+                        ).show();
+
+                        finish();
+                        return;
+                    }
+
+                    etQuestionTopic.setText(
+                            question.getQuestionTopic()
+                    );
+
+                    etQuestion.setText(
+                            question.getQuestion()
+                    );
+
+                    etOptionA.setText(
+                            question.getOptionA()
+                    );
+
+                    etOptionB.setText(
+                            question.getOptionB()
+                    );
+
+                    etOptionC.setText(
+                            question.getOptionC()
+                    );
+
+                    etOptionD.setText(
+                            question.getOptionD()
+                    );
+
+                    etCorrectOption.setText(
+                            question.getCorrectOption()
+                    );
+
+                    etMarks.setText(
+                            String.valueOf(
+                                    question.getMarks()
+                            )
+                    );
+                })
+                .addOnFailureListener(e -> {
+
+                    Toast.makeText(
+                            this,
+                            "Failed to load question: "
+                                    + e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                });
+    }
+
+    private void updateQuestion() {
 
         String questionTopic =
                 etQuestionTopic.getText().toString().trim();
@@ -161,13 +224,14 @@ public class AddQueToQBActivity extends AppCompatActivity {
                 etOptionD.getText().toString().trim();
 
         String correctOption =
-                etCorrectOption.getText().toString().trim()
+                etCorrectOption.getText()
+                        .toString()
+                        .trim()
                         .toUpperCase();
 
         String marksText =
                 etMarks.getText().toString().trim();
 
-        // Validate empty fields
         if (questionTopic.isEmpty()
                 || question.isEmpty()
                 || optionA.isEmpty()
@@ -186,7 +250,6 @@ public class AddQueToQBActivity extends AppCompatActivity {
             return;
         }
 
-        // Validate correct option
         if (!correctOption.equals("A")
                 && !correctOption.equals("B")
                 && !correctOption.equals("C")
@@ -201,7 +264,6 @@ public class AddQueToQBActivity extends AppCompatActivity {
             return;
         }
 
-        // Validate marks
         int marks;
 
         try {
@@ -230,22 +292,7 @@ public class AddQueToQBActivity extends AppCompatActivity {
             return;
         }
 
-        // Generate question ID
-        String questionId = questionRef.push().getKey();
-
-        if (questionId == null) {
-
-            Toast.makeText(
-                    this,
-                    "Failed to generate question ID",
-                    Toast.LENGTH_SHORT
-            ).show();
-
-            return;
-        }
-
-        // Create Question Bank question
-        QuestionBankQuestionModel que =
+        QuestionBankQuestionModel updatedQuestion =
                 new QuestionBankQuestionModel(
                         questionId,
                         userId,
@@ -254,7 +301,7 @@ public class AddQueToQBActivity extends AppCompatActivity {
                         chapter,
                         topic,
                         difficulty,
-                        questionTopic,   // IMPORTANT
+                        questionTopic,
                         question,
                         optionA,
                         optionB,
@@ -264,41 +311,26 @@ public class AddQueToQBActivity extends AppCompatActivity {
                         marks
                 );
 
-        // Save to Firebase
         questionRef
-                .child(questionId)
-                .setValue(que)
+                .setValue(updatedQuestion)
                 .addOnSuccessListener(unused -> {
 
                     Toast.makeText(
-                            AddQueToQBActivity.this,
-                            "Question added successfully",
+                            this,
+                            "Question updated successfully",
                             Toast.LENGTH_SHORT
                     ).show();
 
-                    clearFields();
+                    finish();
                 })
                 .addOnFailureListener(e -> {
 
                     Toast.makeText(
-                            AddQueToQBActivity.this,
-                            "Failed to add question: " + e.getMessage(),
+                            this,
+                            "Failed to update question: "
+                                    + e.getMessage(),
                             Toast.LENGTH_LONG
                     ).show();
                 });
-    }
-
-    private void clearFields() {
-
-        etQuestionTopic.setText("");
-        etQuestion.setText("");
-        etOptionA.setText("");
-        etOptionB.setText("");
-        etOptionC.setText("");
-        etOptionD.setText("");
-        etCorrectOption.setText("");
-        etMarks.setText("");
-
-        etQuestionTopic.requestFocus();
     }
 }
