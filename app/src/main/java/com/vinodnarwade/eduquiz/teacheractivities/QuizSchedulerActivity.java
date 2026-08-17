@@ -85,12 +85,14 @@ public class QuizSchedulerActivity extends AppCompatActivity {
 
         btnCreateNewQuestionBank.setOnClickListener(v -> {
 
-            Toast.makeText(
-                    this,
-                    "Create New Question Bank - coming next",
-                    Toast.LENGTH_SHORT
-            ).show();
+            Intent intent = new Intent(
+                    QuizSchedulerActivity.this,
+                    CreateQuestionBankActivity.class
+            );
 
+            intent.putExtra("userId", userId);
+
+            startActivity(intent);
         });
     }
 
