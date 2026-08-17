@@ -1,18 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".studentactivities.CustomizedQuizActivity">
+    android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ML sikhane ke baad"
-        android:textSize="30dp"
-        android:gravity="center"
-        android:textColor="@color/black"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Customized Quiz"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subject"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/spinnerCustomSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chapter"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/spinnerCustomChapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Topic"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/spinnerCustomTopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Number of Questions"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etNumberOfQuestions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter number of questions"
+            android:inputType="number"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Difficulty"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/spinnerCustomDifficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGenerateCustomQuiz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Generate Quiz"/>
+
+    </LinearLayout>
+
+</ScrollView>

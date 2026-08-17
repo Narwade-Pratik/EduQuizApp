@@ -8,12 +8,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.vinodnarwade.eduquiz.R;
 
 public class QuestionBankActivity extends AppCompatActivity {
 
     private TextView tvHierarchy;
-
+    private AppCompatButton btnGrantQuestionBankAccess;
     private AppCompatButton btnAddEasy;
     private AppCompatButton btnManageEasy;
 
@@ -65,6 +67,42 @@ public class QuestionBankActivity extends AppCompatActivity {
         displayHierarchy();
 
         setupButtons();
+
+        btnGrantQuestionBankAccess.setOnClickListener(v ->
+                grantQuestionBankAccess()
+        );
+    }
+
+    private void grantQuestionBankAccess() {
+
+        DatabaseReference accessRef =
+                FirebaseDatabase.getInstance()
+                        .getReference("QuestionBankAccess")
+                        .child(className)
+                        .child(userId)
+                        .child(subject)
+                        .child(chapter)
+                        .child(topic);
+
+        accessRef.setValue(true)
+                .addOnSuccessListener(unused -> {
+
+                    Toast.makeText(
+                            QuestionBankActivity.this,
+                            "Question Bank is now available to "
+                                    + className + " students",
+                            Toast.LENGTH_LONG
+                    ).show();
+                })
+                .addOnFailureListener(e -> {
+
+                    Toast.makeText(
+                            QuestionBankActivity.this,
+                            "Failed to grant access: "
+                                    + e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                });
     }
 
     private void initializeViews() {
@@ -79,6 +117,8 @@ public class QuestionBankActivity extends AppCompatActivity {
 
         btnAddHard = findViewById(R.id.btnAddHard);
         btnManageHard = findViewById(R.id.btnManageHard);
+        btnGrantQuestionBankAccess =
+                findViewById(R.id.btnGrantQuestionBankAccess);
     }
 
     private void displayHierarchy() {

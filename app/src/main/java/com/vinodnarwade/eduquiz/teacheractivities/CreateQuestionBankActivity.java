@@ -142,6 +142,7 @@ public class CreateQuestionBankActivity extends AppCompatActivity {
         topicRef.child("created").setValue(true)
                 .addOnSuccessListener(unused -> {
 
+                    QuestionBankCache.clear();
                     Toast.makeText(
                             this,
                             "Question Bank created successfully",

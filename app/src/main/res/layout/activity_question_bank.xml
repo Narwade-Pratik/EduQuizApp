@@ -144,7 +144,15 @@
                 android:background="@drawable/button_bg"
                 android:layout_marginStart="8dp"/>
 
+
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGrantQuestionBankAccess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Make Question Bank Available"
+            android:layout_marginTop="12dp"/>
 
     </LinearLayout>
 

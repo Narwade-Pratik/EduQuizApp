@@ -133,6 +133,23 @@ public class QuizSchedulerActivity extends AppCompatActivity {
 
     private void loadQuestionBanks() {
 
+        // Check cache first
+        if (QuestionBankCache.hasData(userId)) {
+
+            allQuestionBanks.clear();
+
+            allQuestionBanks.addAll(
+                    QuestionBankCache.getData()
+            );
+
+            setupClassFilter();
+
+            applyFilters();
+
+            return;
+        }
+
+        // No cached data → load from Firebase
         questionBankRef.addListenerForSingleValueEvent(
                 new ValueEventListener() {
 
@@ -143,6 +160,12 @@ public class QuizSchedulerActivity extends AppCompatActivity {
                         allQuestionBanks.clear();
 
                         readClasses(snapshot);
+
+                        // Save loaded data in cache
+                        QuestionBankCache.saveData(
+                                userId,
+                                allQuestionBanks
+                        );
 
                         setupClassFilter();
 

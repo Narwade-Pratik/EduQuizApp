@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText etName,etEmail,etPhoneNo,etPwd,etConfirmPwd,etUserName;
+    EditText etName,etEmail,etPhoneNo,etPwd,etConfirmPwd,etUserName,etClass;
     Button etBtn;
     TextView tvAccount;
     String roleIs;
@@ -47,7 +47,8 @@ public class RegisterActivity extends AppCompatActivity {
         etConfirmPwd = findViewById(R.id.etregconfirmpwd);
         tvAccount = findViewById(R.id.tvregalreadyacc);
         rgRole = findViewById(R.id.rgregister);
-
+        etClass = findViewById(R.id.etregclass);
+        etClass.setVisibility(View.GONE);
 
         tvAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +56,29 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        rgRole.setOnCheckedChangeListener((group, checkedId) -> {
+
+            if (checkedId == -1) {
+                return;
+            }
+
+            RadioButton selectedRadioButton =
+                    findViewById(checkedId);
+
+            String selectedRole =
+                    selectedRadioButton.getText().toString();
+
+            if (selectedRole.equalsIgnoreCase("Student")) {
+
+                etClass.setVisibility(View.VISIBLE);
+
+            } else {
+
+                etClass.setVisibility(View.GONE);
+                etClass.setText("");
             }
         });
 
@@ -66,6 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String phNumber = etPhoneNo.getText().toString().trim();
                 String password = etPwd.getText().toString().trim();
                 String userName = etUserName.getText().toString().trim();
+                String className = "Class: ".concat(etClass.getText().toString().trim());
                 int radioButtonSelectedId = rgRole.getCheckedRadioButtonId();
 
                 if(name.isEmpty()){
@@ -111,10 +136,25 @@ public class RegisterActivity extends AppCompatActivity {
                 else {
                     RadioButton radioButton = findViewById(radioButtonSelectedId);
                     roleIs = radioButton.getText().toString();
+                    if (roleIs.equalsIgnoreCase("Student")
+                            && className.isEmpty()) {
+
+                        etClass.setError("Please enter your class");
+                        return;
+                    }
                     database = FirebaseDatabase.getInstance();
                     reference = database.getReference("Users");
                     String userId = reference.push().getKey();
-                    HelperClass helperClass = new HelperClass(userId,emailId, name, password, phNumber, userName, roleIs);
+                    HelperClass helperClass = new HelperClass(
+                            userId,
+                            emailId,
+                            name,
+                            password,
+                            phNumber,
+                            userName,
+                            roleIs,
+                            className
+                    );
                     reference.child(userId).setValue(helperClass);
                     Toast.makeText(RegisterActivity.this, "Registration Done.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);

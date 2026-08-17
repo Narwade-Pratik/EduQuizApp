@@ -23,194 +23,205 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="523dp"
             android:orientation="vertical">
-
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Registration"
-                android:textSize="30dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:fontFamily="@font/caveat_brush"
                 android:layout_marginLeft="120dp"
-                android:layout_marginTop="7dp"/>
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/caveat_brush"
+                android:text="Registration"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etregname"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/edit"
                 android:backgroundTint="@color/white"
                 android:drawableStart="@drawable/man_24"
+                android:drawablePadding="10dp"
                 android:fontFamily="@font/alice"
                 android:hint="Enter your Name"
                 android:padding="4dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
-                android:textStyle="normal"
-                android:drawablePadding="10dp"/>
+                android:textStyle="normal" />
 
             <EditText
                 android:id="@+id/etregusername"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/edit"
                 android:backgroundTint="@color/white"
                 android:drawableStart="@drawable/usernamelogo"
+                android:drawablePadding="10dp"
                 android:fontFamily="@font/alice"
                 android:hint="Create Your Username"
                 android:padding="4dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
-                android:textStyle="normal"
-                android:drawablePadding="10dp"/>
+                android:textStyle="normal" />
 
             <EditText
                 android:id="@+id/etregemailid"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/edit"
-                android:layout_marginLeft="20dp"
                 android:backgroundTint="@color/white"
-                android:hint="Enter your Email Id"
-                android:textColorHint="@color/black"
-                android:fontFamily="@font/alice"
                 android:drawableStart="@drawable/email"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/alice"
+                android:hint="Enter your Email Id"
                 android:padding="4dp"
                 android:textColor="@color/black"
-                android:drawablePadding="10dp"/>
+                android:textColorHint="@color/black" />
 
             <EditText
                 android:id="@+id/etregphno"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/edit"
-                android:layout_marginLeft="20dp"
                 android:backgroundTint="@color/white"
-                android:hint="Enter your Phone No"
-                android:textColorHint="@color/black"
-                android:fontFamily="@font/alice"
                 android:drawableStart="@drawable/phone_logo"
-                android:padding="4dp"
                 android:drawablePadding="10dp"
+                android:fontFamily="@font/alice"
+                android:hint="Enter your Phone No"
+                android:inputType="number"
+                android:padding="4dp"
                 android:textColor="@color/black"
-                android:inputType="number"/>
+                android:textColorHint="@color/black" />
 
             <EditText
                 android:id="@+id/etregpwd"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/edit"
-                android:layout_marginLeft="20dp"
                 android:backgroundTint="@color/white"
-                android:hint="Enter your Password"
-                android:textColorHint="@color/black"
-                android:fontFamily="@font/alice"
                 android:drawableStart="@drawable/passwordlogo"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/alice"
+                android:hint="Enter your Password"
+                android:inputType="numberPassword"
                 android:padding="4dp"
                 android:textColor="@color/black"
-                android:inputType="numberPassword"
-                android:drawablePadding="10dp"/>
+                android:textColorHint="@color/black" />
 
             <EditText
                 android:id="@+id/etregconfirmpwd"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/edit"
-                android:layout_marginLeft="20dp"
                 android:backgroundTint="@color/white"
-                android:hint="Confirm your Password"
-                android:textColorHint="@color/black"
-                android:fontFamily="@font/alice"
                 android:drawableStart="@drawable/confirmpwd"
-                android:padding="4dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/alice"
+                android:hint="Confirm your Password"
                 android:inputType="numberPassword"
+                android:padding="4dp"
                 android:textColor="@color/black"
-                android:drawablePadding="10dp"/>
+                android:textColorHint="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Choose your role:"
                 android:textColor="@color/black"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_gravity="center">
-            </TextView>
+                android:textStyle="bold"></TextView>
+
             <RadioGroup
+                android:id="@+id/rgregister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:id="@+id/rgregister">
+                android:orientation="horizontal">
+
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Teacher"
-                    android:textSize="20sp"
                     android:layout_marginRight="10dp"
                     android:buttonTint="@color/black"
-                    android:textColor="@color/black">
-                </RadioButton>
+                    android:text="Teacher"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"></RadioButton>
+
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Student"
                     android:layout_marginLeft="10dp"
-                    android:textSize="20sp"
                     android:buttonTint="@color/black"
-                    android:textColor="@color/black">
+                    android:text="Student"
+                    android:textColor="@color/black"
+                    android:textSize="20sp">
 
                 </RadioButton>
             </RadioGroup>
 
+            <EditText
+                android:id="@+id/etregclass"
+                android:layout_width="150dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/alice"
+                android:hint="Enter your Class"
+                android:inputType="number"
+                android:padding="4dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                />
 
 
             <Button
                 android:id="@+id/btregregister"
                 android:layout_width="110dp"
                 android:layout_height="40dp"
+                android:layout_marginLeft="130dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/green"
                 android:text="Register"
-                android:textSize="15dp"
                 android:textColor="@color/black"
-                android:layout_marginLeft="130dp"/>
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/tvregalreadyacc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Already have an account"
-                android:textColor="@color/black"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:text="Already have an account"
+                android:textColor="@color/blue"
                 android:textSize="15dp"
-                android:layout_marginBottom="10dp"
 
                 />
-
-
-
-
 
 
         </LinearLayout>

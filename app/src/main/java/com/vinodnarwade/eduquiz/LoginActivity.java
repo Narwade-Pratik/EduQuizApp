@@ -142,11 +142,11 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Login as ".concat(roleFromDatabase), Toast.LENGTH_SHORT).show();
                             String userId = userSnapshot.child("userId").getValue(String.class);  // Unique key from Firebase
                             String userNameFromDB = userSnapshot.child("userName").getValue(String.class);// Store details to SharedPreferences
-                            editor.putBoolean("islogin", true);
+                            String classNameFromDB = userSnapshot.child("className").getValue(String.class);editor.putBoolean("islogin", true);
                             editor.putString("userId", userId);
                             editor.putString("userName", userNameFromDB);
                             editor.putString("roleIs", roleFromDatabase);
-                            editor.putBoolean("islogin", true);
+                            editor.putString("className", classNameFromDB);
                             editor.apply();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
