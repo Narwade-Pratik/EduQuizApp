@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vinodnarwade.eduquiz.teacheractivities.QuestionModel;
 
+import java.util.HashMap;
 import java.util.ArrayList;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -58,6 +59,15 @@ public class CustomizedQuizActivity extends AppCompatActivity {
     private DatabaseReference questionBankRef;
 
     private String studentUserId;
+    // Customized quiz variables
+    private boolean isCustomizedQuiz;
+    private ArrayList<QuestionModel> customQuestions;
+
+    private String customQuizId;
+    private String customSubject;
+    private String customChapter;
+    private String customTopic;
+    private String customDifficulty;
 
     private final ArrayList<QuestionModel> availableQuestions =
             new ArrayList<>();
@@ -273,7 +283,7 @@ public class CustomizedQuizActivity extends AppCompatActivity {
         List<String> subjectList =
                 new ArrayList<>();
 
-        subjectList.add("Select Subject");
+        subjectList.add("All Subject");
         subjectList.addAll(subjects);
 
         ArrayAdapter<String> adapter =
@@ -311,7 +321,7 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                                 parent.getItemAtPosition(position)
                                         .toString();
 
-                        if (selectedSubject.equals("Select Subject")) {
+                        if (selectedSubject.equals("All Subject")) {
 
                             clearChapterSpinner();
                             clearTopicSpinner();
@@ -397,7 +407,7 @@ public class CustomizedQuizActivity extends AppCompatActivity {
         List<String> chapterList =
                 new ArrayList<>();
 
-        chapterList.add("Select Chapter");
+        chapterList.add("All Chapter");
         chapterList.addAll(chapters);
 
         ArrayAdapter<String> adapter =
@@ -437,7 +447,7 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                                 parent.getItemAtPosition(position)
                                         .toString();
 
-                        if (selectedChapter.equals("Select Chapter")) {
+                        if (selectedChapter.equals("All Chapter")) {
 
                             clearTopicSpinner();
 
@@ -532,7 +542,7 @@ public class CustomizedQuizActivity extends AppCompatActivity {
         List<String> topicList =
                 new ArrayList<>();
 
-        topicList.add("Select Topic");
+        topicList.add("All Topic");
         topicList.addAll(topics);
 
         ArrayAdapter<String> adapter =
@@ -558,7 +568,7 @@ public class CustomizedQuizActivity extends AppCompatActivity {
         List<String> list =
                 new ArrayList<>();
 
-        list.add("Select Chapter");
+        list.add("All Chapter");
 
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(
@@ -583,7 +593,7 @@ public class CustomizedQuizActivity extends AppCompatActivity {
         List<String> list =
                 new ArrayList<>();
 
-        list.add("Select Topic");
+        list.add("All Topic");
 
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(
@@ -681,13 +691,13 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                 return;
             }
 
-            if (subject.equals("Select Subject")
-                    || chapter.equals("Select Chapter")
-                    || topic.equals("Select Topic")) {
+            if (subject.equals("All Subject")
+                    || chapter.equals("All Chapter")
+                    || topic.equals("All Topic")) {
 
                 Toast.makeText(
                         this,
-                        "Please select Subject, Chapter and Topic",
+                        "Please Select Subject, Chapter and Topic",
                         Toast.LENGTH_SHORT
                 ).show();
 
@@ -784,6 +794,10 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                         }
 
                         handleFetchedQuestions(
+                                subject,
+                                chapter,
+                                topic,
+                                difficulty,
                                 numberOfQuestions
                         );
                     }
@@ -804,6 +818,10 @@ public class CustomizedQuizActivity extends AppCompatActivity {
     }
 
     private void handleFetchedQuestions(
+            String subject,
+            String chapter,
+            String topic,
+            String difficulty,
             int numberOfQuestions) {
 
         int availableCount =
@@ -846,14 +864,65 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                 )
         );
 
-        Intent intent = new Intent(
-                CustomizedQuizActivity.this,
-                AttemptQuizActivity.class
-        );
+        String customQuizId =
+                FirebaseDatabase.getInstance()
+                        .getReference()
+                        .child("Users")
+                        .child(studentUserId)
+                        .child("CustomQuizzes")
+                        .push()
+                        .getKey();
+
+        if (customQuizId == null) {
+
+            Toast.makeText(
+                    this,
+                    "Failed to create quiz ID.",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            return;
+        }
+
+        Intent intent =
+                new Intent(
+                        CustomizedQuizActivity.this,
+                        AttemptQuizActivity.class
+                );
 
         intent.putExtra(
                 "isCustomizedQuiz",
                 true
+        );
+
+        intent.putExtra(
+                "customQuizId",
+                customQuizId
+        );
+
+        intent.putExtra(
+                "customSubject",
+                subject
+        );
+
+        intent.putExtra(
+                "customChapter",
+                chapter
+        );
+
+        intent.putExtra(
+                "customTopic",
+                topic
+        );
+
+        intent.putExtra(
+                "customDifficulty",
+                difficulty
+        );
+
+        intent.putExtra(
+                "customNumberOfQuestions",
+                numberOfQuestions
         );
 
         intent.putParcelableArrayListExtra(
@@ -862,15 +931,5 @@ public class CustomizedQuizActivity extends AppCompatActivity {
         );
 
         startActivity(intent);
-
-        Toast.makeText(
-                this,
-                "Quiz generated with " +
-                        selectedQuestions.size() +
-                        " questions.",
-                Toast.LENGTH_SHORT
-        ).show();
-
-        // Step 2E will open the quiz here.
     }
 }

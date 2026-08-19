@@ -3,89 +3,214 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F7F8FC"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:backgroundTint="@color/faint_sky_blue"
         android:padding="20dp">
 
+        <!-- Header -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create Customized Quiz"
-            android:textSize="24sp"
+            android:textColor="#1F2937"
+            android:textSize="27sp"
             android:textStyle="bold"
-            android:layout_marginBottom="24dp"/>
+            android:fontFamily="sans-serif"
+            android:letterSpacing="0.01"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="6dp"/>
 
+
+        <!-- Subject -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Subject"
-            android:textStyle="bold"/>
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="7dp"/>
 
-        <Spinner
-            android:id="@+id/spinnerCustomSubject"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="52dp"
+            android:layout_marginBottom="20dp">
 
+            <Spinner
+                android:id="@+id/spinnerCustomSubject"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit2"
+                android:paddingStart="14dp"
+                android:paddingEnd="45dp"
+                android:spinnerMode="dropdown"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="12dp"
+                android:src="@android:drawable/arrow_down_float"
+                android:contentDescription="Dropdown"/>
+        </FrameLayout>
+
+
+        <!-- Chapter -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Chapter"
-            android:textStyle="bold"/>
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="7dp"/>
 
-        <Spinner
-            android:id="@+id/spinnerCustomChapter"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="52dp"
+            android:layout_marginBottom="20dp">
 
+            <Spinner
+                android:id="@+id/spinnerCustomChapter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit2"
+                android:paddingStart="14dp"
+                android:paddingEnd="45dp"
+                android:spinnerMode="dropdown"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="12dp"
+                android:src="@android:drawable/arrow_down_float"
+                android:contentDescription="Dropdown"/>
+        </FrameLayout>
+
+
+        <!-- Topic -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Topic"
-            android:textStyle="bold"/>
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="7dp"/>
 
-        <Spinner
-            android:id="@+id/spinnerCustomTopic"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="52dp"
+            android:layout_marginBottom="20dp">
 
+            <Spinner
+                android:id="@+id/spinnerCustomTopic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit2"
+                android:paddingStart="14dp"
+                android:paddingEnd="45dp"
+                android:spinnerMode="dropdown"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="12dp"
+                android:src="@android:drawable/arrow_down_float"
+                android:contentDescription="Dropdown"/>
+        </FrameLayout>
+
+
+        <!-- Number of Questions -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Number of Questions"
-            android:textStyle="bold"/>
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="7dp"/>
 
         <EditText
             android:id="@+id/etNumberOfQuestions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:hint="Enter number of questions"
+            android:textColor="#1F2937"
+            android:textColorHint="#9CA3AF"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif"
             android:inputType="number"
-            android:layout_marginBottom="16dp"/>
+            android:singleLine="true"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:background="@drawable/edit2"
+            android:layout_marginBottom="20dp"/>
 
+
+        <!-- Difficulty -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Difficulty"
-            android:textStyle="bold"/>
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="7dp"/>
 
-        <Spinner
-            android:id="@+id/spinnerCustomDifficulty"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"/>
+            android:layout_height="52dp"
+            android:layout_marginBottom="30dp">
 
+            <Spinner
+                android:id="@+id/spinnerCustomDifficulty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit2"
+                android:paddingStart="14dp"
+                android:paddingEnd="45dp"
+                android:spinnerMode="dropdown"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="12dp"
+                android:src="@android:drawable/arrow_down_float"
+                android:contentDescription="Dropdown"/>
+        </FrameLayout>
+
+
+        <!-- Generate Button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnGenerateCustomQuiz"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Generate Quiz"/>
+            android:layout_height="54dp"
+            android:text="Generate Quiz"
+            android:textColor="#0AEB13"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false"
+            android:background="@drawable/button_bg"
+            android:backgroundTint="@color/gray2"
+            android:elevation="3dp"
+            android:layout_marginTop="80dp"/>
 
     </LinearLayout>
 
