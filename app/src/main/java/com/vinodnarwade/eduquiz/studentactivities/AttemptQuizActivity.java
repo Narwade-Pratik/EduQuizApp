@@ -981,8 +981,7 @@ public class AttemptQuizActivity extends AppCompatActivity {
     // OPEN RESULT ACTIVITY
     // =========================================================
 
-    private void openResultActivity(
-            int score) {
+    private void openResultActivity(int score) {
 
         Intent intent =
                 new Intent(
@@ -990,15 +989,16 @@ public class AttemptQuizActivity extends AppCompatActivity {
                         ResultActivity.class
                 );
 
-
-        intent.putExtra(
-                "score",
-                score
-        );
+        intent.putExtra("score", score);
 
         intent.putExtra(
                 "numberOfQuestions",
                 questionList.size()
+        );
+
+        intent.putExtra(
+                "timeTakenMillis",
+                timeTakenInMillis
         );
 
         intent.putExtra(
@@ -1011,6 +1011,20 @@ public class AttemptQuizActivity extends AppCompatActivity {
                 customQuizId
         );
 
+        intent.putParcelableArrayListExtra(
+                "questionList",
+                questionList
+        );
+
+        intent.putExtra(
+                "selectedAnswers",
+                selectedAnswers
+        );
+
+        intent.putExtra("customSubject", customSubject);
+        intent.putExtra("customChapter", customChapter);
+        intent.putExtra("customTopic", customTopic);
+        intent.putExtra("customDifficulty", customDifficulty);
 
         startActivity(intent);
 
