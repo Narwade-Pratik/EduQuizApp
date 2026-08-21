@@ -2,6 +2,13 @@ package com.vinodnarwade.eduquiz.studentactivities;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -20,6 +27,7 @@ public class DetailedReportActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AppCompatButton btnBack;
     private TextView tvEmptyState;
+    private ArrayList<String> questionIds;
     private TextView tvSubject, tvChapterTopic, tvDifficulty, tvScore, tvTimeTaken;
 
     private int score;
@@ -38,8 +46,8 @@ public class DetailedReportActivity extends AppCompatActivity {
 
         readIntentData();
         initViews();
-        setupList();
-        displaySummaryCard();
+        //displaySummaryCard();
+        loadQuestionsFromQuestionBank();
 
         btnBack.setOnClickListener(v -> finish());
     }
@@ -54,6 +62,11 @@ public class DetailedReportActivity extends AppCompatActivity {
         customChapter = getIntent().getStringExtra("customChapter");
         customTopic = getIntent().getStringExtra("customTopic");
         customDifficulty = getIntent().getStringExtra("customDifficulty");
+
+        questionIds = getIntent().getStringArrayListExtra("questionIds");
+        if (questionIds == null) {
+            questionIds = new ArrayList<>();
+        }
 
         getIntent().setExtrasClassLoader(QuestionModel.class.getClassLoader());
 
@@ -71,6 +84,77 @@ public class DetailedReportActivity extends AppCompatActivity {
         if (passedAnswers != null) {
             selectedAnswers = passedAnswers;
         }
+    }
+
+    private void loadQuestionsFromQuestionBank() {
+
+        if (questionIds.isEmpty()) {
+            setupList();
+            displaySummaryCard();   // ✅ list already available (e.g. passed directly via intent)
+            return;
+        }
+
+        DatabaseReference questionBankRef =
+                FirebaseDatabase.getInstance().getReference("QuestionBank");
+
+        questionBankRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        questionList.clear();
+
+                        for (String questionId : questionIds) {
+                            QuestionModel foundQuestion = findQuestionInSnapshot(snapshot, questionId);
+                            if (foundQuestion != null) {
+                                questionList.add(foundQuestion);
+                            }
+                        }
+
+                        setupList();
+                        displaySummaryCard();   // ✅ now questionList is fully populated
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        android.widget.Toast.makeText(
+                                DetailedReportActivity.this,
+                                "Failed to load questions: " + error.getMessage(),
+                                android.widget.Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        );
+    }
+
+    private QuestionModel findQuestionInSnapshot(
+            DataSnapshot snapshot,
+            String questionId) {
+
+        for (DataSnapshot child :
+                snapshot.getChildren()) {
+
+            if (child.getKey() != null
+                    && child.getKey().equals(questionId)) {
+
+                return child.getValue(
+                        QuestionModel.class
+                );
+            }
+
+            QuestionModel result =
+                    findQuestionInSnapshot(
+                            child,
+                            questionId
+                    );
+
+            if (result != null) {
+                return result;
+            }
+        }
+
+        return null;
     }
 
     private void displaySummaryCard() {

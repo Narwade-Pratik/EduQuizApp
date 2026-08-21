@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginTop="12dp"
+
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="2dp"
+
     app:cardBackgroundColor="#D6F5F0"
     app:cardCornerRadius="16dp"
     app:cardElevation="0dp">
@@ -13,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/tvItemResultQuestionText"
@@ -31,7 +36,7 @@
             android:id="@+id/tvItemResultOptionA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:text="A. Option"
             android:textColor="#212121"
             android:textSize="14sp" />
@@ -40,7 +45,7 @@
             android:id="@+id/tvItemResultOptionB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="4dp"
             android:text="B. Option"
             android:textColor="#212121"
             android:textSize="14sp" />
@@ -49,7 +54,7 @@
             android:id="@+id/tvItemResultOptionC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="4dp"
             android:text="C. Option"
             android:textColor="#212121"
             android:textSize="14sp" />
@@ -58,7 +63,7 @@
             android:id="@+id/tvItemResultOptionD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="4dp"
             android:text="D. Option"
             android:textColor="#212121"
             android:textSize="14sp" />
@@ -67,7 +72,7 @@
             android:id="@+id/tvItemResultYourAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_pill_yellow"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
@@ -80,7 +85,7 @@
             android:id="@+id/tvItemResultCorrectAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:background="@drawable/bg_pill_green"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
@@ -94,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             android:background="@drawable/bg_pill_gray"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"

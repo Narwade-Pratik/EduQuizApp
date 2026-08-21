@@ -1,5 +1,6 @@
 package com.vinodnarwade.eduquiz.studentactivities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -104,7 +105,72 @@ public class MyQuizzesActivity extends AppCompatActivity {
         adapter =
                 new MyQuizAdapter(
                         this,
-                        quizList
+                        quizList,
+                        quiz -> {
+
+                            Intent intent =
+                                    new Intent(
+                                            MyQuizzesActivity.this,
+                                            DetailedReportActivity.class
+                                    );
+
+                            intent.putExtra(
+                                    "isCustomizedQuiz",
+                                    true
+                            );
+
+                            intent.putExtra(
+                                    "customQuizId",
+                                    quiz.getCustomQuizId()
+                            );
+
+                            intent.putExtra(
+                                    "customSubject",
+                                    quiz.getSubject()
+                            );
+
+                            intent.putExtra(
+                                    "customChapter",
+                                    quiz.getChapter()
+                            );
+
+                            intent.putExtra(
+                                    "customTopic",
+                                    quiz.getTopic()
+                            );
+
+                            intent.putExtra(
+                                    "customDifficulty",
+                                    quiz.getDifficulty()
+                            );
+
+                            intent.putExtra(
+                                    "score",
+                                    quiz.getScore()
+                            );
+
+                            intent.putExtra(
+                                    "numberOfQuestions",
+                                    quiz.getNumberOfQuestions()
+                            );
+
+                            intent.putExtra(
+                                    "timeTakenMillis",
+                                    quiz.getTimeTakenMillis()
+                            );
+
+                            intent.putExtra(
+                                    "selectedAnswers",
+                                    quiz.getAnswers()
+                            );
+
+                            intent.putExtra(
+                                    "questionIds",
+                                    quiz.getQuestionIds()
+                            );
+
+                            startActivity(intent);
+                        }
                 );
 
 

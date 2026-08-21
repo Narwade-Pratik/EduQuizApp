@@ -1,5 +1,6 @@
 package com.vinodnarwade.eduquiz.studentactivities;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MyQuizModel {
@@ -7,16 +8,19 @@ public class MyQuizModel {
     private String quizType;
     private String customQuizId;
     private String studentId;
-
+    private int totalMarks;
     private String subject;
     private String chapter;
     private String topic;
     private String difficulty;
 
+
     private int score;
     private int numberOfQuestions;
 
     private long timeTakenMillis;
+
+    private ArrayList<String> questionIds;
 
     private HashMap<String, String> answers;
 
@@ -74,6 +78,18 @@ public class MyQuizModel {
         return timeTakenMillis;
     }
 
+    public int getTotalMarks() {
+        return totalMarks;
+    }
+
+    public void setTotalMarks(int totalMarks) {
+        this.totalMarks = totalMarks;
+    }
+
+    public ArrayList<String> getQuestionIds() {
+        return questionIds;
+    }
+
     public HashMap<String, String> getAnswers() {
         return answers;
     }
@@ -121,6 +137,10 @@ public class MyQuizModel {
 
     public void setTimeTakenMillis(long timeTakenMillis) {
         this.timeTakenMillis = timeTakenMillis;
+    }
+
+    public void setQuestionIds(ArrayList<String> questionIds) {
+        this.questionIds = questionIds;
     }
 
     public void setAnswers(

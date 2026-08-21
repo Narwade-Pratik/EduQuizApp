@@ -20,15 +20,20 @@ public class MyQuizAdapter
 
     private final ArrayList<MyQuizModel> quizList;
 
+    private final OnQuizClickListener listener;
 
+    public interface OnQuizClickListener {
+        void onQuizClick(MyQuizModel quiz);
+    }
     public MyQuizAdapter(
             Context context,
-            ArrayList<MyQuizModel> quizList) {
+            ArrayList<MyQuizModel> quizList,
+            OnQuizClickListener listener) {
 
         this.context = context;
         this.quizList = quizList;
+        this.listener = listener;
     }
-
 
     @NonNull
     @Override
@@ -80,8 +85,14 @@ public class MyQuizAdapter
                 "Score: "
                         + quiz.getScore()
                         + " / "
-                        + quiz.getNumberOfQuestions()
+                        + quiz.getTotalMarks()
         );
+
+        holder.itemView.setOnClickListener(v -> {
+
+            listener.onQuizClick(quiz);
+
+        });
     }
 
 

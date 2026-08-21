@@ -882,6 +882,17 @@ public class AttemptQuizActivity extends AppCompatActivity {
         HashMap<String, Object> resultMap =
                 new HashMap<>();
 
+        int totalMarks = 0;
+
+        for (QuestionModel question : questionList) {
+            totalMarks += question.getMarks();
+        }
+
+        resultMap.put(
+                "totalMarks",
+                totalMarks
+        );
+
         resultMap.put(
                 "quizType",
                 "customized"
@@ -933,9 +944,15 @@ public class AttemptQuizActivity extends AppCompatActivity {
         );
 
         resultMap.put(
+                "questionIds",
+                getQuestionIds()
+        );
+
+        resultMap.put(
                 "answers",
                 new HashMap<>(selectedAnswers)
         );
+
 
 
         /*
@@ -974,6 +991,24 @@ public class AttemptQuizActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private ArrayList<String> getQuestionIds() {
+
+        ArrayList<String> questionIds =
+                new ArrayList<>();
+
+        for (QuestionModel question : questionList) {
+
+            if (question.getQuestionId() != null) {
+
+                questionIds.add(
+                        question.getQuestionId()
+                );
+            }
+        }
+
+        return questionIds;
     }
 
 
