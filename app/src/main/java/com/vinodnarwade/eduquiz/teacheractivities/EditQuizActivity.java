@@ -148,7 +148,7 @@ public class EditQuizActivity extends AppCompatActivity {
             updatedMap.put("optionC", updatedC);
             updatedMap.put("optionD", updatedD);
             updatedMap.put("correctOption", updatedCorrect);
-            updatedMap.put("marks", updatedMarks);
+            updatedMap.put("marks", Integer.parseInt(updatedMarks));
 
 
             // Update in Firebase
