@@ -188,6 +188,20 @@
                 android:singleLine="true" />
 
         </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnupdatedata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="Update Profile"
+            android:textColor="@color/black"
+            android:fontFamily="@font/alice"
+            android:backgroundTint="#86D8E2"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="12dp"
+            android:layout_marginTop="50dp"/>
 
     </LinearLayout>
 

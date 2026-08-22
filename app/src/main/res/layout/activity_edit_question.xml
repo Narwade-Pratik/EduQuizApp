@@ -86,6 +86,7 @@
             android:id="@+id/btnUpdateQBQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/blue"
             android:text="Update Question"
             android:textAllCaps="false"/>
 

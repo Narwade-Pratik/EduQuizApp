@@ -1,64 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="15dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/faint_sky_blue"
         android:padding="16dp">
 
-
+        <!-- Subject as header badge -->
         <TextView
             android:id="@+id/tvMyQuizSubject"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/gray2"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:text="Mathematics"
-            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
-
+        <!-- Chapter -->
         <TextView
             android:id="@+id/tvMyQuizChapter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Chapter: Algebra"
+            android:layout_marginTop="12dp"
+            android:text="Chapter: "
+            android:textColor="@color/black"
             android:textSize="15sp" />
 
-
+        <!-- Topic -->
         <TextView
             android:id="@+id/tvMyQuizTopic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Topic: Linear Equations"
+            android:layout_marginTop="6dp"
+            android:text="Topic: "
+            android:textColor="@color/black"
             android:textSize="15sp" />
 
-
+        <!-- Difficulty -->
         <TextView
             android:id="@+id/tvMyQuizDifficulty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Difficulty: Easy"
+            android:layout_marginTop="6dp"
+            android:text="Difficulty: "
+            android:textColor="@color/black"
             android:textSize="15sp" />
 
-
+        <!-- Score as highlighted box -->
         <TextView
             android:id="@+id/tvMyQuizScore"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Score: 8 / 10"
-            android:textSize="17sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/faintgreen"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="Score: 0 / 0"
+            android:textAlignment="center"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
     </LinearLayout>

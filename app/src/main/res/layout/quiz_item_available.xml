@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8sp"
-    android:layout_marginTop="10dp"
-    card_view:cardCornerRadius="12dp"
-    card_view:cardElevation="6dp">
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="15dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#CBCBCB"
+        android:background="@color/faint_sky_blue"
         android:padding="16dp">
 
+        <!-- Quiz Title as header badge -->
         <TextView
             android:id="@+id/tvItemAvailableQuizzesTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:background="@color/gray2"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="Quiz Title"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:background="#CBCBCB"
-            android:layout_marginBottom="10dp"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
+        <!-- Subject Row -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,90 +43,88 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="Subject: "
-                android:textSize="16sp"
-                android:textStyle="bold"
                 android:textColor="@color/green"
-                android:layout_marginTop="4dp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvItemAvailableQuizzesQuizSubject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
+                android:layout_marginTop="4dp"
                 android:text=""
-                android:textSize="16sp"
                 android:textColor="@color/black"
-                android:layout_marginTop="4dp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal">
-
-        <TextView
+        <!-- Total Questions Row -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total Questions :"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/red"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvItemAvailableQuizzesTotalQuestions"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Questions : "
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvItemAvailableQuizzesTotalQuestions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!-- Created By Row -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Created By: "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvItemAvailableQuizzesCreatedBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal">
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Created By: "
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="2dp" />
-
-
-        <TextView
-            android:id="@+id/tvItemAvailableQuizzesCreatedBy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="2dp" />
-
-    </LinearLayout>
-
+        <!-- Attempt Quiz Button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnItemAvailableQuizzesAttemptQuiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Attempt Quiz"
             android:layout_gravity="end"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/orange"
-            android:textColor="@color/white"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp" />
+            android:layout_marginTop="14dp"
+            android:backgroundTint="@color/faintgreen"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:text="Attempt Quiz"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

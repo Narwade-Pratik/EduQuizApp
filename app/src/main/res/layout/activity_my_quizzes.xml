@@ -7,7 +7,18 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-
+    <!-- Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="sans-serif"
+        android:letterSpacing="0.01"
+        android:text="My Quizzes"
+        android:textColor="#1F2937"
+        android:textSize="27sp"
+        android:textStyle="bold" />
     <TextView
         android:id="@+id/tvNoQuizzes"
         android:layout_width="match_parent"

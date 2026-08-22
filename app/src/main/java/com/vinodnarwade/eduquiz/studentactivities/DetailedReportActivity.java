@@ -1,5 +1,6 @@
 package com.vinodnarwade.eduquiz.studentactivities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vinodnarwade.eduquiz.HomeActivity;
 import com.vinodnarwade.eduquiz.R;
 import com.vinodnarwade.eduquiz.teacheractivities.QuestionModel;
 
@@ -41,15 +43,26 @@ public class DetailedReportActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_detailed_report);
 
         readIntentData();
         initViews();
-        //displaySummaryCard();
         loadQuestionsFromQuestionBank();
 
-        btnBack.setOnClickListener(v -> finish());
+        btnBack.setOnClickListener(v -> goToHome());   // ✅ CHANGED
+    }
+
+    @Override
+    public void onBackPressed() {                       // ✅ NEW METHOD
+        super.onBackPressed();
+        goToHome();
+    }
+
+    private void goToHome() {                            // ✅ NEW METHOD
+        Intent intent = new Intent(DetailedReportActivity.this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void readIntentData() {

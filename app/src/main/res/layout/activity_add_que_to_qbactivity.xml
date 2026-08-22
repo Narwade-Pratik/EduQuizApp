@@ -225,7 +225,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:background="#5B5FEF"
+            android:background="#62EB4A"
             android:elevation="3dp"/>
 
     </LinearLayout>
