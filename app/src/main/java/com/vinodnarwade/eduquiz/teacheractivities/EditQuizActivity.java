@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class EditQuizActivity extends AppCompatActivity {
 
-    EditText etQuestionTopic, etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
+    EditText etQuestionTopic, etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks, etDifficulty;
     Button btnNext, btnPrevious, btnSubmitAll,btnDeleteQuestion,btnAddQuestion,btnUpdateQuestion;
     ArrayList<QuestionModel> questionList;
     int currentIndex = 0;
@@ -43,6 +43,7 @@ public class EditQuizActivity extends AppCompatActivity {
         etOptionD = findViewById(R.id.eteditquestionoptiond);
         etCorrectOption = findViewById(R.id.eteditquestioncorrectoption);
         etMarks = findViewById(R.id.eteditquestionmarks);
+        etDifficulty = findViewById(R.id.eteditquestiondifficulty);
 
         btnNext = findViewById(R.id.btneditquestionnext);
         btnPrevious = findViewById(R.id.btneditquestionprevious);
@@ -132,9 +133,10 @@ public class EditQuizActivity extends AppCompatActivity {
             String updatedD = etOptionD.getText().toString().trim();
             String updatedCorrect = etCorrectOption.getText().toString().trim();
             String updatedMarks = etMarks.getText().toString().trim();
+            String updatedDifficulty = etDifficulty.getText().toString().trim();
 
             if (updatedQuestionTopic.isEmpty() || updatedQuestion.isEmpty() || updatedA.isEmpty() || updatedB.isEmpty() ||
-                    updatedC.isEmpty() || updatedD.isEmpty() || updatedCorrect.isEmpty() || updatedMarks.isEmpty()) {
+                    updatedC.isEmpty() || updatedD.isEmpty() || updatedCorrect.isEmpty() || updatedMarks.isEmpty() || updatedDifficulty.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -149,6 +151,8 @@ public class EditQuizActivity extends AppCompatActivity {
             updatedMap.put("optionD", updatedD);
             updatedMap.put("correctOption", updatedCorrect);
             updatedMap.put("marks", Integer.parseInt(updatedMarks));
+            updatedMap.put("difficulty", updatedDifficulty);
+
 
 
             // Update in Firebase
@@ -188,9 +192,10 @@ public class EditQuizActivity extends AppCompatActivity {
             String optionD = etOptionD.getText().toString().trim();
             String correctOption = etCorrectOption.getText().toString().trim();
             String marks = etMarks.getText().toString().trim();
+            String difficulty = etDifficulty.getText().toString().trim();
 
             if (questionTopic.isEmpty() ||question.isEmpty() || optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty()
-                    || optionD.isEmpty() || correctOption.isEmpty() || marks.isEmpty()) {
+                    || optionD.isEmpty() || correctOption.isEmpty() || marks.isEmpty() || difficulty.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -204,7 +209,7 @@ public class EditQuizActivity extends AppCompatActivity {
 
             //int newIndex = questionList.size() + 1; // Q1, Q2, ..., Qn+1
             String newQuestionId = questionsRef.push().getKey();
-            QuestionModel newQuestion = new QuestionModel(newQuestionId,quizId,questionTopic,question, optionA, optionB, optionC, optionD, correctOption, Integer.parseInt(marks));
+            QuestionModel newQuestion = new QuestionModel(newQuestionId,quizId,questionTopic,question, optionA, optionB, optionC, optionD, correctOption, Integer.parseInt(marks), difficulty);
 
             questionRef.child(newQuestionId).setValue(newQuestion)
                     .addOnSuccessListener(aVoid -> {
@@ -300,6 +305,7 @@ public class EditQuizActivity extends AppCompatActivity {
         etOptionD.setText(question.getOptionD());
         etCorrectOption.setText(question.getCorrectOption());
         etMarks.setText(String.valueOf(question.getMarks()));
+        etDifficulty.setText(question.getDifficulty());
         if (index == questionList.size() - 1) {
             btnSubmitAll.setVisibility(View.VISIBLE);
         } else {
@@ -317,6 +323,7 @@ public class EditQuizActivity extends AppCompatActivity {
         model.setOptionD(etOptionD.getText().toString());
         model.setCorrectOption(etCorrectOption.getText().toString());
         model.setMarks(Integer.parseInt(etMarks.getText().toString().trim()));
+        model.setDifficulty(etDifficulty.getText().toString());
     }
 
     private void deleteCurrentQuestion() {
@@ -381,5 +388,6 @@ public class EditQuizActivity extends AppCompatActivity {
         etOptionD.setText("");
         etCorrectOption.setText("");
         etMarks.setText("");
+        etDifficulty.setText("");
     }
 }

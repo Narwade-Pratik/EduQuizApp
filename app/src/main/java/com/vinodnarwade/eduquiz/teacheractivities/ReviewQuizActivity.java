@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class ReviewQuizActivity extends AppCompatActivity {
 
-    EditText etQuestionTopic, etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
+    EditText etQuestionTopic, etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks, etDifficulty;
     Button btnNext, btnPrevious, btnSubmitAll;
     ArrayList<QuestionModel> questionList;
     int currentIndex = 0;
@@ -39,6 +39,7 @@ public class ReviewQuizActivity extends AppCompatActivity {
         etOptionD = findViewById(R.id.etreviewquestionoptiond);
         etCorrectOption = findViewById(R.id.etreviewquestioncorrectoption);
         etMarks = findViewById(R.id.etreviewquestionmarks);
+        etDifficulty = findViewById(R.id.etreviewquestiondifficulty);
 
         btnNext = findViewById(R.id.btnreviewquestionnext);
         btnPrevious = findViewById(R.id.btnreviewquestionprevious);
@@ -105,6 +106,7 @@ public class ReviewQuizActivity extends AppCompatActivity {
         etOptionD.setText(model.getOptionD());
         etCorrectOption.setText(model.getCorrectOption());
         etMarks.setText(String.valueOf(model.getMarks()));
+        etDifficulty.setText(model.getDifficulty());
 
         // Show submit button only on last question
         if (index == questionList.size() - 1) {
@@ -116,7 +118,7 @@ public class ReviewQuizActivity extends AppCompatActivity {
 
     private void saveCurrentQuestion() {
         QuestionModel model = questionList.get(currentIndex);
-        model.setQuestion(etQuestionTopic.getText().toString());
+        model.setQuestionTopic(etQuestionTopic.getText().toString());
         model.setQuestion(etQuestion.getText().toString());
         model.setOptionA(etOptionA.getText().toString());
         model.setOptionB(etOptionB.getText().toString());
@@ -124,5 +126,6 @@ public class ReviewQuizActivity extends AppCompatActivity {
         model.setOptionD(etOptionD.getText().toString());
         model.setCorrectOption(etCorrectOption.getText().toString());
         model.setMarks(Integer.parseInt(etMarks.getText().toString().trim()));
+        model.setDifficulty(etDifficulty.getText().toString());
     }
 }

@@ -4,13 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class QuestionModel implements Parcelable {
-    String questionId, quizId, questionTopic, question, optionA, optionB, optionC, optionD, correctOption;
+    String questionId, quizId, questionTopic, question, optionA, optionB, optionC, optionD, correctOption, difficulty;
     int marks;
 
     public QuestionModel() {}
 
     public QuestionModel(String questionId, String quizId, String questionTopic, String question, String optionA, String optionB,
-                         String optionC, String optionD, String correctOption, int marks) {
+                         String optionC, String optionD, String correctOption, int marks, String difficulty) {
         this.questionId = questionId;
         this.quizId = quizId;
         this.questionTopic = questionTopic;
@@ -21,6 +21,7 @@ public class QuestionModel implements Parcelable {
         this.optionD = optionD;
         this.correctOption = correctOption;
         this.marks = marks;
+        this.difficulty = difficulty;
     }
 
     protected QuestionModel(Parcel in) {
@@ -34,6 +35,7 @@ public class QuestionModel implements Parcelable {
         optionD = in.readString();
         correctOption = in.readString();
         marks = in.readInt();
+        difficulty = in.readString();
     }
 
     public static final Creator<QuestionModel> CREATOR = new Creator<QuestionModel>() {
@@ -65,6 +67,7 @@ public class QuestionModel implements Parcelable {
         parcel.writeString(optionD);
         parcel.writeString(correctOption);
         parcel.writeInt(marks);
+        parcel.writeString(difficulty);
     }
 
     // Getters and Setters
@@ -97,4 +100,7 @@ public class QuestionModel implements Parcelable {
 
     public String getQuizId() { return quizId; }
     public void setQuizId(String quizId) { this.quizId = quizId; }
+
+    public String getDifficulty() { return difficulty; }
+    public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
 }

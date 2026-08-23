@@ -19,11 +19,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.ServerValue;
 import com.vinodnarwade.eduquiz.R;
 import com.vinodnarwade.eduquiz.teacheractivities.QuestionModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 public class AttemptQuizActivity extends AppCompatActivity {
 
@@ -56,6 +58,7 @@ public class AttemptQuizActivity extends AppCompatActivity {
     // Logged-in student
     private String userId;
 
+
     // Timer
     private long totalTimeMillis;
     private long timeTakenInMillis;
@@ -76,6 +79,8 @@ public class AttemptQuizActivity extends AppCompatActivity {
     private String customChapter;
     private String customTopic;
     private String customDifficulty;
+    private String quizSubject;
+    private String studentClassName;
 
 
     // =========================================================
@@ -131,6 +136,7 @@ public class AttemptQuizActivity extends AppCompatActivity {
                         "customDifficulty"
                 );
 
+
         // -----------------------------------------------------
         // Parcelable class loader
         // -----------------------------------------------------
@@ -160,6 +166,8 @@ public class AttemptQuizActivity extends AppCompatActivity {
                         "userId",
                         ""
                 );
+
+        studentClassName = sharedPreferences.getString("className", "");
 
         // -----------------------------------------------------
         // Initialize UI
@@ -305,6 +313,8 @@ public class AttemptQuizActivity extends AppCompatActivity {
                                 snapshot
                                         .child("durationInMinutes")
                                         .getValue(Long.class);
+
+                        quizSubject = snapshot.child("subject").getValue(String.class);   // <-- yeh naya
 
 
                         if (duration != null) {
@@ -788,6 +798,8 @@ public class AttemptQuizActivity extends AppCompatActivity {
         // Make a final copy for use inside Firebase callback
         final int finalScore = score;
 
+        updateTopicPerformance();   // <-- yeh naya
+
 
         // =====================================================
         // CUSTOMIZED QUIZ RESULT
@@ -1066,6 +1078,83 @@ public class AttemptQuizActivity extends AppCompatActivity {
         finish();
     }
 
+    // =========================================================
+// UPDATE TOPIC-LEVEL PERFORMANCE (Phase 3)
+// =========================================================
+
+    private void updateTopicPerformance() {
+
+        String subject = isCustomizedQuiz ? customSubject : quizSubject;
+
+        if (subject == null || subject.trim().isEmpty()) {
+            return;
+        }
+
+        // Teacher quiz -> teacherId se distinguish
+        // Customized quiz -> student ke apne className se distinguish
+        String scope = isCustomizedQuiz ? studentClassName : teacherId;
+
+        if (scope == null || scope.trim().isEmpty()) {
+            scope = "Unspecified";
+        }
+
+        DatabaseReference topicPerfRef =
+                FirebaseDatabase.getInstance()
+                        .getReference("Users")
+                        .child(userId)
+                        .child("TopicPerformance");
+
+        HashMap<String, Object> updates = new HashMap<>();
+
+        String safeScope = sanitizeKey(scope.trim());
+
+        for (QuestionModel question : questionList) {
+
+            String questionTopic = question.getQuestionTopic();
+
+            if (questionTopic == null || questionTopic.trim().isEmpty()) {
+                continue;
+            }
+
+            String difficulty = question.getDifficulty();
+
+            if (difficulty == null || difficulty.trim().isEmpty()) {
+                difficulty = "Unspecified";
+            }
+
+            String safeSubject = sanitizeKey(subject.trim());
+            String safeTopic = sanitizeKey(questionTopic.trim());
+            String safeDifficulty = sanitizeKey(difficulty.trim());
+
+            String basePath = safeScope + "/" + safeSubject + "/" + safeTopic + "/" + safeDifficulty;
+
+            String selected = selectedAnswers.get(question.getQuestionId());
+            String correct = question.getCorrectOption();
+
+            if (selected == null || selected.trim().isEmpty()) {
+
+                updates.put(basePath + "/unattemptedCount", ServerValue.increment(1));
+
+            } else if (correct != null
+                    && selected.trim().equalsIgnoreCase(correct.trim())) {
+
+                updates.put(basePath + "/correctCount", ServerValue.increment(1));
+
+            } else {
+
+                updates.put(basePath + "/incorrectCount", ServerValue.increment(1));
+            }
+        }
+
+        if (!updates.isEmpty()) {
+            topicPerfRef.updateChildren(updates);
+        }
+    }
+
+
+    private String sanitizeKey(String key) {
+        return key.replaceAll("[.#$\\[\\]/]", "_");
+    }
 
     // =========================================================
     // DESTROY

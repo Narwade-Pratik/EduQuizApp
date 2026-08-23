@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class AddQuestionActivity extends AppCompatActivity {
 
     EditText etQuestionTopic, etQuestion, etOptionA, etOptionB,
-            etOptionC, etOptionD, etCorrectOption, etMarks;
+            etOptionC, etOptionD, etCorrectOption, etMarks, etDifficulty;
 
     AppCompatButton btnNextQuestion;
 
@@ -70,6 +70,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         etOptionD = findViewById(R.id.etaddquestionoptiond);
         etCorrectOption = findViewById(R.id.etaddquestioncorrectoption);
         etMarks = findViewById(R.id.etaddquestionmarks);
+        etDifficulty = findViewById(R.id.etaddquestiondifficulty);
 
         btnNextQuestion = findViewById(R.id.btnaddquestionadd);
 
@@ -86,7 +87,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         String optionB = etOptionB.getText().toString().trim();
         String optionC = etOptionC.getText().toString().trim();
         String optionD = etOptionD.getText().toString().trim();
-
+        String difficulty = etDifficulty.getText().toString().trim();
         String correctOption = etCorrectOption.getText().toString().trim();
         String marksText = etMarks.getText().toString().trim();
 
@@ -98,7 +99,8 @@ public class AddQuestionActivity extends AppCompatActivity {
                 || optionC.isEmpty()
                 || optionD.isEmpty()
                 || correctOption.isEmpty()
-                || marksText.isEmpty()) {
+                || marksText.isEmpty()
+                || difficulty.isEmpty()) {
 
             Toast.makeText(
                     this,
@@ -177,7 +179,8 @@ public class AddQuestionActivity extends AppCompatActivity {
                 optionC,
                 optionD,
                 correctOption,
-                marks
+                marks,
+                difficulty
         );
 
         // Save question to Firebase
@@ -237,6 +240,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         etOptionD.setText("");
         etCorrectOption.setText("");
         etMarks.setText("");
+        etDifficulty.setText("");
 
         etQuestionTopic.requestFocus();
     }

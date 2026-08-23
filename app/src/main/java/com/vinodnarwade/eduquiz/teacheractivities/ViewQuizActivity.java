@@ -1,7 +1,6 @@
 package com.vinodnarwade.eduquiz.teacheractivities;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 
 public class ViewQuizActivity extends AppCompatActivity {
 
-    EditText etQuestionTopic, etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks;
+    EditText etQuestionTopic, etQuestion, etOptionA, etOptionB, etOptionC, etOptionD, etCorrectOption, etMarks, etDifficulty;
     AppCompatButton btnNext, btnPrevious;
     ArrayList<QuestionModel> questionList = new ArrayList<>();
     int currentIndex = 0;
@@ -28,22 +27,21 @@ public class ViewQuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_quiz); // Reuse same layout
+        setContentView(R.layout.activity_view_quiz);
 
-        etQuestionTopic = findViewById(R.id.etreviewquestionquestiontopic);
-        etQuestion = findViewById(R.id.etreviewquestionquestion);
-        etOptionA = findViewById(R.id.etreviewquestionoptiona);
-        etOptionB = findViewById(R.id.etreviewquestionoptionb);
-        etOptionC = findViewById(R.id.etreviewquestionoptionc);
-        etOptionD = findViewById(R.id.etreviewquestionoptiond);
-        etCorrectOption = findViewById(R.id.etreviewquestioncorrectoption);
-        etMarks = findViewById(R.id.etreviewquestionmarks);
+        etQuestionTopic = findViewById(R.id.etviewquestionquestiontopic);
+        etQuestion = findViewById(R.id.etviewquestionquestion);
+        etOptionA = findViewById(R.id.etviewquestionoptiona);
+        etOptionB = findViewById(R.id.etviewquestionoptionb);
+        etOptionC = findViewById(R.id.etviewquestionoptionc);
+        etOptionD = findViewById(R.id.etviewquestionoptiond);
+        etCorrectOption = findViewById(R.id.etviewquestioncorrectoption);
+        etMarks = findViewById(R.id.etviewquestionmarks);
+        etDifficulty = findViewById(R.id.etviewquestiondifficulty);
 
-        btnNext = findViewById(R.id.btnreviewquestionnext);
-        btnPrevious = findViewById(R.id.btnreviewquestionprevious);
-        findViewById(R.id.btnreviewsubmitquiz).setVisibility(android.view.View.GONE); // Hide submit
+        btnNext = findViewById(R.id.btnviewquestionnext);
+        btnPrevious = findViewById(R.id.btnviewquestionprevious);
 
-        // Disable Editing
         disableEditing();
 
         quizId = getIntent().getStringExtra("quizId");
@@ -56,7 +54,6 @@ public class ViewQuizActivity extends AppCompatActivity {
                 .child(quizId)
                 .child("Questions");
 
-        // Fetch questions from Firebase
         questionRef.get().addOnSuccessListener(snapshot -> {
             for (DataSnapshot ds : snapshot.getChildren()) {
                 QuestionModel model = ds.getValue(QuestionModel.class);
@@ -99,6 +96,7 @@ public class ViewQuizActivity extends AppCompatActivity {
         etOptionD.setText(model.getOptionD());
         etCorrectOption.setText(model.getCorrectOption());
         etMarks.setText(String.valueOf(model.getMarks()));
+        etDifficulty.setText(model.getDifficulty());
     }
 
     private void disableEditing() {
@@ -110,5 +108,6 @@ public class ViewQuizActivity extends AppCompatActivity {
         etOptionD.setEnabled(false);
         etCorrectOption.setEnabled(false);
         etMarks.setEnabled(false);
+        etDifficulty.setEnabled(false);
     }
 }
