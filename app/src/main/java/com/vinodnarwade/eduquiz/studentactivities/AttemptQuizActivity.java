@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -1152,9 +1153,29 @@ public class AttemptQuizActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Exit Quiz?")
+                .setMessage("If you leave now, your progress on this quiz will be lost and it won't be saved. Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Exit Anyway", (dialog, which) -> {
+
+                    if (countDownTimer != null) {
+                        countDownTimer.cancel();
+                    }
+
+                    super.onBackPressed();
+                })
+                .setNegativeButton("Continue Quiz", null)
+                .show();
+    }
+
     private String sanitizeKey(String key) {
         return key.replaceAll("[.#$\\[\\]/]", "_");
     }
+
 
     // =========================================================
     // DESTROY
