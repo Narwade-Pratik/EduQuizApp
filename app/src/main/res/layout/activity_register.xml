@@ -16,14 +16,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         app:cardCornerRadius="16dp"
-        android:elevation="100dp"
+        android:elevation="10dp"
         android:backgroundTint="@color/gray2">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="523dp"
+            android:layout_height="540dp"
             android:orientation="vertical">
 
 
@@ -184,7 +184,7 @@
 
             <EditText
                 android:id="@+id/etregclass"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="33dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
@@ -197,6 +197,41 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 />
+
+            <EditText
+                android:id="@+id/etregparentemailid"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit"
+                android:backgroundTint="@color/white"
+                android:drawableStart="@drawable/email"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/alice"
+                android:hint="Enter your Parent Email Id"
+                android:padding="4dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
+
+            <EditText
+                android:id="@+id/etregparentphno"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit"
+                android:backgroundTint="@color/white"
+                android:drawableStart="@drawable/phone_logo"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/alice"
+                android:hint="Enter your Parent Phone No"
+                android:inputType="number"
+                android:padding="4dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
 
 
             <Button

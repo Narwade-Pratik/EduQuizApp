@@ -5,11 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,13 +30,15 @@ public class WeakAreaStudentListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private TextView tvEmptyState;
+    private AppCompatButton btnSendReport;
 
     private String teacherId;
+    private String filterClassName;
 
     private final ArrayList<StudentModel> studentList = new ArrayList<>();
+    private final Set<String> selectedIds = new LinkedHashSet<>();
+
     private WeakAreaStudentAdapter adapter;
-    private String filterClassName;
-    private String filterSubject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +56,15 @@ public class WeakAreaStudentListActivity extends AppCompatActivity {
             teacherId = prefs.getString("userId", "");
         }
 
+        filterClassName = getIntent().getStringExtra("className");
+
         recyclerView = findViewById(R.id.recyclerViewWeakAreaStudents);
         tvEmptyState = findViewById(R.id.tvWeakAreaStudentsEmptyState);
-        filterClassName = getIntent().getStringExtra("className");
-        filterSubject = getIntent().getStringExtra("subject");
+        btnSendReport = findViewById(R.id.btnSendReportToParents);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new WeakAreaStudentAdapter(studentList, student -> {
+        adapter = new WeakAreaStudentAdapter(studentList, selectedIds, student -> {
 
             Intent intent = new Intent(this, SubjectListActivity.class);
             intent.putExtra("teacherId", teacherId);
@@ -72,7 +76,32 @@ public class WeakAreaStudentListActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
+        btnSendReport.setOnClickListener(v -> onSendReportClicked());
+
         loadStudentsWhoAttempted();
+    }
+
+    private void onSendReportClicked() {
+
+        if (selectedIds.isEmpty()) {
+
+            Toast.makeText(this, "No students selected", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ArrayList<StudentModel> selectedStudents = new ArrayList<>();
+
+        for (StudentModel student : studentList) {
+
+            if (selectedIds.contains(student.getStudentId())) {
+                selectedStudents.add(student);
+            }
+        }
+
+        Intent intent = new Intent(this, SendParentReportActivity.class);
+        intent.putExtra("teacherId", teacherId);
+        intent.putParcelableArrayListExtra("students", selectedStudents);
+        startActivity(intent);
     }
 
     private void loadStudentsWhoAttempted() {
@@ -159,12 +188,13 @@ public class WeakAreaStudentListActivity extends AppCompatActivity {
 
                         String name = snapshot.getValue(String.class);
 
-                        studentList.add(
-                                new StudentModel(
-                                        studentId,
-                                        name != null ? name : "Unknown"
-                                )
+                        StudentModel model = new StudentModel(
+                                studentId,
+                                name != null ? name : "Unknown"
                         );
+
+                        studentList.add(model);
+                        selectedIds.add(studentId);
 
                         fetched[0]++;
 

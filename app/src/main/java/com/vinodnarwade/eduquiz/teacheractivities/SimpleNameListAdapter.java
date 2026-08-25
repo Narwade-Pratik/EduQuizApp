@@ -32,7 +32,7 @@ public class SimpleNameListAdapter
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_weak_area_student, parent, false);
+                .inflate(R.layout.item_simple_name, parent, false);
 
         return new ViewHolder(view);
     }
@@ -56,7 +56,7 @@ public class SimpleNameListAdapter
 
         ViewHolder(View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tvItemWeakAreaStudentName);
+            tvName = itemView.findViewById(R.id.tvItemSimpleName);
         }
     }
 }
