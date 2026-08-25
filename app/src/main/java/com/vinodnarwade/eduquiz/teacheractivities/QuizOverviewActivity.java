@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,27 +14,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.vinodnarwade.eduquiz.R;
-import com.vinodnarwade.eduquiz.teacheractivities.QuizModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class QuizOverviewActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private QuizOverviewAdapter adapter;
-    private ArrayList<QuizModel> quizList;
     private ProgressBar progressBar;
-    private SharedPreferences sharedPreferences;
+    private TextView noQuizText;
 
+    private SharedPreferences sharedPreferences;
     private DatabaseReference quizRef;
     private String teacherId;
+
+    private final ArrayList<String> classNames = new ArrayList<>();
+    private SimpleNameListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,39 +46,75 @@ public class QuizOverviewActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerViewQuizOverview);
         progressBar = findViewById(R.id.progressBarQuizOverviewActivity);
+        noQuizText = findViewById(R.id.noQuizOverviewActivityQuizText);
 
-        quizList = new ArrayList<>();
-        adapter = new QuizOverviewAdapter(this, quizList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        teacherId = sharedPreferences.getString("userId","").trim() ;
-        Toast.makeText(this, "Your Quizzes Overview", Toast.LENGTH_SHORT).show();
-        quizRef = FirebaseDatabase.getInstance().getReference("Users").child(teacherId).child("Quizzes");
 
-        loadTeacherQuizzes();
+        adapter = new SimpleNameListAdapter(classNames, className -> {
+
+            Intent intent = new Intent(this, WeakAreaStudentListActivity.class);
+            intent.putExtra("teacherId", teacherId);
+            intent.putExtra("className", className);
+            startActivity(intent);
+        });
+
+        recyclerView.setAdapter(adapter);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        teacherId = sharedPreferences.getString("userId", "").trim();
+
+        quizRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(teacherId)
+                .child("Quizzes");
+
+        loadClasses();
     }
 
-    private void loadTeacherQuizzes() {
-        progressBar.setVisibility(View.VISIBLE);
-        quizRef.orderByChild("createdBy").equalTo(teacherId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        quizList.clear();
-                        for (DataSnapshot quizSnap : snapshot.getChildren()) {
-                            QuizModel quiz = quizSnap.getValue(QuizModel.class);
-                            quizList.add(quiz);
-                        }
-                        adapter.notifyDataSetChanged();
-                        progressBar.setVisibility(View.GONE);
-                    }
+    private void loadClasses() {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(QuizOverviewActivity.this, "Failed to load quizzes", Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+
+        quizRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Set<String> uniqueClasses = new LinkedHashSet<>();
+
+                for (DataSnapshot quizSnap : snapshot.getChildren()) {
+
+                    QuizModel quiz = quizSnap.getValue(QuizModel.class);
+
+                    if (quiz != null
+                            && quiz.getClassName() != null
+                            && !quiz.getClassName().trim().isEmpty()) {
+
+                        uniqueClasses.add(quiz.getClassName().trim());
                     }
-                });
+                }
+
+                classNames.clear();
+                classNames.addAll(uniqueClasses);
+                Collections.sort(classNames);
+
+                progressBar.setVisibility(View.GONE);
+
+                if (classNames.isEmpty()) {
+                    noQuizText.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    noQuizText.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(QuizOverviewActivity.this, "Failed to load classes", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 }

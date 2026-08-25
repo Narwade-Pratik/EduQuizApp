@@ -75,6 +75,10 @@ public class CustomizedQuizActivity extends AppCompatActivity {
     private final ArrayList<QuestionModel> selectedQuestions =
             new ArrayList<>();
 
+    private final ArrayList<QuestionModel> easyPool = new ArrayList<>();
+    private final ArrayList<QuestionModel> mediumPool = new ArrayList<>();
+    private final ArrayList<QuestionModel> hardPool = new ArrayList<>();
+
     private final Set<String> subjects =
             new LinkedHashSet<>();
 
@@ -704,13 +708,25 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                 return;
             }
 
-            fetchQuestionsFromQuestionBank(
-                    subject,
-                    chapter,
-                    topic,
-                    difficulty,
-                    numberOfQuestions
-            );
+            if (difficulty.equals("Customized")) {
+
+                fetchAllDifficultiesFromQuestionBank(
+                        subject,
+                        chapter,
+                        topic,
+                        numberOfQuestions
+                );
+
+            } else {
+
+                fetchQuestionsFromQuestionBank(
+                        subject,
+                        chapter,
+                        topic,
+                        difficulty,
+                        numberOfQuestions
+                );
+            }
         });
     }
 
@@ -815,6 +831,312 @@ public class CustomizedQuizActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    // =========================================================
+// ADAPTIVE QUIZ — FETCH ALL DIFFICULTIES
+// =========================================================
+
+    private void fetchAllDifficultiesFromQuestionBank(
+            String subject,
+            String chapter,
+            String topic,
+            int numberOfQuestions) {
+
+        DatabaseReference questionBankRef =
+                FirebaseDatabase.getInstance()
+                        .getReference("QuestionBank");
+
+        questionBankRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(
+                            @NonNull DataSnapshot snapshot) {
+
+                        easyPool.clear();
+                        mediumPool.clear();
+                        hardPool.clear();
+
+                        for (DataSnapshot teacherSnapshot :
+                                snapshot.getChildren()) {
+
+                            DataSnapshot classSnapshot =
+                                    teacherSnapshot.child(studentClass);
+
+                            if (!classSnapshot.exists()) {
+                                continue;
+                            }
+
+                            DataSnapshot subjectSnapshot =
+                                    classSnapshot.child(subject);
+
+                            if (!subjectSnapshot.exists()) {
+                                continue;
+                            }
+
+                            DataSnapshot chapterSnapshot =
+                                    subjectSnapshot.child(chapter);
+
+                            if (!chapterSnapshot.exists()) {
+                                continue;
+                            }
+
+                            DataSnapshot topicSnapshot =
+                                    chapterSnapshot.child(topic);
+
+                            if (!topicSnapshot.exists()) {
+                                continue;
+                            }
+
+                            for (DataSnapshot difficultySnapshot :
+                                    topicSnapshot.getChildren()) {
+
+                                String difficultyKey =
+                                        difficultySnapshot.getKey();
+
+                                if (difficultyKey == null) {
+                                    continue;
+                                }
+
+                                ArrayList<QuestionModel> targetPool;
+
+                                switch (difficultyKey) {
+
+                                    case "Easy":
+                                        targetPool = easyPool;
+                                        break;
+
+                                    case "Medium":
+                                        targetPool = mediumPool;
+                                        break;
+
+                                    case "Hard":
+                                        targetPool = hardPool;
+                                        break;
+
+                                    default:
+                                        continue;
+                                }
+
+                                for (DataSnapshot questionSnapshot :
+                                        difficultySnapshot.getChildren()) {
+
+                                    QuestionModel question =
+                                            questionSnapshot
+                                                    .getValue(QuestionModel.class);
+
+                                    if (question != null) {
+                                        targetPool.add(question);
+                                    }
+                                }
+                            }
+                        }
+
+                        handleAdaptiveQuizGeneration(
+                                subject,
+                                chapter,
+                                topic,
+                                numberOfQuestions
+                        );
+                    }
+
+                    @Override
+                    public void onCancelled(
+                            @NonNull DatabaseError error) {
+
+                        Toast.makeText(
+                                CustomizedQuizActivity.this,
+                                "Failed to load questions: "
+                                        + error.getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        );
+    }
+
+
+// =========================================================
+// ADAPTIVE QUIZ — BUILD CALIBRATION BATCH + LAUNCH
+// =========================================================
+
+    private void handleAdaptiveQuizGeneration(
+            String subject,
+            String chapter,
+            String topic,
+            int numberOfQuestions) {
+
+        int totalAvailable =
+                easyPool.size() + mediumPool.size() + hardPool.size();
+
+        if (totalAvailable == 0) {
+
+            Toast.makeText(
+                    this,
+                    "No questions available for the selected options.",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            return;
+        }
+
+        if (totalAvailable < numberOfQuestions) {
+
+            Toast.makeText(
+                    this,
+                    "Only " + totalAvailable +
+                            " questions are available across all difficulties.",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            return;
+        }
+
+        Collections.shuffle(easyPool);
+        Collections.shuffle(mediumPool);
+        Collections.shuffle(hardPool);
+
+        // Build a combined pool for calibration (mixed difficulty)
+        ArrayList<QuestionModel> combinedPool = new ArrayList<>();
+        combinedPool.addAll(easyPool);
+        combinedPool.addAll(mediumPool);
+        combinedPool.addAll(hardPool);
+        Collections.shuffle(combinedPool);
+
+        int calibrationCount =
+                (int) Math.ceil(0.25 * numberOfQuestions);
+
+        if (calibrationCount > numberOfQuestions) {
+            calibrationCount = numberOfQuestions;
+        }
+
+        ArrayList<QuestionModel> calibrationQuestions =
+                new ArrayList<>(
+                        combinedPool.subList(0, calibrationCount)
+                );
+
+        // Remove calibration questions from the individual pools
+        // so they aren't reused in adaptive batches later
+        Set<String> usedIds = new LinkedHashSet<>();
+
+        for (QuestionModel q : calibrationQuestions) {
+            if (q.getQuestionId() != null) {
+                usedIds.add(q.getQuestionId());
+            }
+        }
+
+        removeUsedQuestions(easyPool, usedIds);
+        removeUsedQuestions(mediumPool, usedIds);
+        removeUsedQuestions(hardPool, usedIds);
+
+        launchAdaptiveAttemptActivity(
+                subject,
+                chapter,
+                topic,
+                numberOfQuestions,
+                calibrationQuestions
+        );
+    }
+
+
+    private void removeUsedQuestions(
+            ArrayList<QuestionModel> pool,
+            Set<String> usedIds) {
+
+        ArrayList<QuestionModel> toRemove = new ArrayList<>();
+
+        for (QuestionModel q : pool) {
+
+            if (q.getQuestionId() != null
+                    && usedIds.contains(q.getQuestionId())) {
+
+                toRemove.add(q);
+            }
+        }
+
+        pool.removeAll(toRemove);
+    }
+
+
+// =========================================================
+// ADAPTIVE QUIZ — LAUNCH ATTEMPT ACTIVITY
+// =========================================================
+
+    private void launchAdaptiveAttemptActivity(
+            String subject,
+            String chapter,
+            String topic,
+            int numberOfQuestions,
+            ArrayList<QuestionModel> calibrationQuestions) {
+
+        String customQuizId =
+                FirebaseDatabase.getInstance()
+                        .getReference()
+                        .child("Users")
+                        .child(studentUserId)
+                        .child("CustomQuizzes")
+                        .push()
+                        .getKey();
+
+        if (customQuizId == null) {
+
+            Toast.makeText(
+                    this,
+                    "Failed to create quiz ID.",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            return;
+        }
+
+        Intent intent =
+                new Intent(
+                        CustomizedQuizActivity.this,
+                        AttemptQuizActivity.class
+                );
+
+        intent.putExtra("isCustomizedQuiz", true);
+        intent.putExtra("customQuizId", customQuizId);
+        intent.putExtra("customSubject", subject);
+        intent.putExtra("customChapter", chapter);
+        intent.putExtra("customTopic", topic);
+        intent.putExtra("customDifficulty", "Customized");
+        intent.putExtra("customNumberOfQuestions", numberOfQuestions);
+
+        // Adaptive-specific extras
+        intent.putExtra("isAdaptiveQuiz", true);
+        intent.putExtra("adaptiveTotalQuestions", numberOfQuestions);
+
+        intent.putParcelableArrayListExtra(
+                "adaptiveCalibrationQuestions",
+                calibrationQuestions
+        );
+
+        intent.putParcelableArrayListExtra(
+                "adaptiveEasyPool",
+                easyPool
+        );
+
+        intent.putParcelableArrayListExtra(
+                "adaptiveMediumPool",
+                mediumPool
+        );
+
+        intent.putParcelableArrayListExtra(
+                "adaptiveHardPool",
+                hardPool
+        );
+
+        // customQuestions still needed for non-adaptive code paths
+        // in AttemptQuizActivity that check its emptiness — pass calibration
+        // batch as the initial visible questionList
+        intent.putParcelableArrayListExtra(
+                "customQuestions",
+                calibrationQuestions
+        );
+
+        startActivity(intent);
     }
 
     private void handleFetchedQuestions(

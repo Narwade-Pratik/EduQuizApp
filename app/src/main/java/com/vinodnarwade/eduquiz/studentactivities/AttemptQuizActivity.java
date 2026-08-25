@@ -72,6 +72,14 @@ public class AttemptQuizActivity extends AppCompatActivity {
     // =========================================================
 
     private boolean isCustomizedQuiz = false;
+    private boolean isAdaptiveQuiz = false;
+    private int adaptiveTotalQuestions = 0;
+    private int adaptiveBatchSize = 1;
+    private int currentBatchStartIndex = 0;
+
+    private ArrayList<QuestionModel> adaptiveEasyPool = new ArrayList<>();
+    private ArrayList<QuestionModel> adaptiveMediumPool = new ArrayList<>();
+    private ArrayList<QuestionModel> adaptiveHardPool = new ArrayList<>();
 
     private ArrayList<QuestionModel> customQuestions;
 
@@ -154,6 +162,28 @@ public class AttemptQuizActivity extends AppCompatActivity {
                 getIntent().getParcelableArrayListExtra(
                         "customQuestions"
                 );
+
+        isAdaptiveQuiz = getIntent().getBooleanExtra("isAdaptiveQuiz", false);
+        adaptiveTotalQuestions = getIntent().getIntExtra("adaptiveTotalQuestions", 0);
+
+        if (isAdaptiveQuiz) {
+
+            ArrayList<QuestionModel> passedEasy =
+                    getIntent().getParcelableArrayListExtra("adaptiveEasyPool");
+
+            ArrayList<QuestionModel> passedMedium =
+                    getIntent().getParcelableArrayListExtra("adaptiveMediumPool");
+
+            ArrayList<QuestionModel> passedHard =
+                    getIntent().getParcelableArrayListExtra("adaptiveHardPool");
+
+            if (passedEasy != null) adaptiveEasyPool = passedEasy;
+            if (passedMedium != null) adaptiveMediumPool = passedMedium;
+            if (passedHard != null) adaptiveHardPool = passedHard;
+
+            adaptiveBatchSize =
+                    Math.max(1, Math.round(adaptiveTotalQuestions / 10.0f));
+        }
 
         // -----------------------------------------------------
         // Get logged-in student
@@ -472,10 +502,10 @@ public class AttemptQuizActivity extends AppCompatActivity {
         /*
          * 1 minute per question.
          */
-        totalTimeMillis =
-                questionList.size()
-                        * 60
-                        * 1000L;
+        int timerBasisCount =
+                isAdaptiveQuiz ? adaptiveTotalQuestions : questionList.size();
+
+        totalTimeMillis = timerBasisCount * 60 * 1000L;
 
 
         currentIndex = 0;
@@ -640,26 +670,26 @@ public class AttemptQuizActivity extends AppCompatActivity {
 
         // Next / Submit
 
-        if (index ==
-                questionList.size() - 1) {
+        boolean isLastQuestionOverall;
 
-            nextBtn.setVisibility(
-                    View.GONE
-            );
+        if (isAdaptiveQuiz) {
 
-            submitBtn.setVisibility(
-                    View.VISIBLE
-            );
+            isLastQuestionOverall =
+                    (index == questionList.size() - 1)
+                            && (questionList.size() >= adaptiveTotalQuestions);
 
         } else {
 
-            nextBtn.setVisibility(
-                    View.VISIBLE
-            );
+            isLastQuestionOverall =
+                    (index == questionList.size() - 1);
+        }
 
-            submitBtn.setVisibility(
-                    View.GONE
-            );
+        if (isLastQuestionOverall) {
+            nextBtn.setVisibility(View.GONE);
+            submitBtn.setVisibility(View.VISIBLE);
+        } else {
+            nextBtn.setVisibility(View.VISIBLE);
+            submitBtn.setVisibility(View.GONE);
         }
     }
 
@@ -728,15 +758,138 @@ public class AttemptQuizActivity extends AppCompatActivity {
 
         saveAnswer();
 
-        if (currentIndex
-                < questionList.size() - 1) {
+        if (isAdaptiveQuiz
+                && currentIndex == questionList.size() - 1
+                && questionList.size() < adaptiveTotalQuestions) {
+
+            generateNextAdaptiveBatch();
+        }
+
+        if (currentIndex < questionList.size() - 1) {
 
             currentIndex++;
 
-            showQuestion(
-                    currentIndex
-            );
+            showQuestion(currentIndex);
         }
+    }
+
+    // =========================================================
+// ADAPTIVE — GENERATE NEXT BATCH
+// =========================================================
+
+    private void generateNextAdaptiveBatch() {
+
+        int batchStart = currentBatchStartIndex;
+        int batchEnd = questionList.size();
+
+        int correctInBatch = 0;
+        int totalInBatch = batchEnd - batchStart;
+
+        for (int i = batchStart; i < batchEnd; i++) {
+
+            QuestionModel question = questionList.get(i);
+
+            String selected =
+                    selectedAnswers.get(question.getQuestionId());
+
+            String correct =
+                    question.getCorrectOption();
+
+            if (selected != null
+                    && correct != null
+                    && selected.trim().equalsIgnoreCase(correct.trim())) {
+
+                correctInBatch++;
+            }
+        }
+
+        double accuracy =
+                totalInBatch > 0
+                        ? (correctInBatch * 100.0) / totalInBatch
+                        : 0;
+
+        String targetDifficulty;
+
+        if (accuracy > 70) {
+            targetDifficulty = "Hard";
+        } else if (accuracy >= 40) {
+            targetDifficulty = "Medium";
+        } else {
+            targetDifficulty = "Easy";
+        }
+
+        int remaining = adaptiveTotalQuestions - questionList.size();
+
+        int nextBatchSize = Math.min(adaptiveBatchSize, remaining);
+
+        if (nextBatchSize <= 0) {
+            return;
+        }
+
+        Toast.makeText(
+                this,
+                "Adjusting difficulty...",
+                Toast.LENGTH_SHORT
+        ).show();
+
+        ArrayList<QuestionModel> nextBatch =
+                pickQuestionsForDifficulty(
+                        targetDifficulty,
+                        nextBatchSize
+                );
+
+        currentBatchStartIndex = questionList.size();
+
+        questionList.addAll(nextBatch);
+    }
+
+
+// =========================================================
+// ADAPTIVE — PICK QUESTIONS FROM POOLS (WITH FALLBACK)
+// =========================================================
+
+    private ArrayList<QuestionModel> pickQuestionsForDifficulty(
+            String targetDifficulty,
+            int count) {
+
+        ArrayList<QuestionModel> result = new ArrayList<>();
+
+        ArrayList<ArrayList<QuestionModel>> orderedPools =
+                new ArrayList<>();
+
+        switch (targetDifficulty) {
+
+            case "Hard":
+                orderedPools.add(adaptiveHardPool);
+                orderedPools.add(adaptiveMediumPool);
+                orderedPools.add(adaptiveEasyPool);
+                break;
+
+            case "Easy":
+                orderedPools.add(adaptiveEasyPool);
+                orderedPools.add(adaptiveMediumPool);
+                orderedPools.add(adaptiveHardPool);
+                break;
+
+            default:
+                orderedPools.add(adaptiveMediumPool);
+                orderedPools.add(adaptiveEasyPool);
+                orderedPools.add(adaptiveHardPool);
+                break;
+        }
+
+        for (ArrayList<QuestionModel> pool : orderedPools) {
+
+            while (result.size() < count && !pool.isEmpty()) {
+                result.add(pool.remove(0));
+            }
+
+            if (result.size() >= count) {
+                break;
+            }
+        }
+
+        return result;
     }
 
 

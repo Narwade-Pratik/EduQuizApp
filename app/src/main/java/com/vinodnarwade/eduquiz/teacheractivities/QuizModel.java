@@ -1,7 +1,7 @@
 package com.vinodnarwade.eduquiz.teacheractivities;
 
 public class QuizModel {
-    String quizID, title, subject, createdBy;
+    String quizID, title, subject, createdBy, className;
     int numberOfQuestions;
     String scheduledFirstDate, scheduledSecondDate;
     long scheduledTimestampFirst, scheduledTimestampSecond;
@@ -14,7 +14,7 @@ public class QuizModel {
     public QuizModel(String quizId, String title, String subjectName, int noOfQuestions,
                      String userId, String scheduledFirstDate, long scheduledTimestampFirst,
                      String scheduledSecondDate, long scheduledTimestampSecond,
-                     int durationInMinutes) {
+                     int durationInMinutes, String className) {
         this.quizID = quizId;
         this.title = title;
         this.subject = subjectName;
@@ -25,6 +25,15 @@ public class QuizModel {
         this.scheduledSecondDate = scheduledSecondDate;
         this.scheduledTimestampSecond = scheduledTimestampSecond;
         this.durationInMinutes = durationInMinutes;
+        this.className = className;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public int getDurationInMinutes() {
@@ -34,8 +43,6 @@ public class QuizModel {
     public void setDurationInMinutes(int durationInMinutes) {
         this.durationInMinutes = durationInMinutes;
     }
-
-
 
     public String getCreatedBy() {
         return createdBy;
@@ -109,4 +116,3 @@ public class QuizModel {
         this.title = title;
     }
 }
-

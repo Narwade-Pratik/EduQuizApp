@@ -29,7 +29,7 @@ import com.vinodnarwade.eduquiz.R;
 
 public class CreateQuizActivity extends AppCompatActivity {
 
-    EditText quizTitle,noOfQue,subjectName,durationHours,durationMinutes;
+    EditText quizTitle,noOfQue,subjectName,durationHours,durationMinutes,etclassname;
     AppCompatButton createQuiz,btnScheduleFirstDate,btnScheduleSecondDate;
     FirebaseDatabase database;
     FirebaseAuth auth;
@@ -48,6 +48,7 @@ public class CreateQuizActivity extends AppCompatActivity {
         quizTitle = findViewById(R.id.etcreatequizquiztitile);
         noOfQue = findViewById(R.id.etcreatequiznoofquestions);
         subjectName = findViewById(R.id.etcreatequizsubjectname);
+        etclassname = findViewById(R.id.etcreatequizclassname);
         createQuiz = findViewById(R.id.btncreatequizcreatequiz);
         durationHours = findViewById(R.id.etCreateQuizDurationHours);
         durationMinutes = findViewById(R.id.etCreateQuizDurationMinutes);
@@ -73,6 +74,7 @@ public class CreateQuizActivity extends AppCompatActivity {
                 String title = quizTitle.getText().toString();
                 char[] digitsArray = noOfQue.getText().toString().toCharArray();
                 String subjectNameIs = subjectName.getText().toString();
+                String classNameIs = etclassname.getText().toString().trim();
 
                 String hoursStr = durationHours.getText().toString().trim();
                 String minutesStr = durationMinutes.getText().toString().trim();
@@ -93,6 +95,8 @@ public class CreateQuizActivity extends AppCompatActivity {
                     subjectName.setError("Enter Subject Name");
                 } else if (scheduledFirstDate.isEmpty() || scheduledTimestampFirst == 0) {
                     Toast.makeText(CreateQuizActivity.this, "Please select scheduled date & time", Toast.LENGTH_SHORT).show();
+                } else if (classNameIs.isEmpty()) {
+                    etclassname.setError("Enter Class Name");
                 } else if (scheduledSecondDate.isEmpty() || scheduledTimestampSecond == 0) {
                     Toast.makeText(CreateQuizActivity.this, "Please select scheduled date & time", Toast.LENGTH_SHORT).show();
                 } else if (durationInMinutes <= 0) {
@@ -126,7 +130,8 @@ public class CreateQuizActivity extends AppCompatActivity {
                             scheduledTimestampFirst,
                             scheduledSecondDate,
                             scheduledTimestampSecond,
-                            durationInMinutes  // <-- Add this field
+                            durationInMinutes,
+                            classNameIs   // <-- naya
                     );
 
                     quizRef.child(quizId).setValue(quiz).addOnCompleteListener(task -> {

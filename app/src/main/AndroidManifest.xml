@@ -17,6 +17,18 @@
         android:theme="@style/Theme.EduQuiz"
         tools:targetApi="31">
         <activity
+            android:name=".teacheractivities.TopicListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.SubjectListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.WeakAreaDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".teacheractivities.WeakAreaStudentListActivity"
+            android:exported="false" />
+        <activity
             android:name=".studentactivities.DetailedReportActivity"
             android:exported="false" />
         <activity
@@ -142,6 +154,11 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name=".teacheractivities.DifficultyListActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

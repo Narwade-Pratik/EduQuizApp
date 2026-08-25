@@ -1,170 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     tools:context=".teacheractivities.CreateQuizActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/adamina"
-        android:text="Enter Quiz Details"
-        android:textAlignment="center"
-        android:textColor="@color/brightorange"
-        android:textSize="24dp"
-        android:textStyle="bold" />
-
-    <androidx.cardview.widget.CardView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:backgroundTint="@color/gray2"
-        app:cardCornerRadius="10dp"
-        android:elevation="100dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginRight="22dp"
-        android:layout_marginTop="18dp">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/adamina"
+            android:text="Enter Quiz Details"
+            android:textAlignment="center"
+            android:textColor="@color/brightorange"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:background="#CBCBCB"
-            android:orientation="vertical">
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:id="@+id/etcreatequizquiztitile"
-                android:hint="Enter Quiz Title"
-                android:paddingLeft="10dp"
-                android:textSize="20dp"
-                android:fontFamily="@font/alice"
-                android:textColorHint="@color/black"
-                android:textColor="@color/black"
-                android:inputType="text"
-                android:background="@drawable/edit2"
-                android:layout_margin="10dp" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/gray2"
+            app:cardCornerRadius="10dp"
+            android:elevation="100dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="24dp">
 
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:id="@+id/etcreatequiznoofquestions"
-                android:hint="Enter Number Of Questions"
-                android:paddingLeft="10dp"
-                android:textSize="20dp"
-                android:fontFamily="@font/alice"
-                android:textColorHint="@color/black"
-                android:textColor="@color/black"
-                android:inputType="text"
-                android:background="@drawable/edit2"
-                android:layout_margin="10dp"/>
-
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:id="@+id/etcreatequizsubjectname"
-                android:hint="Enter subject name"
-                android:paddingLeft="10dp"
-                android:textSize="20dp"
-                android:fontFamily="@font/alice"
-                android:textColorHint="@color/black"
-                android:textColor="@color/black"
-                android:inputType="text"
-                android:background="@drawable/edit2"
-                android:layout_margin="10dp"/>
-
-            <!-- Schedule Date & Time Button -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btncreatequizschedulefirsttimeanddate"
-                android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                android:text="Set Starting Date and Time"
-                android:textSize="20dp"
-                android:backgroundTint="@color/gray"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp" />
-
-            <!-- Show Selected Schedule Date -->
-            <TextView
-                android:id="@+id/tvcreatequizdiplayscheduledfirsttimeanddate"
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:text="No Date Selected"
-                android:textSize="20dp"
-                android:textAlignment="center"
-                android:textStyle="italic"
-                android:textColor="@color/black"
-                android:background="@drawable/edit2"
-                android:layout_marginBottom="10dp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btncreatequizschedulesecondtimeanddate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Set Ending Date and Time"
-                android:textSize="20dp"
-                android:backgroundTint="@color/gray"
-                android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp" />
-
-            <!-- Show Selected Schedule Date -->
-            <TextView
-                android:id="@+id/tvcreatequizdiplayscheduledsecondtimeanddate"
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:text="No Date Selected"
-                android:textSize="20dp"
-                android:textAlignment="center"
-                android:textStyle="italic"
-                android:textColor="@color/black"
-                android:background="@drawable/edit2"
-                android:layout_marginBottom="10dp" />
-
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:id="@+id/etCreateQuizDurationHours"
-                android:hint="Enter duration (Hours)"
-                android:paddingLeft="10dp"
-                android:textSize="20dp"
-                android:fontFamily="@font/alice"
-                android:textColorHint="@color/black"
-                android:textColor="@color/black"
-                android:inputType="number"
-                android:background="@drawable/edit2"
-                android:layout_margin="10dp"/>
-
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="30dp"
-                android:id="@+id/etCreateQuizDurationMinutes"
-                android:hint="Enter duration (Minutes)"
-                android:paddingLeft="10dp"
-                android:textSize="20dp"
-                android:fontFamily="@font/alice"
-                android:textColorHint="@color/black"
-                android:textColor="@color/black"
-                android:inputType="number"
-                android:background="@drawable/edit2"
-                android:layout_margin="10dp"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btncreatequizcreatequiz"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="20dp"
-                android:backgroundTint="@color/darkgreen"
-                android:text="Create"
-                android:textColor="@color/white"/>
+                android:gravity="center"
+                android:background="#CBCBCB"
+                android:orientation="vertical"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
 
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/etcreatequizquiztitile"
+                    android:hint="Enter Quiz Title"
+                    android:paddingLeft="10dp"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/alice"
+                    android:textColorHint="@color/gray"
+                    android:textColor="@color/black"
+                    android:inputType="text"
+                    android:background="@drawable/edit2"
+                    android:layout_margin="10dp" />
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/etcreatequizclassname"
+                    android:hint="Enter Class name"
+                    android:paddingLeft="10dp"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/alice"
+                    android:textColorHint="@color/gray"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:background="@drawable/edit2"
+                    android:layout_margin="10dp"/>
 
-</LinearLayout>
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/etcreatequiznoofquestions"
+                    android:hint="Enter Number Of Questions"
+                    android:paddingLeft="10dp"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/alice"
+                    android:textColorHint="@color/gray"
+                    android:textColor="@color/black"
+                    android:inputType="text"
+                    android:background="@drawable/edit2"
+                    android:layout_margin="10dp"/>
 
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/etcreatequizsubjectname"
+                    android:hint="Enter subject name"
+                    android:paddingLeft="10dp"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/alice"
+                    android:textColorHint="@color/gray"
+                    android:textColor="@color/black"
+                    android:inputType="text"
+                    android:background="@drawable/edit2"
+                    android:layout_margin="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btncreatequizschedulefirsttimeanddate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Starting Date and Time"
+                    android:textSize="20dp"
+                    android:backgroundTint="@color/gray"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/tvcreatequizdiplayscheduledfirsttimeanddate"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:text="No Date Selected"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:textStyle="italic"
+                    android:textColor="@color/gray"
+                    android:background="@drawable/edit2"
+                    android:layout_marginBottom="10dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btncreatequizschedulesecondtimeanddate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Ending Date and Time"
+                    android:textSize="20dp"
+                    android:backgroundTint="@color/gray"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/tvcreatequizdiplayscheduledsecondtimeanddate"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:text="No Date Selected"
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:textStyle="italic"
+                    android:textColor="@color/gray"
+                    android:background="@drawable/edit2"
+                    android:layout_marginBottom="10dp" />
+
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/etCreateQuizDurationHours"
+                    android:hint="Enter duration (Hours)"
+                    android:paddingLeft="10dp"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/alice"
+                    android:textColorHint="@color/gray"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:background="@drawable/edit2"
+                    android:layout_margin="10dp"/>
+
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/etCreateQuizDurationMinutes"
+                    android:hint="Enter duration (Minutes)"
+                    android:paddingLeft="10dp"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/alice"
+                    android:textColorHint="@color/gray"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    android:background="@drawable/edit2"
+                    android:layout_margin="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btncreatequizcreatequiz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="20dp"
+                    android:backgroundTint="@color/darkgreen"
+                    android:text="Create"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>
