@@ -31,6 +31,8 @@ public class WeakAreaStudentListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TextView tvEmptyState;
     private AppCompatButton btnSendReport;
+    private String quizId;
+    private String quizTitle;
 
     private String teacherId;
     private String filterClassName;
@@ -57,7 +59,8 @@ public class WeakAreaStudentListActivity extends AppCompatActivity {
         }
 
         filterClassName = getIntent().getStringExtra("className");
-
+        quizId = getIntent().getStringExtra("quizId");
+        quizTitle = getIntent().getStringExtra("quizTitle");
         recyclerView = findViewById(R.id.recyclerViewWeakAreaStudents);
         tvEmptyState = findViewById(R.id.tvWeakAreaStudentsEmptyState);
         btnSendReport = findViewById(R.id.btnSendReportToParents);
@@ -100,12 +103,66 @@ public class WeakAreaStudentListActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, SendParentReportActivity.class);
         intent.putExtra("teacherId", teacherId);
+        intent.putExtra("quizId", quizId);
+        intent.putExtra("quizTitle", quizTitle);
         intent.putParcelableArrayListExtra("students", selectedStudents);
         startActivity(intent);
     }
 
     private void loadStudentsWhoAttempted() {
 
+        if (quizId != null && !quizId.isEmpty()) {
+
+            // Quiz-specific: sirf isi quiz ke attempters
+            DatabaseReference attemptedByRef =
+                    FirebaseDatabase.getInstance()
+                            .getReference("Users")
+                            .child(teacherId)
+                            .child("Quizzes")
+                            .child(quizId)
+                            .child("AttemptedBy");
+
+            attemptedByRef.addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            Set<String> studentIds = new LinkedHashSet<>();
+
+                            for (DataSnapshot studentSnap : snapshot.getChildren()) {
+
+                                String sid = studentSnap.getKey();
+
+                                if (sid != null) {
+                                    studentIds.add(sid);
+                                }
+                            }
+
+                            if (studentIds.isEmpty()) {
+                                showEmptyState();
+                                return;
+                            }
+
+                            fetchStudentDetails(studentIds);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                            Toast.makeText(
+                                    WeakAreaStudentListActivity.this,
+                                    "Failed to load students: " + error.getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                    }
+            );
+
+            return;
+        }
+
+        // Fallback: purana className-wide behavior (agar quizId na diya ho)
         DatabaseReference quizzesRef =
                 FirebaseDatabase.getInstance()
                         .getReference("Users")

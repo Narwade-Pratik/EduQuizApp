@@ -17,6 +17,9 @@
         android:theme="@style/Theme.EduQuiz"
         tools:targetApi="31">
         <activity
+            android:name=".teacheractivities.QuizListActivity"
+            android:exported="false" />
+        <activity
             android:name=".teacheractivities.SendParentReportActivity"
             android:exported="false" />
         <activity

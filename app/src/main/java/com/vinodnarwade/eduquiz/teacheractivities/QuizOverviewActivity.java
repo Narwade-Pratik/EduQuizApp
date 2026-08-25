@@ -52,7 +52,7 @@ public class QuizOverviewActivity extends AppCompatActivity {
 
         adapter = new SimpleNameListAdapter(classNames, className -> {
 
-            Intent intent = new Intent(this, WeakAreaStudentListActivity.class);
+            Intent intent = new Intent(this, QuizListActivity.class);
             intent.putExtra("teacherId", teacherId);
             intent.putExtra("className", className);
             startActivity(intent);

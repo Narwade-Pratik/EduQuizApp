@@ -48,11 +48,11 @@ public class HelperClass {
         this.emailId = emailId;
     }
     public String getParentEmailId() {
-        return emailId;
+        return parentEmailId;
     }
 
     public void setParentEmailId(String emailId) {
-        this.emailId = emailId;
+        this.emailId = parentEmailId;
     }
 
     public String getName() {
@@ -79,11 +79,11 @@ public class HelperClass {
         this.phoneNumber = phoneNumber;
     }
     public String getParentPhoneNumber() {
-        return phoneNumber;
+        return parentPhoneNumber;
     }
 
     public void setParentPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = parentPhoneNumber;
     }
 
     public String getUserName() {

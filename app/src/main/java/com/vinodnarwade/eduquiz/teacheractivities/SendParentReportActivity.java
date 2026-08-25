@@ -9,6 +9,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.vinodnarwade.eduquiz.R;
 
@@ -25,6 +26,8 @@ public class SendParentReportActivity extends AppCompatActivity {
 
     private ArrayList<StudentModel> students;
     private String teacherId;
+    private String quizId;
+    private String quizTitle;
 
     private int currentIndex = 0;
 
@@ -45,6 +48,8 @@ public class SendParentReportActivity extends AppCompatActivity {
 
         teacherId = getIntent().getStringExtra("teacherId");
         students = getIntent().getParcelableArrayListExtra("students");
+        quizId = getIntent().getStringExtra("quizId");
+        quizTitle = getIntent().getStringExtra("quizTitle");
 
         if (students == null) {
             students = new ArrayList<>();
@@ -92,7 +97,144 @@ public class SendParentReportActivity extends AppCompatActivity {
             return;
         }
 
-        loadPerformanceAndSend(student, parentEmail.trim());
+        if (quizId != null && !quizId.isEmpty()) {
+            loadQuizResultAndSend(student, parentEmail.trim());
+        } else {
+            loadPerformanceAndSend(student, parentEmail.trim());
+        }
+    }
+
+    private void loadQuizResultAndSend(StudentModel student, String parentEmail) {
+
+        DatabaseReference attemptRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(teacherId)
+                .child("Quizzes")
+                .child(quizId)
+                .child("AttemptedBy")
+                .child(student.getStudentId());
+
+        attemptRef.get().addOnSuccessListener(attemptSnap -> {
+
+            if (!attemptSnap.exists()) {
+                updateLastStatus(student.getName() + ": skipped (didn't attempt this quiz).");
+                scheduleNext();
+                return;
+            }
+
+            Long score = attemptSnap.child("score").getValue(Long.class);
+            Long numQ = attemptSnap.child("numberOfQuestions").getValue(Long.class);
+            Long timeTaken = attemptSnap.child("timeTakenMillis").getValue(Long.class);
+
+            @SuppressWarnings("unchecked")
+            Map<String, Object> answersRaw =
+                    (Map<String, Object>) attemptSnap.child("answers").getValue();
+
+            DatabaseReference questionsRef = FirebaseDatabase.getInstance()
+                    .getReference("Users")
+                    .child(teacherId)
+                    .child("Quizzes")
+                    .child(quizId)
+                    .child("Questions");
+
+            questionsRef.get().addOnSuccessListener(questionsSnap -> {
+
+                int totalCorrect = 0;
+                int totalIncorrect = 0;
+                int totalUnattempted = 0;
+
+                for (DataSnapshot qSnap : questionsSnap.getChildren()) {
+
+                    String qId = qSnap.getKey();
+                    String correctOption = qSnap.child("correctOption").getValue(String.class);
+
+                    String selected =
+                            (answersRaw != null && qId != null && answersRaw.get(qId) != null)
+                                    ? String.valueOf(answersRaw.get(qId))
+                                    : null;
+
+                    if (selected == null || selected.trim().isEmpty()) {
+
+                        totalUnattempted++;
+
+                    } else if (correctOption != null
+                            && selected.trim().equalsIgnoreCase(correctOption.trim())) {
+
+                        totalCorrect++;
+
+                    } else {
+
+                        totalIncorrect++;
+                    }
+                }
+
+                int totalQuestions =
+                        numQ != null ? numQ.intValue()
+                                : (totalCorrect + totalIncorrect + totalUnattempted);
+
+                int attemptedTotal = totalCorrect + totalIncorrect;
+
+                double percentage =
+                        attemptedTotal > 0 ? (totalCorrect * 100.0 / attemptedTotal) : 0;
+
+                String summary =
+                        (quizTitle != null ? quizTitle : "Quiz") + ":\n"
+                                + "Correct: " + totalCorrect
+                                + ", Incorrect: " + totalIncorrect
+                                + ", Unattempted: " + totalUnattempted + "\n";
+
+                String weakNote =
+                        (totalIncorrect + totalUnattempted) > 0
+                                ? "Review recommended for: " + (quizTitle != null ? quizTitle : "this quiz")
+                                : "No major issues in this quiz.";
+
+                Map<String, String> params = new HashMap<>();
+                params.put("parent_email", parentEmail);
+                params.put("name", "EduQuiz");
+                params.put("time", "");
+                params.put("message", "");
+                params.put("student_name", student.getName());
+                params.put("total_questions", String.valueOf(totalQuestions));
+                params.put("correct_answers", String.valueOf(totalCorrect));
+                params.put("incorrect_answers", String.valueOf(totalIncorrect));
+                params.put("score", score != null ? String.valueOf(score) : "0");
+                params.put("percentage", String.format(Locale.getDefault(), "%.1f", percentage));
+                params.put("time_taken", timeTaken != null ? formatMillis(timeTaken) : "N/A");
+                params.put("performance_summary", summary);
+                params.put("weak_topics", weakNote);
+
+                EmailJsHelper.sendEmail(
+                        params,
+                        (success, message) -> {
+
+                            if (success) {
+                                updateLastStatus(student.getName() + ": email sent.");
+                            } else {
+                                updateLastStatus(student.getName() + ": failed (" + message + ").");
+                            }
+
+                            scheduleNext();
+                        }
+                );
+
+            }).addOnFailureListener(e -> {
+                updateLastStatus(student.getName() + ": failed to load quiz questions.");
+                scheduleNext();
+            });
+
+        }).addOnFailureListener(e -> {
+            updateLastStatus(student.getName() + ": failed to load quiz attempt.");
+            scheduleNext();
+        });
+    }
+
+    private String formatMillis(long millis) {
+
+        long totalSeconds = millis / 1000;
+        long minutes = totalSeconds / 60;
+        long seconds = totalSeconds % 60;
+
+        return minutes + "m " + seconds + "s";
     }
 
     private void loadPerformanceAndSend(StudentModel student, String parentEmail) {
