@@ -3,7 +3,7 @@ package com.vinodnarwade.eduquiz;
 public class HelperClass {
 
     String name, userName, emailId, phoneNumber, password, roleIs, userId, parentEmailId, parentPhoneNumber;
-    String className;
+    String className, profileImageBase64;
 
     public HelperClass() {
     }
@@ -47,12 +47,13 @@ public class HelperClass {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
+
     public String getParentEmailId() {
         return parentEmailId;
     }
 
-    public void setParentEmailId(String emailId) {
-        this.emailId = parentEmailId;
+    public void setParentEmailId(String parentEmailId) {
+        this.parentEmailId = parentEmailId;
     }
 
     public String getName() {
@@ -78,12 +79,13 @@ public class HelperClass {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
     public String getParentPhoneNumber() {
         return parentPhoneNumber;
     }
 
-    public void setParentPhoneNumber(String phoneNumber) {
-        this.phoneNumber = parentPhoneNumber;
+    public void setParentPhoneNumber(String parentPhoneNumber) {
+        this.parentPhoneNumber = parentPhoneNumber;
     }
 
     public String getUserName() {
@@ -108,5 +110,13 @@ public class HelperClass {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public String getProfileImageBase64() {
+        return profileImageBase64;
+    }
+
+    public void setProfileImageBase64(String profileImageBase64) {
+        this.profileImageBase64 = profileImageBase64;
     }
 }

@@ -27,7 +27,6 @@
             app:civ_border_color="@color/black"
             app:civ_border_width="2dp" />
 
-
         <!-- Profile Title -->
         <TextView
             android:layout_width="wrap_content"
@@ -40,10 +39,15 @@
             android:textStyle="bold"
             android:fontFamily="sans-serif-medium" />
 
+        <ProgressBar
+            android:id="@+id/progressBarProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp" />
 
         <!-- Name -->
         <LinearLayout
-            android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="28dp"
@@ -76,10 +80,110 @@
 
         </LinearLayout>
 
-
-        <!-- ID -->
+        <!-- Username -->
         <LinearLayout
-            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="50">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="12"
+                android:text="Username :"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+            <EditText
+                android:id="@+id/et_profile_fragment_username"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="33"
+                android:hint="Your username"
+                android:textSize="15sp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/edit2"
+                android:inputType="text"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <!-- Email -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="50">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="12"
+                android:text="Email :"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+            <EditText
+                android:id="@+id/et_profile_fragment_email"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="33"
+                android:hint="Your email"
+                android:textSize="15sp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/edit2"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <!-- Phone -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="50">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="12"
+                android:text="Phone :"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+            <EditText
+                android:id="@+id/et_profile_fragment_phone"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="33"
+                android:hint="Your phone number"
+                android:textSize="15sp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/edit2"
+                android:inputType="phone"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <!-- ID (read-only) -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
@@ -116,10 +220,46 @@
 
         </LinearLayout>
 
+        <!-- Role (read-only) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="50">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="12"
+                android:text="Role :"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+            <EditText
+                android:id="@+id/et_profile_fragment_role"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="33"
+                android:hint="Your role"
+                android:textSize="15sp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/edit2"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:clickable="false"
+                android:longClickable="false"
+                android:inputType="none"
+                android:singleLine="true" />
+
+        </LinearLayout>
 
         <!-- Password -->
         <LinearLayout
-            android:id="@+id/layout3"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
@@ -147,47 +287,125 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:background="@drawable/edit2"
-                android:inputType="number"
+                android:inputType="textPassword"
                 android:singleLine="true" />
 
         </LinearLayout>
 
+        <!-- ===== STUDENT-ONLY SECTION ===== -->
 
-        <!-- Role -->
         <LinearLayout
-            android:id="@+id/layout4"
+            android:id="@+id/llProfileStudentSection"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="30dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:weightSum="50">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="12"
-                android:text="Role :"
-                android:textSize="17sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
+            <!-- Class -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="50">
 
-            <EditText
-                android:id="@+id/et_profile_fragment_role"
-                android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_weight="33"
-                android:hint="Your role"
-                android:textSize="15sp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:background="@drawable/edit2"
-                android:inputType="text"
-                android:singleLine="true" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="12"
+                    android:text="Class :"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
+
+                <EditText
+                    android:id="@+id/et_profile_fragment_class"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="33"
+                    android:hint="Your class"
+                    android:textSize="15sp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:background="@drawable/edit2"
+                    android:inputType="text"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+            <!-- Parent Email -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="50">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="12"
+                    android:text="Parent Email :"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
+
+                <EditText
+                    android:id="@+id/et_profile_fragment_parent_email"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="33"
+                    android:hint="Parent's email"
+                    android:textSize="15sp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:background="@drawable/edit2"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+            <!-- Parent Phone -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="30dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="50">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="12"
+                    android:text="Parent Phone :"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
+
+                <EditText
+                    android:id="@+id/et_profile_fragment_parent_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="33"
+                    android:hint="Parent's phone"
+                    android:textSize="15sp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:background="@drawable/edit2"
+                    android:inputType="phone"
+                    android:singleLine="true" />
+
+            </LinearLayout>
 
         </LinearLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnupdatedata"
             android:layout_width="match_parent"
@@ -201,7 +419,7 @@
             android:backgroundTint="#86D8E2"
             android:paddingHorizontal="32dp"
             android:paddingVertical="12dp"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="24dp"/>
 
     </LinearLayout>
 
