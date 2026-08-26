@@ -1,201 +1,326 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F8FC"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="#F5F7FA">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="16dp">
 
-        <!-- Header -->
+        <!-- HEADER -->
+
         <TextView
-            android:id="@+id/tvHelpTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Help &amp; Support"
-            android:textColor="#1F2937"
-            android:textSize="27sp"
+            android:text="EduQuiz Guidelines"
+            android:textAlignment="center"
+            android:textColor="#172B4D"
+            android:textSize="25sp"
             android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="6dp"/>
+            android:layout_marginTop="8dp" />
 
         <TextView
-            android:id="@+id/tvHelpSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#6B7280"
+            android:text="Learn about the features available for students and teachers."
+            android:textAlignment="center"
+            android:textColor="#667085"
             android:textSize="14sp"
-            android:fontFamily="sans-serif"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="20dp" />
 
 
-        <!-- Search -->
-        <EditText
-            android:id="@+id/etHelpSearch"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:hint="Search help"
-            android:textSize="15sp"
-            android:textColor="#1F2937"
-            android:textColorHint="#9CA3AF"
-            android:singleLine="true"
-            android:inputType="text"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:background="@drawable/edit2"
-            android:layout_marginBottom="28dp"/>
+        <!-- ================= STUDENT SECTION ================= -->
 
-
-        <!-- Quiz Generation -->
-        <TextView
-            android:id="@+id/tvHelpQuizGenerationTitle"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quiz Generation"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginBottom="10dp"/>
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF"
+            android:layout_marginBottom="18dp">
 
-        <TextView
-            android:id="@+id/tvHelpQuizGeneration"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Student Guidelines"
+                    android:textColor="#1565C0"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. Take Available Quizzes"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Attempt quizzes created and scheduled by your teachers."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2. Customized Quiz"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Create a quiz according to your choice by selecting subject, chapter, topic, difficulty level and number of questions."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3. Difficulty Levels"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Choose Easy, Medium, Hard or Customized difficulty according to your learning needs."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4. Attempt Questions"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Answer questions within the given time. You can navigate between questions before submitting the quiz."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5. View Results"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="After submission, view your score, time taken and detailed question-wise performance."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="6. My Quizzes"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="View your previously attempted customized quizzes and their results."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- ================= TEACHER SECTION ================= -->
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#374151"
-            android:textSize="15sp"
-            android:padding="16dp"
-            android:background="@drawable/edit2"
-            android:layout_marginBottom="22dp"/>
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF"
+            android:layout_marginBottom="18dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Teacher Guidelines"
+                    android:textColor="#2E7D32"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="14dp" />
 
 
-        <!-- Customized Quiz -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. Manage Question Bank"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Create and manage questions by class, subject, chapter, topic and difficulty level."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2. Create Quiz"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Create quizzes by providing quiz title, subject, number of questions, schedule and duration."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3. Schedule Quizzes"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Set the date and time during which students can attempt the quiz."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4. Manage Students"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Manage students associated with your classes and access their academic information."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5. View Quiz Results"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="View students' quiz attempts, scores and performance."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="14dp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="6. Student Performance Analysis"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Analyze student performance based on subjects, chapters, topics and question difficulty."
+                    android:textColor="#667085"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- FOOTER -->
+
         <TextView
-            android:id="@+id/tvHelpCustomizedQuizTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Customized Quiz"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginBottom="10dp"/>
-
-        <TextView
-            android:id="@+id/tvHelpCustomizedQuiz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#374151"
-            android:textSize="15sp"
-            android:padding="16dp"
-            android:background="@drawable/edit2"
-            android:layout_marginBottom="22dp"/>
-
-
-        <!-- Attempt Quiz -->
-        <TextView
-            android:id="@+id/tvHelpAttemptQuizTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Attempting a Quiz"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginBottom="10dp"/>
-
-        <TextView
-            android:id="@+id/tvHelpAttemptQuiz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#374151"
-            android:textSize="15sp"
-            android:padding="16dp"
-            android:background="@drawable/edit2"
-            android:layout_marginBottom="22dp"/>
-
-
-        <!-- Quiz Results -->
-        <TextView
-            android:id="@+id/tvHelpQuizResultsTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Quiz Results"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginBottom="10dp"/>
-
-        <TextView
-            android:id="@+id/tvHelpQuizResults"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#374151"
-            android:textSize="15sp"
-            android:padding="16dp"
-            android:background="@drawable/edit2"
-            android:layout_marginBottom="22dp"/>
-
-
-        <!-- Profile -->
-        <TextView
-            android:id="@+id/tvHelpProfileTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Profile"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginBottom="10dp"/>
-
-        <TextView
-            android:id="@+id/tvHelpProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#374151"
-            android:textSize="15sp"
-            android:padding="16dp"
-            android:background="@drawable/edit2"
-            android:layout_marginBottom="22dp"/>
-
-
-        <!-- Support -->
-        <TextView
-            android:id="@+id/tvHelpSupportTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Support"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginBottom="10dp"/>
-
-        <TextView
-            android:id="@+id/tvHelpSupport"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#374151"
-            android:textSize="15sp"
-            android:padding="16dp"
-            android:background="@drawable/edit2"
-            android:layout_marginBottom="30dp"/>
+            android:text="EduQuiz • Learn • Practice • Improve"
+            android:textAlignment="center"
+            android:textColor="#667085"
+            android:textSize="13sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="20dp" />
 
     </LinearLayout>
 
